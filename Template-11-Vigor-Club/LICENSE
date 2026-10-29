@@ -1,0 +1,31 @@
+OneStop Infinite Template 11 — VIGOR CLUB
+Template Licence (draft terms supplied with the template)
+
+Copyright (c) 2026 OneStop Infinite. All rights reserved.
+
+1. Ownership. The template source code, configuration architecture, design system, documentation and
+   original illustrations (the "Template") are owned by OneStop Infinite. "VIGOR CLUB" and all of its
+   people, prices, reviews, qualifications, addresses and contact details are FICTIONAL demonstration content.
+
+2. Grant. Subject to these terms, the licensee may use, modify and deploy the Template to build and operate
+   websites for the licensee's own business or for clients' businesses (including commercial use), and may
+   remove the fictional demonstration content.
+
+3. Restrictions. The licensee may not (a) resell, sublicense, share or redistribute the Template, or a
+   substantially unmodified copy of it, as a template, theme, starter kit or source-code product; (b) present
+   the Template's fictional content as real; or (c) claim authorship of the Template as a standalone product.
+
+4. Third-party components. The Template depends on open-source packages (React, React Router, Vite and others,
+   mostly MIT-licensed) and on self-hosted fonts licensed under the SIL Open Font License 1.1. Those components
+   remain under their own licences, which ship inside each package in node_modules. See ASSET_LICENSES.md.
+
+5. No warranty. The Template is provided "as is", without warranty of any kind. The booking, membership and
+   enquiry features are demonstrations: before taking real bookings, payments or personal data the licensee is
+   responsible for integrating suitable services and for compliance with applicable law (privacy, consumer,
+   health and advertising rules).
+
+6. Attribution. Retaining the small "Website template by OneStop Infinite" footer credit is optional and can be
+   turned off in src/config/site.ts (template.showCredit).
+
+These are draft terms prepared with the Template. The owner may replace this file with its definitive licence
+before commercial distribution.
