@@ -1,0 +1,198 @@
+import type { Service, ServiceCategory } from './types';
+
+/** Filter chips on the Services page. A service can belong to several categories. */
+export const serviceCategories: ServiceCategory[] = [
+  { id: 'individuals', label: 'Individuals & families' },
+  { id: 'businesses', label: 'Businesses' },
+  { id: 'compliance', label: 'Accounting & tax' },
+  { id: 'growth', label: 'Growth & capital' },
+];
+
+/**
+ * Service catalogue. Each entry powers the listing card, the detail page (/services/:slug), the booking form
+ * and the team "associated services" links. `pricing.model` controls how the starting price is described.
+ * All prices are demonstration values.
+ */
+export const services: Service[] = [
+  {
+    slug: 'financial-planning',
+    name: 'Financial Planning',
+    icon: 'compass',
+    categories: ['individuals'],
+    summary: 'A written, living plan that connects your goals, cash flow, protection and long-term saving.',
+    description: [
+      'Financial planning starts with what you want your money to make possible, then works backwards to the decisions that matter most this year. We build a single, readable plan rather than a stack of product recommendations.',
+      'Your plan is reviewed on a regular rhythm so it keeps pace with career changes, family milestones and shifts in your circumstances.',
+    ],
+    deliverables: [
+      'Goal map with timeframes and priorities',
+      'Household cash-flow and net-worth snapshot',
+      'Protection and contingency review (illustrative)',
+      'Long-term savings roadmap with scenario ranges',
+      'Annual review meeting and written update',
+    ],
+    idealClient: ['Households balancing several goals at once', 'Professionals with changing income', 'Anyone preparing for a major life transition'],
+    benefits: ['One clear plan instead of scattered decisions', 'Scenario ranges, not single-number promises', 'A named adviser who knows your situation'],
+    process: [
+      { title: 'Discover', text: 'A conversation about priorities, constraints and what a good outcome looks like.' },
+      { title: 'Map', text: 'We assemble your numbers into a clear baseline of income, spending, assets and obligations.' },
+      { title: 'Model', text: 'Alternative scenarios are tested so trade-offs are visible before you commit.' },
+      { title: 'Review', text: 'We agree an action list and schedule regular check-ins.' },
+    ],
+    pricing: { model: 'fixed', from: 1800, unit: 'initial plan', note: 'Demonstration price. Ongoing reviews are available through an engagement plan.' },
+    image: 'planning',
+    faqs: [{ q: 'Is this a one-off report?', a: 'The initial plan is a fixed-scope engagement. Many clients then move to a plan with regular reviews.' }],
+  },
+  {
+    slug: 'business-advisory',
+    name: 'Business Advisory',
+    icon: 'building',
+    categories: ['businesses', 'growth'],
+    summary: 'Commercial clarity for owners: margins, pricing, operating rhythm and decisions that scale.',
+    description: [
+      'We act as a sounding board for owners and leadership teams, turning financial information into practical decisions about pricing, hiring, investment and growth.',
+      'Engagements are scoped around a specific question — then reviewed to see what changed.',
+    ],
+    deliverables: ['Profitability and unit-economics review', 'Pricing and margin analysis', 'Management dashboard design', 'Quarterly decision briefings', 'Priorities and 12-month action plan'],
+    idealClient: ['Owner-managed businesses at an inflection point', 'Leadership teams that need sharper numbers', 'Founders preparing to delegate finance'],
+    benefits: ['Decisions grounded in your own data', 'A repeatable monthly or quarterly rhythm', 'Less time translating spreadsheets'],
+    process: [
+      { title: 'Frame the question', text: 'We agree what decision the work needs to support.' },
+      { title: 'Analyse', text: 'We examine revenue, cost structure and cash patterns.' },
+      { title: 'Recommend', text: 'Options are ranked with the assumptions made explicit.' },
+      { title: 'Embed', text: 'We help put reporting and a decision cadence in place.' },
+    ],
+    pricing: { model: 'monthly', from: 950, unit: 'per month', note: 'Demonstration price for a retained advisory arrangement. Project work is quoted separately.' },
+    image: 'boardroom',
+  },
+  {
+    slug: 'accounting-bookkeeping',
+    name: 'Accounting & Bookkeeping',
+    icon: 'ledger',
+    categories: ['businesses', 'compliance'],
+    summary: 'Accurate books, timely reporting and a calm month-end — without chasing receipts.',
+    description: [
+      'Reliable accounting is the foundation of every other decision. We keep your records current, reconcile accounts and deliver management reports you can actually read.',
+      'Where your jurisdiction requires statutory filings, your adviser will confirm the local requirements with you — this template does not state any specific rules.',
+    ],
+    deliverables: ['Monthly bookkeeping and reconciliations', 'Management accounts pack', 'Accounts payable / receivable support', 'Year-end preparation support', 'Software setup and tidy-up'],
+    idealClient: ['Small and growing businesses', 'Sole practitioners and partnerships', 'Companies replacing an overloaded in-house process'],
+    benefits: ['Current, trustworthy numbers', 'Fewer surprises at year end', 'Consistent reporting month to month'],
+    process: [
+      { title: 'Onboard', text: 'We review your existing records, software and workflows.' },
+      { title: 'Clean up', text: 'Backlogs and mismatches are resolved first.' },
+      { title: 'Run', text: 'A monthly cycle keeps books reconciled and reports flowing.' },
+      { title: 'Improve', text: 'We refine processes and automate repeated tasks.' },
+    ],
+    pricing: { model: 'monthly', from: 420, unit: 'per month', note: 'Demonstration price based on a small business with modest transaction volume.' },
+    image: 'tax',
+  },
+  {
+    slug: 'tax-planning',
+    name: 'Tax Planning',
+    icon: 'percent',
+    categories: ['individuals', 'businesses', 'compliance'],
+    summary: 'Forward-looking tax conversations so decisions are made with the full picture in mind.',
+    description: [
+      'Good tax planning is about timing and structure, not last-minute surprises. We map the choices open to you and discuss them with your other advisers.',
+      'This template does not describe any current tax rule. A real firm should publish jurisdiction-specific guidance reviewed by a qualified professional.',
+    ],
+    deliverables: ['Annual tax-planning calendar', 'Scenario comparison for major decisions', 'Coordination with your accountant or legal counsel', 'Documentation checklist', 'Follow-up review before year end'],
+    idealClient: ['Business owners with variable profits', 'Households with multiple income sources', 'People facing a sale, inheritance or relocation'],
+    benefits: ['Decisions timed with tax in view', 'Fewer last-minute scrambles', 'Clear questions to take to specialists'],
+    process: [
+      { title: 'Gather', text: 'We collect the information relevant to your situation — never bank logins or tax identifiers through this site.' },
+      { title: 'Map options', text: 'We outline the choices and their trade-offs.' },
+      { title: 'Plan the year', text: 'A calendar of actions and deadlines is agreed.' },
+      { title: 'Revisit', text: 'We check in before key dates to adjust.' },
+    ],
+    pricing: { model: 'fixed', from: 750, unit: 'per annual planning cycle', note: 'Demonstration price. Complex structures are quoted individually.' },
+    image: 'signing',
+  },
+  {
+    slug: 'wealth-planning',
+    name: 'Wealth Planning',
+    icon: 'vault',
+    categories: ['individuals', 'growth'],
+    summary: 'Long-horizon planning for accumulated wealth, legacy goals and the people who depend on it.',
+    description: [
+      'Wealth planning brings investment philosophy, estate considerations, philanthropy and family governance into one coordinated discussion.',
+      'We do not promise returns. We help you define risk capacity, time horizon and how you want your wealth to serve you and others.',
+    ],
+    deliverables: ['Balance-sheet and objectives review', 'Investment policy outline (educational)', 'Succession and legacy discussion guide', 'Family meeting facilitation', 'Annual wealth review'],
+    idealClient: ['Established households with multiple asset types', 'Business owners planning an exit', 'Families discussing intergenerational transfer'],
+    benefits: ['Coordinated, long-term thinking', 'Clear roles for each specialist', 'Plans that respect your values'],
+    process: [
+      { title: 'Listen', text: 'We learn what wealth is for in your family.' },
+      { title: 'Consolidate', text: 'Scattered accounts and documents are brought into one view.' },
+      { title: 'Design', text: 'A framework for decisions and reviews is written down.' },
+      { title: 'Steward', text: 'We meet regularly and adjust as life changes.' },
+    ],
+    pricing: { model: 'monthly', from: 1400, unit: 'per month', note: 'Demonstration retainer for a coordinated wealth planning relationship.' },
+    image: 'growth',
+  },
+  {
+    slug: 'cash-flow-advisory',
+    name: 'Cash Flow Advisory',
+    icon: 'wave',
+    categories: ['businesses', 'growth'],
+    summary: 'Forecasts and routines that keep a growing business liquid, even when sales are lumpy.',
+    description: [
+      'Profitable businesses still run out of cash. We build rolling forecasts, stress-test them and set triggers so you act early rather than react late.',
+    ],
+    deliverables: ['13-week and 12-month cash forecast', 'Receivables and payables policy review', 'Seasonality and what-if modelling', 'Cash-buffer guidance', 'Monthly forecast refresh'],
+    idealClient: ['Seasonal businesses', 'Fast-growing companies with working-capital strain', 'Owners who feel profit and bank balance disagree'],
+    benefits: ['Earlier warning on shortfalls', 'Confident hiring and investment timing', 'Better conversations with lenders (illustrative)'],
+    process: [
+      { title: 'Baseline', text: 'We map how cash really moves through the business.' },
+      { title: 'Forecast', text: 'A rolling model is built with explicit assumptions.' },
+      { title: 'Stress-test', text: 'We examine delayed payments and demand swings.' },
+      { title: 'Operate', text: 'Weekly or monthly updates keep the forecast useful.' },
+    ],
+    pricing: { model: 'project', from: 2400, unit: 'forecast build', note: 'Demonstration project price. Monthly refreshes are available as an add-on.' },
+    image: 'analytics',
+  },
+  {
+    slug: 'corporate-finance',
+    name: 'Corporate Finance',
+    icon: 'columns',
+    categories: ['businesses', 'growth'],
+    summary: 'Support for significant transactions: funding rounds, acquisitions, restructurings and exits.',
+    description: [
+      'Transactions deserve disciplined preparation. We help management build the numbers, narrative and process behind a financing, acquisition or sale.',
+      'Engagements are scoped individually; this template illustrates a typical workstream, not a regulated offering.',
+    ],
+    deliverables: ['Financial model and valuation range (illustrative)', 'Information-memorandum financial sections', 'Due-diligence readiness review', 'Negotiation support materials', 'Coordination with legal and tax advisers'],
+    idealClient: ['Established companies planning a transaction', 'Management teams preparing for investor scrutiny', 'Owners considering an exit'],
+    benefits: ['Better preparation means fewer surprises', 'Clear, consistent numbers across documents', 'A single point of coordination'],
+    process: [
+      { title: 'Scope', text: 'We agree objectives, timeline and the roles of other advisers.' },
+      { title: 'Prepare', text: 'Models, reports and data rooms are built and tested.' },
+      { title: 'Support', text: 'We assist with questions and negotiations as they arise.' },
+      { title: 'Close & transition', text: 'We help embed reporting for the next chapter.' },
+    ],
+    pricing: { model: 'quote', note: 'Quoted per engagement after a scoping conversation. No demonstration price is published.' },
+    image: 'handshake',
+  },
+  {
+    slug: 'startup-advisory',
+    name: 'Startup Advisory',
+    icon: 'rocket',
+    categories: ['businesses', 'growth'],
+    summary: 'Founder-friendly finance: runway, fundraising readiness, equity discussions and board reporting.',
+    description: [
+      'Early-stage companies need numbers that guide decisions without slowing the team down. We help founders build lightweight finance foundations that scale.',
+    ],
+    deliverables: ['Runway and burn model', 'Fundraising-readiness checklist', 'Cap-table discussion support (educational)', 'Investor-reporting templates', 'Fractional finance sessions'],
+    idealClient: ['Pre-seed to Series A founders', 'Technical teams without finance leadership', 'Companies preparing their first board pack'],
+    benefits: ['Clear runway visibility', 'Investor-ready reporting habits', 'Flexible, stage-appropriate support'],
+    process: [
+      { title: 'Foundations', text: 'Set up accounting, expense tracking and a simple model.' },
+      { title: 'Runway', text: 'Scenario plan for hiring and burn.' },
+      { title: 'Prepare', text: 'Build the materials a funding conversation needs.' },
+      { title: 'Report', text: 'Create a monthly update rhythm for stakeholders.' },
+    ],
+    pricing: { model: 'hourly', from: 180, unit: 'per hour', note: 'Demonstration hourly rate. Bundled hours are available through engagement plans.' },
+    image: 'startup',
+  },
+];

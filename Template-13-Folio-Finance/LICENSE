@@ -1,0 +1,12 @@
+OneStop Infinite Template 13 — Folio Finance
+Copyright (c) OneStop Infinite. All rights reserved.
+
+This template is distributed by OneStop Infinite for commercial resale and client use under the terms of your purchase or
+reseller agreement with OneStop Infinite. Third-party assets (photography, fonts, npm dependencies) remain under their own
+licences; see ASSET_LICENSES.md.
+
+"Folio Finance" is a fictional demonstration brand. Replace it with your client's brand before launch. Keep the OneStop
+Infinite template credit unless your agreement allows removing it (see `site.owner.showCredit` in src/config/site.ts).
+
+The software is provided "as is", without warranty of any kind. The template provides no financial, tax, legal or investment
+advice and is not a regulated product.
