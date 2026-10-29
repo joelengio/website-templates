@@ -147,7 +147,7 @@ export default function Membership() {
 
   return (
     <>
-      <Seo title="Membership & Pricing" description="Compare VIGOR CLUB membership plans with monthly and annual pricing. Demonstration prices; no payment is processed." />
+      <Seo title="Membership & Pricing" description={`Compare ${site.brand.name} membership plans with monthly and annual pricing. Demonstration prices; no payment is processed.`} />
       <PageHero eyebrow={membershipCopy.eyebrow} title={<>{membershipCopy.title.split(' ').slice(0, -1).join(' ')} <span className="accent">{membershipCopy.title.split(' ').slice(-1)}</span></>} intro={membershipCopy.intro} />
       <section className="section section--tight" aria-labelledby="plans-title">
         <div className="container">

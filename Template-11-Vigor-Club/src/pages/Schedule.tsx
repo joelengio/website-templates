@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { Seo } from '../components/Seo';
+import { site } from '../config/site';
 import { Icon } from '../components/Icon';
 import { Modal } from '../components/Modal';
 import { Button, DemoBadge, EmptyState, Intensity, PageHero, TextField } from '../components/ui';
@@ -46,7 +47,7 @@ function ClassModal({ session, date, now, reservations, onChange, onClose }: { s
     if (!result.ok) { setFormError(result.message); return; }
     setStoredOk(result.stored);
     setConfirmed(result.reservation);
-    onChange([...reservations, result.reservation]);
+    onChange(loadReservations());
   };
 
   const doCancel = (ref: string) => {
@@ -220,7 +221,7 @@ export default function Schedule() {
 
   return (
     <>
-      <Seo title="Class Schedule & Booking" description="Browse the weekly VIGOR CLUB class timetable, filter by class type and trainer, and reserve a demonstration place." />
+      <Seo title="Class Schedule & Booking" description={`Browse the weekly ${site.brand.name} class timetable, filter by class type and trainer, and reserve a demonstration place.`} />
       <PageHero eyebrow="Classes & schedule" title={<>Pick a day. <span className="accent">Pick a class.</span></>} intro="Filter the weekly timetable by class and trainer, then reserve a place. Booking is a demonstration with no server." />
       <section className="section section--tight">
         <div className="container">

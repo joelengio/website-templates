@@ -77,7 +77,9 @@ describe('schedule logic', () => {
 });
 
 describe('reservations', () => {
-  beforeEach(() => window.localStorage.clear());
+  // Fixed "now" (Mon 26 Oct 2026, 09:00) so the dated fixtures below never expire as the calendar moves on.
+  beforeEach(() => { window.localStorage.clear(); vi.useFakeTimers({ now: new Date(2026, 9, 26, 9, 0), toFake: ['Date'] }); });
+  afterEach(() => { vi.useRealTimers(); });
   const profile = { name: 'Riley Morgan', email: 'riley@example.com' };
   const a = classes.find((c) => c.id === 'tue-1800-bar')!;
   it('books, persists and reloads a reservation', () => {
@@ -106,9 +108,26 @@ describe('reservations', () => {
     const first = book(wedBox, '2026-11-04', profile, []);
     if (!first.ok) throw new Error('setup');
     expect(book(wedIron, '2026-11-04', profile, [first.reservation]).ok).toBe(true); // no overlap
+    window.localStorage.clear(); // the lines above stored two reservations; the clash scenario starts from a clean store
     const clash: Reservation[] = [{ ref: 'X', classId: 'wed-1730-box', date: '2026-11-04', name: 'a', email: 'a@b.co', createdAt: '' }];
     const fake = { ...wedIron, start: '18:00' }; // starts inside the 17:30–18:25 boxing class
     expect(book(fake, '2026-11-04', profile, clash)).toMatchObject({ ok: false, reason: 'conflict' });
+  });
+  it('rejects classes that have already closed or are full, even if the UI is bypassed', () => {
+    const monday = new Date(2026, 9, 26, 9, 0);
+    expect(book(a, '2026-10-26', profile, [], new Date(2026, 9, 27, 0, 0))).toMatchObject({ ok: false, reason: 'closed' });
+    const full = classes.flatMap((c) => ['2026-11-02', '2026-11-03', '2026-11-04', '2026-11-05', '2026-11-06', '2026-11-07', '2026-11-08'].map((d) => ({ c, d })))
+      .find(({ c, d }) => weekdayIndex(parseIso(d)) === c.day && availability(c, d, monday, false).full);
+    if (full) expect(book(full.c, full.d, profile, [], monday)).toMatchObject({ ok: false, reason: 'full' });
+    expect(loadReservations()).toEqual([]);
+  });
+  it('sees reservations saved by another tab (stale state cannot double-book)', () => {
+    const first = book(a, '2026-11-03', profile, []);
+    if (!first.ok) throw new Error('setup');
+    // A second tab still holds an empty list in memory, but storage already has the reservation.
+    expect(book(a, '2026-11-03', profile, [])).toMatchObject({ ok: false, reason: 'duplicate' });
+    expect(cancel(first.reservation.ref, [])).toEqual([]);
+    expect(loadReservations()).toEqual([]);
   });
   it('cancels a reservation', () => {
     const r = book(a, '2026-11-03', profile, []);

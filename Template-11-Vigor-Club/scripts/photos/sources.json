@@ -1,0 +1,536 @@
+{
+ "license": "Unsplash License (https://unsplash.com/license) — verified per photo page: \"Free to use under the Unsplash License\" (not Unsplash+). Checked 2026-10-29.",
+ "sources": [
+  {
+   "id": "darkgym",
+   "unsplashPage": "https://unsplash.com/photos/iW79tgCbiMs",
+   "photographer": "Salman Sidheek",
+   "photographerProfile": "https://unsplash.com/@salman_sidheek",
+   "cdnId": "photo-1778828494354-9b717d36dc99"
+  },
+  {
+   "id": "powerrack",
+   "unsplashPage": "https://unsplash.com/photos/j4T5z94b8ns",
+   "photographer": "Mirko Meister",
+   "photographerProfile": "https://unsplash.com/@stillsbymirko",
+   "cdnId": "photo-1784798228092-659924b1a15b"
+  },
+  {
+   "id": "treadwin",
+   "unsplashPage": "https://unsplash.com/photos/uYnHRrm63uo",
+   "photographer": "Aalo Lens",
+   "photographerProfile": "https://unsplash.com/@aalolens",
+   "cdnId": "photo-1757924284732-4189190321cf"
+  },
+  {
+   "id": "gymmachines",
+   "unsplashPage": "https://unsplash.com/photos/1RNQ11ZODJM",
+   "photographer": "Ambitious Studio* | Rick Barrett",
+   "photographerProfile": "https://unsplash.com/@weareambitious",
+   "cdnId": "photo-1689877020200-403d8542d95d"
+  },
+  {
+   "id": "gymequip",
+   "unsplashPage": "https://unsplash.com/photos/HPgMcuZDndU",
+   "photographer": "S. Aji W",
+   "photographerProfile": "https://unsplash.com/@stroompf",
+   "cdnId": "photo-1651340048650-9bb75627f3de"
+  },
+  {
+   "id": "gymroom",
+   "unsplashPage": "https://unsplash.com/photos/rQwQbiYIDhw",
+   "photographer": "Vikas Rohilla",
+   "photographerProfile": "https://unsplash.com/@iamvikas96",
+   "cdnId": "photo-1670004810567-f4328dcc983e"
+  },
+  {
+   "id": "bwbarbell",
+   "unsplashPage": "https://unsplash.com/photos/wcOGQeT1jIw",
+   "photographer": "Benjamin Brunner",
+   "photographerProfile": "https://unsplash.com/@ben_brunner",
+   "cdnId": "photo-1646492169621-d8da8016354a"
+  },
+  {
+   "id": "plate45",
+   "unsplashPage": "https://unsplash.com/photos/Dfk3z6fDN84",
+   "photographer": "Russell Moore",
+   "photographerProfile": "https://unsplash.com/@russell_moore_photography",
+   "cdnId": "photo-1767404890859-73752f06716c"
+  },
+  {
+   "id": "barbellfloor",
+   "unsplashPage": "https://unsplash.com/photos/gP9rAnGJBRo",
+   "photographer": "Eduardo Cano Photo Co.",
+   "photographerProfile": "https://unsplash.com/@eduardocanophotoco",
+   "cdnId": "photo-1620188526357-ff08e03da266"
+  },
+  {
+   "id": "hexdumbbells",
+   "unsplashPage": "https://unsplash.com/photos/0OpVPmVS2vg",
+   "photographer": "Ambitious Studio* | Rick Barrett",
+   "photographerProfile": "https://unsplash.com/@weareambitious",
+   "cdnId": "photo-1685633224688-6a77675eb119"
+  },
+  {
+   "id": "kettlerow",
+   "unsplashPage": "https://unsplash.com/photos/CPSjcuuV8E8",
+   "photographer": "Heidi Erickson",
+   "photographerProfile": "https://unsplash.com/@herickson7",
+   "cdnId": "photo-1632077804406-188472f1a810"
+  },
+  {
+   "id": "kbswings",
+   "unsplashPage": "https://unsplash.com/photos/nLNOM0asvfI",
+   "photographer": "Vitaly Gariev",
+   "photographerProfile": "https://unsplash.com/@silverkblack",
+   "cdnId": "photo-1758875570600-8daf8d2f05f3"
+  },
+  {
+   "id": "gloves",
+   "unsplashPage": "https://unsplash.com/photos/XmvuWRDimrg",
+   "photographer": "Bogdan Yukhymchuk",
+   "photographerProfile": "https://unsplash.com/@yuhy",
+   "cdnId": "photo-1549719386-74dfcbf7dbed"
+  },
+  {
+   "id": "heavybags",
+   "unsplashPage": "https://unsplash.com/photos/SX2rs6gb4yI",
+   "photographer": "Anastase Maragos",
+   "photographerProfile": "https://unsplash.com/@visualsbyroyalz",
+   "cdnId": "photo-1773289338378-2d083b1e5b84"
+  },
+  {
+   "id": "battleropes",
+   "unsplashPage": "https://unsplash.com/photos/UXOf3-uwCQg",
+   "photographer": "Ken Mathiasen",
+   "photographerProfile": "https://unsplash.com/@mr_mathiasen",
+   "cdnId": "photo-1785781048917-d8aabe69d069"
+  },
+  {
+   "id": "sauna",
+   "unsplashPage": "https://unsplash.com/photos/xJcDIazIIs8",
+   "photographer": "HUUM",
+   "photographerProfile": "https://unsplash.com/@huumsauna",
+   "cdnId": "photo-1759216852906-1bd15c147f82"
+  },
+  {
+   "id": "bucketladle",
+   "unsplashPage": "https://unsplash.com/photos/Yij9U7H0Uic",
+   "photographer": "Auroom Wellness",
+   "photographerProfile": "https://unsplash.com/@auroom",
+   "cdnId": "photo-1770573320178-25e6e732c540"
+  },
+  {
+   "id": "icyswim",
+   "unsplashPage": "https://unsplash.com/photos/0fN21zv8yYo",
+   "photographer": "Vidar Nordli-Mathisen",
+   "photographerProfile": "https://unsplash.com/@vidarnm",
+   "cdnId": "photo-1548236339-55676e0726e0"
+  },
+  {
+   "id": "kbyogamat",
+   "unsplashPage": "https://unsplash.com/photos/xTZV2fpE6wk",
+   "photographer": "Brunxs",
+   "photographerProfile": "https://unsplash.com/@brunxs",
+   "cdnId": "photo-1754839004013-0276d56bc0e7"
+  },
+  {
+   "id": "treadwoman",
+   "unsplashPage": "https://unsplash.com/photos/06EpjZiMz_E",
+   "photographer": "Mike Cox",
+   "photographerProfile": "https://unsplash.com/@iprefermike",
+   "cdnId": "photo-1633394782240-f81aba3f850d"
+  },
+  {
+   "id": "treadsilhouette",
+   "unsplashPage": "https://unsplash.com/photos/RpHGFHwyFFk",
+   "photographer": "Gold's Gym Nepal",
+   "photographerProfile": "https://unsplash.com/@goldsgymnepal",
+   "cdnId": "photo-1723117417817-a122a6d202d5"
+  },
+  {
+   "id": "shirtlesslift",
+   "unsplashPage": "https://unsplash.com/photos/9dzWZQWZMdE",
+   "photographer": "Anastase Maragos",
+   "photographerProfile": "https://unsplash.com/@visualsbyroyalz",
+   "cdnId": "photo-1605296867304-46d5465a13f1"
+  },
+  {
+   "id": "womanbarbell",
+   "unsplashPage": "https://unsplash.com/photos/78E-sY8mVsM",
+   "photographer": "Rodrigo Rodrigues | WOLF Λ R T",
+   "photographerProfile": "https://unsplash.com/@wolfart32",
+   "cdnId": "photo-1772450014622-1c209d012c2e"
+  },
+  {
+   "id": "ringbag",
+   "unsplashPage": "https://unsplash.com/photos/P3G0IbOexH8",
+   "photographer": "Temple Noble Art",
+   "photographerProfile": "https://unsplash.com/@templenobleart",
+   "cdnId": "photo-1716307046875-4c4ba2f43cab"
+  },
+  {
+   "id": "cardiorow",
+   "unsplashPage": "https://unsplash.com/photos/Pm3tdJt5yhY",
+   "photographer": "Allen Boguslavsky",
+   "photographerProfile": "https://unsplash.com/@allenboguslavsky",
+   "cdnId": "photo-1765728617805-b9f22d64e5b3"
+  },
+  {
+   "id": "yoga",
+   "unsplashPage": "https://unsplash.com/photos/mSJsiQCm6og",
+   "photographer": "Alex Shaw",
+   "photographerProfile": "https://unsplash.com/@matt909",
+   "cdnId": "photo-1599447332412-6bc6830c815a"
+  },
+  {
+   "id": "kboverhead",
+   "unsplashPage": "https://unsplash.com/photos/10FlDY7YBWo",
+   "photographer": "Jan Gunnar Nygård",
+   "photographerProfile": "https://unsplash.com/@jangnyg",
+   "cdnId": "photo-1644085159448-1659fd88a217"
+  }
+ ],
+ "slots": [
+  {
+   "file": "hero-main",
+   "width": 2000,
+   "height": 1200,
+   "source": "darkgym",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "intro-lifter",
+   "width": 1000,
+   "height": 1300,
+   "source": "shirtlesslift",
+   "focus": [
+    0.5,
+    0.55
+   ]
+  },
+  {
+   "file": "philosophy-plates",
+   "width": 2000,
+   "height": 1200,
+   "source": "plate45",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "cta-stripes",
+   "width": 2000,
+   "height": 1200,
+   "source": "bwbarbell",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "og-image",
+   "width": 1200,
+   "height": 630,
+   "source": "darkgym",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "about-story",
+   "width": 1000,
+   "height": 1300,
+   "source": "kboverhead",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "about-floor",
+   "width": 2000,
+   "height": 1200,
+   "source": "gymmachines",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "about-community",
+   "width": 2000,
+   "height": 1200,
+   "source": "kbswings",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "prog-strength",
+   "width": 1600,
+   "height": 1067,
+   "source": "barbellfloor",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "prog-functional",
+   "width": 1600,
+   "height": 1067,
+   "source": "kettlerow",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "prog-hiit",
+   "width": 1600,
+   "height": 1067,
+   "source": "battleropes",
+   "focus": [
+    0.5,
+    0.4
+   ]
+  },
+  {
+   "file": "prog-boxing",
+   "width": 1600,
+   "height": 1067,
+   "source": "ringbag",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "prog-mobility",
+   "width": 1600,
+   "height": 1067,
+   "source": "yoga",
+   "focus": [
+    0.5,
+    0.55
+   ]
+  },
+  {
+   "file": "prog-personal",
+   "width": 1600,
+   "height": 1067,
+   "source": "womanbarbell",
+   "focus": [
+    0.5,
+    0.55
+   ]
+  },
+  {
+   "file": "prog-group",
+   "width": 1600,
+   "height": 1067,
+   "source": "gymroom",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "prog-performance",
+   "width": 1600,
+   "height": 1067,
+   "source": "hexdumbbells",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "fac-strength",
+   "width": 1000,
+   "height": 1300,
+   "source": "powerrack",
+   "focus": [
+    0.45,
+    0.5
+   ]
+  },
+  {
+   "file": "fac-cardio",
+   "width": 1600,
+   "height": 1067,
+   "source": "treadwin",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "fac-functional",
+   "width": 1600,
+   "height": 1067,
+   "source": "heavybags",
+   "focus": [
+    0.5,
+    0.45
+   ]
+  },
+  {
+   "file": "fac-group",
+   "width": 2000,
+   "height": 1200,
+   "source": "treadwoman",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "fac-personal",
+   "width": 1000,
+   "height": 1300,
+   "source": "gymequip",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "fac-recovery",
+   "width": 1600,
+   "height": 1067,
+   "source": "sauna",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "fac-plunge",
+   "width": 1200,
+   "height": 1200,
+   "source": "icyswim",
+   "focus": [
+    0.6,
+    0.5
+   ]
+  },
+  {
+   "file": "fac-track",
+   "width": 1600,
+   "height": 1067,
+   "source": "cardiorow",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "fac-boxing",
+   "width": 1200,
+   "height": 1200,
+   "source": "gloves",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "fac-free",
+   "width": 1600,
+   "height": 1067,
+   "source": "kettlerow",
+   "focus": [
+    0.5,
+    0.7
+   ]
+  },
+  {
+   "file": "j-1",
+   "width": 1600,
+   "height": 1067,
+   "source": "plate45",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "j-2",
+   "width": 1600,
+   "height": 1067,
+   "source": "bucketladle",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "j-3",
+   "width": 1600,
+   "height": 1067,
+   "source": "treadwoman",
+   "focus": [
+    0.5,
+    0.45
+   ]
+  },
+  {
+   "file": "j-4",
+   "width": 1600,
+   "height": 1067,
+   "source": "hexdumbbells",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "j-5",
+   "width": 1600,
+   "height": 1067,
+   "source": "gloves",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "j-6",
+   "width": 1600,
+   "height": 1067,
+   "source": "kbyogamat",
+   "focus": [
+    0.5,
+    0.45
+   ]
+  },
+  {
+   "file": "j-7",
+   "width": 1600,
+   "height": 1067,
+   "source": "treadsilhouette",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "j-8",
+   "width": 1600,
+   "height": 1067,
+   "source": "kbswings",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  }
+ ]
+}

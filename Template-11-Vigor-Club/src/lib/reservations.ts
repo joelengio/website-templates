@@ -4,7 +4,7 @@ import { programs } from '../config/programs';
 import { trainers } from '../config/trainers';
 import type { ClassSession } from '../config/types';
 import { readJSON, writeJSON } from './storage';
-import { overlaps } from './schedule';
+import { availability, overlaps } from './schedule';
 
 export interface Reservation {
   ref: string;
@@ -47,19 +47,24 @@ export const makeRef = (classId: string, date: string) => {
 
 export type BookResult =
   | { ok: true; reservation: Reservation; stored: boolean }
-  | { ok: false; reason: 'duplicate' | 'conflict' | 'unknown-class'; message: string; conflictWith?: string };
+  | { ok: false; reason: 'duplicate' | 'conflict' | 'unknown-class' | 'closed' | 'full'; message: string; conflictWith?: string };
 
 export function findClass(id: string): ClassSession | undefined {
   return classes.find((c) => c.id === id);
 }
 
-/** Validates duplicates / time clashes and persists a new reservation. */
-export function book(session: ClassSession, date: string, profile: Profile, existing: Reservation[]): BookResult {
+/**
+ * Validates the class (still open, places left), duplicates and time clashes, then persists a new reservation.
+ * The stored list is merged with `existing` first so a stale tab or a double submit cannot book the same place twice.
+ */
+export function book(session: ClassSession, date: string, profile: Profile, existing: Reservation[], now: Date = new Date()): BookResult {
   if (!findClass(session.id)) return { ok: false, reason: 'unknown-class', message: 'That class is no longer available.' };
-  if (existing.some((r) => r.classId === session.id && r.date === date)) {
+  const stored = loadReservations();
+  const all = [...existing, ...stored.filter((s) => !existing.some((e) => e.ref === s.ref))];
+  if (all.some((r) => r.classId === session.id && r.date === date)) {
     return { ok: false, reason: 'duplicate', message: 'You have already reserved a place in this class.' };
   }
-  const clash = existing.find((r) => {
+  const clash = all.find((r) => {
     if (r.date !== date) return false;
     const other = findClass(r.classId);
     return !!other && overlaps(session.start, session.duration, other.start, other.duration);
@@ -68,14 +73,19 @@ export function book(session: ClassSession, date: string, profile: Profile, exis
     const other = findClass(clash.classId)!;
     return { ok: false, reason: 'conflict', conflictWith: other.title, message: `This overlaps with your reservation for ${other.title} (${other.start}).` };
   }
+
+  const av = availability(session, date, now, false);
+  if (av.closed) return { ok: false, reason: 'closed', message: `Booking for this class has closed (${bookingSettings.cutoffMinutes} minutes before the start).` };
+  if (av.full) return { ok: false, reason: 'full', message: 'This class is full in the demonstration. Please choose another time.' };
   const reservation: Reservation = { ref: makeRef(session.id, date), classId: session.id, date, name: profile.name.trim(), email: profile.email.trim(), createdAt: new Date().toISOString() };
-  const stored = save([...existing, reservation]);
+  const ok = save([...all, reservation]);
   saveProfile({ name: profile.name.trim(), email: profile.email.trim() });
-  return { ok: true, reservation, stored };
+  return { ok: true, reservation, stored: ok };
 }
 
 export function cancel(ref: string, existing: Reservation[]): Reservation[] {
-  const next = existing.filter((r) => r.ref !== ref);
+  // Drop it from both the caller's list and whatever another tab may have stored since.
+  const next = [...existing, ...loadReservations().filter((s) => !existing.some((e) => e.ref === s.ref))].filter((r) => r.ref !== ref);
   save(next);
   return next;
 }

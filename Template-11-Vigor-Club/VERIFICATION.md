@@ -1,78 +1,51 @@
-# Verification report — VIGOR CLUB (Template 11)
+# Verification report — VIGOR CLUB (Template 11, v1.1.0)
 
-Run on 2026-10-29, Node v22.22.0 / npm 10.9.4, Chromium (Playwright 1.64 `playwright-core`) on Linux.
-Everything below was actually executed on the final source tree; nothing is claimed that was not run.
+Independent QA run on 2026-10-29 · Linux · Node 22.22 · npm 10.9 · Chromium 1243, Firefox 155, WebKit 27.2 (Playwright-core 1.64).
+Everything below was actually executed on the final source tree. Screenshot contact sheets and the written review are in `documentation/review/`
+(kept in git, not shipped in the ZIP).
 
 ## Automated results
 | Check | Command | Result |
 |---|---|---|
-| Clean install | `rm -rf node_modules && npm ci` | ✅ success, 0 vulnerabilities reported |
-| TypeScript | `npm run typecheck` | ✅ no errors |
-| ESLint | `npm run lint` | ✅ no errors, no warnings |
-| Unit + integration tests | `npm test` (Vitest + Testing Library, jsdom) | ✅ **104 / 104** passed in 4 files |
-| Production build | `npm run build` | ✅ built; `sitemap.xml` + `robots.txt` emitted |
-| Browser E2E (production build) | `npm run test:e2e` | ✅ **64 / 64** checks passed |
-| Final ZIP | `npm run package`, then extract → `npm ci` → `npm run check` | see "Release ZIP" below |
+| Clean install | `npm ci` (also repeated inside a fresh extraction of the release ZIP) | OK — `npm audit`: 0 vulnerabilities (prod and dev); prod licences MIT / OFL-1.1 only |
+| TypeScript (strict) | `npm run typecheck` | 0 errors |
+| ESLint | `npm run lint` | 0 errors, 0 warnings |
+| Unit + integration tests | `npm test` | **106 / 106 passed** (4 files) |
+| Production build | `npm run build` | OK; sitemap.xml (32 URLs) + robots.txt generated; no Vite warnings |
+| Browser checks — Chromium | `npm run test:e2e` | **66 / 66 passed** |
+| Browser checks — Firefox 155 | `E2E_BROWSER=firefox node scripts/e2e.mjs` | **66 / 66 passed** |
+| Browser checks — WebKit 27.2 | `E2E_BROWSER=webkit node scripts/e2e.mjs` | **66 / 66 passed** |
+| Fresh-extract run | unzip → `npm ci` → `npm run check` → `npm run test:e2e` | passed — the final ZIP was extracted into an empty directory and the same four commands were run there (same counts as the rows above) |
 
-### Vitest coverage (104 tests)
-* **Config integrity** — required content counts, 8 required programs, unique slugs/ids, program ↔ trainer ↔ class
-  consistency, categories, fictional-credential labelling, plan ↔ comparison completeness, every referenced image exists on disk,
-  template-owner credit, demo mode (no endpoint).
-* **Logic** — time/date formatting, week dates, Monday-first weekdays, deterministic demo occupancy, booking cut-off, availability,
-  overlap detection, booking window, **booking / duplicate prevention / time-clash prevention / cancellation / corrupt-storage /
-  blocked-storage**, validation (profile, contact, signup), program + article filters, related articles, **monthly/annual pricing**,
-  form submission (demo / endpoint success / HTTP error / network failure), storage safety, SEO tags.
-* **Pages & routes** — every page, all 8 program, 6 trainer and 8 article pages render with a single `h1`; four 404 paths; active-route
-  indication; program search/filter/empty state; schedule day/filter/empty states; booking modal flow (validation → confirmation →
-  localStorage → Manage → cancel); restore after reload; Escape handling; closed classes; membership toggle, comparison table, signup
-  flow without payment claims; contact validation and "Message not sent" disclosure; journal search; lightbox keyboard/focus return;
-  mobile menu; footer credit/disclaimer.
-* **Customization** — changing brand name, phone, hero copy, section visibility/order, plan price, program name, navigation and
-  theme colours propagates to the rendered site.
+### Vitest (106 tests)
+Config integrity (counts, unique slugs/ids, program ↔ trainer ↔ class consistency, plans ↔ comparison, every referenced image exists with alt text, template-owner credit, demo mode);
+schedule logic (Monday-first weeks, deterministic demo occupancy, booking cut-off, availability, overlap detection, booking window);
+**reservations** — book, duplicate prevention, same class other date, time-clash prevention, cancel, corrupt/blocked storage, **closed and full classes rejected by the logic layer (not only hidden by the UI)** and **a stale second tab cannot double-book or cancel the wrong list**
+(dated cases run on a fixed clock so they cannot expire);
+validation; program/article filters; **monthly/annual pricing and savings**; form submission (demo / endpoint success / HTTP error / network failure); storage safety; SEO tags;
+every page renders with one `h1`; booking modal flow; membership toggle and signup without payment claims; contact "Message not sent"; lightbox/menu focus; customization (brand, phone, hero copy, section visibility/order, plan price, nav, theme).
 
-### Browser E2E (Playwright + axe-core) — 64 checks
-* **Five widths (360, 390, 768, 1024, 1440) × 13 routes**: no horizontal overflow, no broken images (lazy images forced to load),
-  exactly one `h1`, all images have `alt`, no interactive element smaller than 24 px, web fonts loaded; no console errors or failed/4xx requests.
-* **axe-core WCAG 2.1 A/AA** (includes colour contrast) at 1280 px and 390 px on all 13 routes, plus the open booking modal: **0 violations
-  (serious, critical and moderate)**.
-* Direct loading of nested routes; in-app 404 (noindex) for unknown URLs and slugs; `robots.txt`, `sitemap.xml`, `favicon.svg`, `logo.svg`;
-  index.html and per-page title / canonical / Open Graph.
-* Mobile menu open/Escape/navigate; program filters, search, URL-addressable search, card → detail.
-* **Schedule & booking** at 390 px: day selection, class-type filter + empty state, trainer filter, modal focus-in / Tab trap / inert background / Escape + focus
-  return, validation errors, confirmation with demo disclosure, localStorage persistence, "Booked/Manage" duplicate prevention, survival after reload,
-  keep vs. cancel, empty state after cancel, `?day=&class=` deep link.
-* **Membership**: toggle changes prices; comparison table scrolls inside its own region without page overflow; plan preselection; signup validation;
-  completion screen states that no membership/payment occurred.
-* **Contact**: validation errors; success path says "Message not sent" (no backend).
-* Lightbox keyboard open, ←/→, focus trap, Escape + focus return. Skip link first in tab order. Visible 3 px focus outline.
-* `prefers-reduced-motion`: content visible immediately, animations disabled. Page still renders with `localStorage` blocked.
+### Browser checks (`scripts/e2e.mjs`; same 66 checks in each engine)
+- 13 routes × **360, 390, 768, 1024, 1440 px**: no horizontal overflow, no broken images, one `h1`, alt text, targets ≥ 24 px, web fonts loaded, no console errors, no failed requests.
+- **axe-core WCAG 2.1 A/AA + best-practice at 1280 and 390 px on all 13 routes, animations settled — zero violations of any impact**, plus the open booking modal.
+- Direct nested-route loads; in-app 404 (`noindex`); robots/sitemap/favicon/logo; static head + per-page title/canonical/OG.
+- Mobile menu; program filters/search; **schedule + booking** (day/filter/empty states, modal focus-in, Tab trap, inert background, Escape + focus return, validation, confirmation with demo disclosure, localStorage persistence, Booked/Manage duplicate prevention, reload, keep/cancel, deep link);
+  **a stale second tab cannot book the same class twice; a full class shows no form and says it is full (demo)**.
+- Membership toggle/comparison/preselect/signup validation/no-payment completion; contact honest non-delivery; lightbox keyboard + focus return; skip link; `prefers-reduced-motion`; page still works with `localStorage` blocked.
 
-Raw results are written by the script to `e2e-output/results.json` (git-ignored).
+## Customization (actually exercised)
+A scratch copy was rebranded **only through `src/config`** (brand name and monogram, site URL, SEO title/suffix, phone, accent colour, a navigation label, a CTA label, hiding the home "ticker" section), built and inspected in a browser:
+header/footer showed the new name and labels, `--c-lime` changed, the ticker disappeared, the static `index.html` head and `sitemap.xml` carried the new title/canonical/URLs, and page `<meta>` descriptions used the new brand name.
+This exposed one defect, fixed: nine pages hard-coded "VIGOR CLUB" in their meta descriptions and the demo notice instead of using `site.brand.name`.
 
-## Visual review
-`npm run review` captured all 13 routes at 360, 390, 768, 1024 and 1440 px and wrote labelled contact sheets to `review/`:
+## Defects found by this QA pass (all fixed — see CHANGELOG 1.1.0)
+Imagery (blob-silhouette hero, blank-face trainer silhouettes, repetitive illustrations, two journal pairs sharing a picture); booking rules enforced only in the UI and stale-tab double booking; time-bomb unit tests;
+heading-order skips; hard-coded brand in meta descriptions; year-long `immutable` caching of un-hashed images; deprecated Vite config loader; stale review sheets showing the old art. (Photography and logic were re-verified in the browser afterwards.)
 
-* `review/desktop-1440-sheet-1.jpg` … `-3.jpg`
-* `review/tablet-1024-768-sheet-1.jpg`, `-2.jpg` (1024 px and 768 px)
-* `review/mobile-390-sheet-1.jpg`, `-2.jpg` and `review/mobile-360-sheet-1.jpg`, `-2.jpg`
-* `review/mobile-interactions-sheet.jpg` (mobile menu, class modal, booking confirmation, annual pricing, comparison table, lightbox, form errors)
-
-The sheets were inspected by eye. Issues found and fixed during QA: reveal animations leaving content hidden after fast jumps; a
-page-wide horizontal overflow caused by visually-hidden text inside the scrolling comparison table; unreadable contrast on
-"closed" class rows; link/aria-label mismatches flagged by axe; an undersized "All articles" link; hero artwork cropped behind the
-headline. No open critical or high-severity issues remain. Long pages are cropped in the sheets (marked "page continues").
-
-## Release ZIP
-`handoff/OneStop-Infinite-Template-11-Vigor-Club.zip` with `handoff/OneStop-Infinite-Template-11-Vigor-Club.zip.sha256`.
-Extraction, clean install and build of the archive are recorded in the delivery report/PR description (the ZIP cannot contain its own checksum).
-
-## Known limitations (honest list)
-1. **Imagery is generated illustration, not photography.** A licensed photo set could not be verified/obtained in the build environment, so none was
-   used rather than inventing licence data. Replace before a real launch (see ASSET_LICENSES.md and CUSTOMIZATION_GUIDE.md §9).
-2. Booking, membership signup and enquiries are **demonstrations** (browser-only). No real backend, email, calendar, payments or accounts.
-   Demo occupancy numbers are simulated.
-3. Social links point to platform home pages as placeholders; address/phone/email are fictional (`.example` domain, 555 number).
-4. Tested in Chromium only (no Firefox/WebKit/real devices); screen-reader testing was not performed — only axe-core and keyboard checks.
-5. Firebase config was written but **not deployed** (no credentials); the SPA fallback was verified via `vite preview` only.
-6. The LICENSE file contains draft terms for the template owner to confirm.
-7. Unit tests use a fixed fake date; schedule UI states that depend on the current time (e.g. "Closed") change through the day by design.
+## Known limitations
+- **Demonstration-only booking and enquiries:** reservations, membership enquiries and demo occupancy numbers live only in the visitor's browser (`localStorage`) and are simulated; nothing is sent, no payment is taken, no membership is created. The UI says so wherever it matters. The contact/enquiry endpoint path (`site.forms.endpoint`) is unit-tested but was not exercised against a live service.
+- Client-side rendered SPA: per-page meta is set in the browser; the static head has site-wide defaults. No prerendering.
+- Firebase deployment was **not executed** (no credentials); `firebase.json` has the SPA rewrite, cache and security headers and was only exercised through `vite preview`.
+- Photography is Unsplash-licensed stock with no model/property releases, some showing people and incidental equipment brands — see ASSET_LICENSES.md; replace before launch.
+- Accessibility evidence is axe-core + keyboard automation + visual review, not a screen-reader session. No Lighthouse run. Firefox/WebKit ran on Linux, not on Apple/Android devices.
+- Time-dependent UI ("Closed" classes) changes through the day by design.

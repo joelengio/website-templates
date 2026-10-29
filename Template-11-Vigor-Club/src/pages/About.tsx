@@ -11,7 +11,7 @@ import { site } from '../config/site';
 export default function About() {
   return (
     <>
-      <Seo title="About" description="The story, mission and values behind VIGOR CLUB, a fictional premium training club used to demonstrate this website template." image={images.aboutStory.src} />
+      <Seo title="About" description={`The story, mission and values behind ${site.brand.name}, a fictional premium training club used to demonstrate this website template.`} image={images.aboutStory.src} />
       <PageHero eyebrow={about.hero.eyebrow} title={about.hero.title} intro={about.hero.intro} image={images.aboutFloor} />
       <section className="section">
         <div className="container split split--asym">

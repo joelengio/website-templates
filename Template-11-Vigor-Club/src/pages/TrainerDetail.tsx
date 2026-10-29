@@ -4,6 +4,7 @@ import { Icon } from '../components/Icon';
 import { Breadcrumb, DemoBadge, Img, LinkButton } from '../components/ui';
 import { credentialNote, getTrainer, trainers } from '../config/trainers';
 import { programs } from '../config/programs';
+import { site } from '../config/site';
 import { classes, dayNames } from '../config/classes';
 import { formatTime } from '../lib/format';
 import { TrainerCard } from '../components/Cards';
@@ -18,7 +19,7 @@ export default function TrainerDetail() {
   const others = trainers.filter((x) => x.slug !== t.slug).slice(0, 3);
   return (
     <>
-      <Seo title={`${t.name} — ${t.role}`} description={`${t.name}, ${t.role} at VIGOR CLUB (fictional). ${t.tagline}`} image={t.image.src} />
+      <Seo title={`${t.name} — ${t.role}`} description={`${t.name}, ${t.role} at ${site.brand.name} (fictional). ${t.tagline}`} image={t.image.src} />
       <section className="section trainer-hero">
         <div className="container trainer-detail">
           <div className="trainer-detail-media"><Img image={t.image} eager /></div>

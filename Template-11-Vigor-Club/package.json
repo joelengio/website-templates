@@ -8,16 +8,16 @@
     "node": ">=18.18"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "preview": "vite preview",
+    "dev": "vite --configLoader runner",
+    "build": "tsc -b && vite build --configLoader runner",
+    "preview": "vite preview --configLoader runner",
     "typecheck": "tsc -b --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
     "test:e2e": "node scripts/e2e.mjs",
     "review": "node scripts/review.mjs",
     "check": "npm run typecheck && npm run lint && npm run test && npm run build",
-    "images": "node scripts/art/generate-images.mjs",
+    "images": "node scripts/art/generate-images.mjs && node scripts/art/generate-monograms.mjs",
     "package": "node scripts/make-zip.mjs"
   },
   "dependencies": {

@@ -13,50 +13,49 @@ const img = (file: string, width: number, height: number, alt: string): ImageAss
 });
 
 export const images = {
-  heroMain: img('hero-main', 2000, 1200, 'Illustrated silhouette of an athlete pressing a loaded barbell overhead in a dark gym hall with lime rim light'),
-  heroAlt: img('hero-alt', 2000, 1200, 'Illustrated silhouette of an athlete deadlifting in a shadowy training hall'),
-  introLifter: img('intro-lifter', 1000, 1300, 'Illustrated lifter mid-deadlift lit by an acid-lime edge glow'),
-  philosophy: img('philosophy-plates', 2000, 1200, 'Close illustration of stacked weight plates on a barbell with lime highlights'),
-  cta: img('cta-stripes', 2000, 1200, 'Diagonal lime stripes behind a large weight plate'),
-  ogImage: img('og-image', 1200, 630, 'VIGOR CLUB — athlete silhouette pressing a barbell in a dark training hall'),
+  heroMain: img('hero-main', 2000, 1200, 'Dark strength floor with rows of machines and racks under a single line of white light'),
+  introLifter: img('intro-lifter', 1000, 1300, 'Athlete crouched over a loaded barbell in near darkness'),
+  philosophy: img('philosophy-plates', 2000, 1200, 'Close view of a 45 lb weight plate on a barbell'),
+  cta: img('cta-stripes', 2000, 1200, 'Loaded barbell resting on black rubber flooring'),
+  ogImage: img('og-image', 1200, 630, 'VIGOR CLUB — dark strength floor under a line of white light'),
   contactMap: img('contact-map', 1600, 1067, 'Abstract dark map grid with a lime route line, used behind the demonstration location card'),
-  aboutStory: img('about-story', 1000, 1300, 'Illustrated athlete pressing a barbell in lime rim light'),
-  aboutFloor: img('about-floor', 2000, 1200, 'Illustrated kettlebell swing on the training floor'),
-  aboutCommunity: img('about-community', 2000, 1200, 'Illustrated group of athletes training together in a studio'),
-  progStrength: img('prog-strength', 1600, 1067, 'Illustrated power rack with a loaded barbell and stacked plates'),
-  progFunctional: img('prog-functional', 1600, 1067, 'Illustrated row of kettlebells of ascending size'),
-  progHiit: img('prog-hiit', 1600, 1067, 'Illustrated sprinter on a lane track in lime light'),
-  progBoxing: img('prog-boxing', 1600, 1067, 'Illustrated boxer in stance beside a heavy bag'),
-  progMobility: img('prog-mobility', 1600, 1067, 'Illustrated athlete in a deep lunge reaching overhead'),
-  progPersonal: img('prog-personal', 1600, 1067, 'Illustrated athlete in a barbell back squat'),
-  progGroup: img('prog-group', 1600, 1067, 'Illustrated group of athletes in a conditioning class'),
-  progPerformance: img('prog-performance', 1600, 1067, 'Illustrated athlete deadlifting in a dark performance hall')
+  aboutStory: img('about-story', 1000, 1300, 'Hand gripping a kettlebell in a cloud of chalk against a black background'),
+  aboutFloor: img('about-floor', 2000, 1200, 'Wide view of a strength floor with benches and rows of dumbbells'),
+  aboutCommunity: img('about-community', 2000, 1200, 'Two members performing overhead kettlebell swings in a bright studio'),
+  progStrength: img('prog-strength', 1600, 1067, 'Barbell and weight plate on a gym floor'),
+  progFunctional: img('prog-functional', 1600, 1067, 'Rows of black kettlebells on rubber flooring'),
+  progHiit: img('prog-hiit', 1600, 1067, 'Man gripping heavy battle ropes against a white brick wall'),
+  progBoxing: img('prog-boxing', 1600, 1067, 'Boxing gym with a heavy bag hanging beside the ring'),
+  progMobility: img('prog-mobility', 1600, 1067, 'Athlete in a deep lunge with arms reaching overhead on a mat'),
+  progPersonal: img('prog-personal', 1600, 1067, 'Athlete pulling a heavy barbell from the floor in a training hall'),
+  progGroup: img('prog-group', 1600, 1067, 'Open training floor with cable machines and benches under bright lights'),
+  progPerformance: img('prog-performance', 1600, 1067, 'Top-down view of a row of hex dumbbells on black flooring')
 };
 
 export const trainerImages = [1, 2, 3, 4, 5, 6].map((n) =>
-  img(`trainer-${n}`, 800, 1000, 'Illustrated silhouette portrait of a fictional VIGOR CLUB trainer (demonstration artwork)')
+  img(`trainer-${n}`, 800, 1000, 'Monogram placeholder for a VIGOR CLUB trainer (replace with a portrait)')
 );
 
 export const journalImages = [
-  img('j-1', 1600, 1067, 'Illustrated lifter in a deadlift setup'),
-  img('j-2', 1600, 1067, 'Warm slatted sauna wall with a lime accent line'),
-  img('j-3', 1600, 1067, 'Illustrated athlete stretching in a deep lunge'),
-  img('j-4', 1600, 1067, 'Four kettlebells in a row under spot lighting'),
-  img('j-5', 1600, 1067, 'Illustrated sprinter on a track'),
-  img('j-6', 1600, 1067, 'Concentric ripples on dark water'),
-  img('j-7', 1600, 1067, 'Large weight plates on a barbell'),
-  img('j-8', 1600, 1067, 'Lime diagonal stripes on charcoal')
+  img('j-1', 1600, 1067, 'Weight plate stamped 45 LBS in low light'),
+  img('j-2', 1600, 1067, 'Sauna bucket and ladle on a warm wooden bench'),
+  img('j-3', 1600, 1067, 'Member walking on a treadmill beside tall gym windows'),
+  img('j-4', 1600, 1067, 'Row of dumbbells photographed from above'),
+  img('j-5', 1600, 1067, 'Pair of black boxing gloves resting on a mat'),
+  img('j-6', 1600, 1067, 'Kettlebell casting a long shadow on a yoga mat'),
+  img('j-7', 1600, 1067, 'Silhouettes on treadmills in front of large gym windows'),
+  img('j-8', 1600, 1067, 'Two members swinging kettlebells together')
 ];
 
 export const facilityImages = {
-  strength: img('fac-strength', 1000, 1300, 'Illustrated power rack with plates in a strength zone'),
-  cardio: img('fac-cardio', 1600, 1067, 'Illustrated row of treadmills in front of tall windows'),
-  functional: img('fac-functional', 1600, 1067, 'Illustrated battle ropes in motion beside an athlete'),
-  group: img('fac-group', 2000, 1200, 'Illustrated studio with four athletes mid-class'),
-  personal: img('fac-personal', 1000, 1300, 'Illustrated athlete squatting in a private coaching bay'),
-  recovery: img('fac-recovery', 1600, 1067, 'Warm slatted recovery room with an orange glow'),
-  plunge: img('fac-plunge', 1200, 1200, 'Concentric ripples on a dark cold-water plunge pool'),
-  track: img('fac-track', 1600, 1067, 'Illustrated indoor sprint lanes in perspective'),
-  boxing: img('fac-boxing', 1200, 1200, 'Illustrated boxing zone with a heavy bag'),
-  free: img('fac-free', 1600, 1067, 'Illustrated rack of six kettlebells')
+  strength: img('fac-strength', 1000, 1300, 'Power rack with plates loaded on the barbell in the strength hall'),
+  cardio: img('fac-cardio', 1600, 1067, 'Row of treadmills facing floor-to-ceiling windows'),
+  functional: img('fac-functional', 1600, 1067, 'Members training on heavy bags in the functional yard'),
+  group: img('fac-group', 2000, 1200, 'Bright studio with a member working out beside tall windows'),
+  personal: img('fac-personal', 1000, 1300, 'Private coaching area with benches and dumbbell racks in black and white'),
+  recovery: img('fac-recovery', 1600, 1067, 'Recovery room with a wooden sauna bench and heater stones'),
+  plunge: img('fac-plunge', 1200, 1200, 'Swimmer in an ice-cold plunge'),
+  track: img('fac-track', 1600, 1067, 'Long corridor of cardio machines along a bright window wall'),
+  boxing: img('fac-boxing', 1200, 1200, 'Black boxing gloves on a mat in the boxing zone'),
+  free: img('fac-free', 1600, 1067, 'Rows of black kettlebells on a rubber floor')
 };

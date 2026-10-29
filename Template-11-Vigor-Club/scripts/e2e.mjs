@@ -1,7 +1,7 @@
 // Real-browser end-to-end checks against the production build (served with `vite preview`).
 // Usage: npm run build && npm run test:e2e   (set CHROMIUM_PATH if Chromium is not auto-detected)
 // Writes screenshots and results.json to ./e2e-output (git-ignored).
-import { chromium } from 'playwright-core';
+import { chromium, firefox, webkit } from 'playwright-core';
 import { spawn } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
@@ -13,13 +13,15 @@ mkdirSync(out, { recursive: true });
 const results = [];
 const check = (name, ok, detail = '') => { results.push({ name, ok, detail: ok ? '' : String(detail).slice(0, 600) }); console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${!ok && detail ? ' — ' + String(detail).slice(0, 400) : ''}`); };
 
-const server = spawn('npx', ['vite', 'preview', '--port', String(PORT), '--strictPort'], { stdio: 'ignore' });
+const server = spawn('npx', ['vite', 'preview', '--configLoader', 'runner', '--port', String(PORT), '--strictPort'], { stdio: 'ignore' });
 const stop = () => server.kill();
 process.on('exit', stop);
 for (let i = 0; i < 60; i++) { try { if ((await fetch(BASE)).ok) break; } catch { /* wait */ } await new Promise((r) => setTimeout(r, 200)); }
 
 const exe = [process.env.CHROMIUM_PATH, '/opt/pw-browsers/chromium'].find((p) => p && existsSync(p));
-const browser = await chromium.launch({ executablePath: exe, args: ['--no-sandbox'] });
+// E2E_BROWSER=firefox|webkit runs the same checks in another engine (install it first: npx playwright-core install firefox webkit).
+const engine = process.env.E2E_BROWSER || 'chromium';
+const browser = engine === 'chromium' ? await chromium.launch({ executablePath: exe, args: ['--no-sandbox'] }) : await { firefox, webkit }[engine].launch();
 const routes = ['/', '/programs', '/programs/hiit', '/schedule', '/trainers', '/trainers/maya-okafor', '/membership', '/facilities', '/about', '/journal', '/journal/how-to-start-strength-training', '/contact', '/demo-notice'];
 const widths = [360, 390, 768, 1024, 1440];
 
@@ -60,18 +62,20 @@ for (const w of widths) {
   await ctx.close();
 }
 
-// 2. Accessibility audit (axe-core WCAG 2.1 A/AA, incl. contrast) — serious/critical fail
+// 2. Accessibility audit (axe-core WCAG 2.1 A/AA + best-practice).
+// Runs with reduced motion so reveal transitions have finished: otherwise axe samples half-faded text and silently
+// skips colour-contrast checks. Violations of ANY impact fail.
 const axeSrc = readFileSync(path.resolve('node_modules/axe-core/axe.min.js'), 'utf8');
 async function axeRun(page) {
   await page.addScriptTag({ content: axeSrc });
-  return page.evaluate(async () => (await window.axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] })).violations.filter((x) => ['serious', 'critical', 'moderate'].includes(x.impact)).map((x) => `${x.id}[${x.impact}](${x.nodes.length}): ${x.nodes[0].target} ${x.nodes[0].failureSummary?.split('\n')[1] ?? ''}`));
+  return page.evaluate(async () => (await window.axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'] })).violations.map((x) => `${x.id}(${x.impact}) ${x.nodes.slice(0, 2).map((n) => n.target.join(' ')).join(' ; ')}`));
 }
 for (const w of [1280, 390]) {
-  const actx = await browser.newContext({ viewport: { width: w, height: 900 } });
+  const actx = await browser.newContext({ viewport: { width: w, height: 900 }, reducedMotion: 'reduce' });
   const ap = await actx.newPage();
   const found = [];
   for (const r of routes) { await open(ap, r); const v = await axeRun(ap); if (v.length) found.push({ r, v }); }
-  check(`axe-core WCAG 2.1 A/AA at ${w}px: no violations on ${routes.length} routes`, found.length === 0, JSON.stringify(found));
+  check(`axe-core WCAG 2.1 A/AA + best-practice at ${w}px (motion settled): no violations on ${routes.length} routes`, found.length === 0, JSON.stringify(found));
   await actx.close();
 }
 
@@ -147,7 +151,7 @@ check('Booking modal states it is a demonstration', (await page.getByRole('dialo
 for (let i = 0; i < 12; i++) await page.keyboard.press('Tab');
 check('Modal traps Tab focus', await page.evaluate(() => document.querySelector('[role=dialog]').contains(document.activeElement)));
 check('Page behind modal is inert', await page.evaluate(() => document.getElementById('root').hasAttribute('inert') || [...document.getElementById('root').children].every((c) => c.hasAttribute('inert'))));
-{ const v = await axeRun(page); check('axe: booking modal has no violations', v.length === 0, JSON.stringify(v)); }
+{ await page.waitForTimeout(700); /* let the modal's entrance animation finish so contrast is measured on settled colours */ const v = await axeRun(page); check('axe: booking modal has no violations', v.length === 0, JSON.stringify(v)); }
 await page.keyboard.press('Escape');
 check('Escape closes modal and returns focus to the trigger', (await page.getByRole('dialog').count()) === 0 && (await page.evaluate(() => document.activeElement?.className)).includes('btn'));
 await bookBtn.click();
@@ -173,6 +177,61 @@ await page.getByRole('button', { name: 'Yes, cancel it' }).click();
 check('Cancel removes reservation and shows empty state', (await page.getByText('No reservations yet').count()) === 1 && (await page.evaluate(() => JSON.parse(localStorage.getItem('vigor-club-demo-reservations-v1')).length)) === 0);
 await open(page, '/schedule?day=2&class=wed-1730-box');
 check('Deep link ?day=&class= opens that class details', (await page.getByRole('dialog').getByRole('heading', { name: 'Boxing Rounds' }).count()) === 1);
+
+// 7b. Capacity, stale-tab duplicate prevention and class-state honesty (realistic multi-tab journey)
+{
+  const mctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  const p1 = await mctx.newPage();
+  const p2 = await mctx.newPage();
+  const toNextTuesday = async (pg) => {
+    await open(pg, '/schedule');
+    await pg.getByRole('button', { name: /next week/i }).click();
+    await pg.getByRole('button', { name: /Tuesday/ }).click();
+    await until(async () => (await pg.locator('h2.schedule-day-title').textContent()).includes('Tuesday'));
+  };
+  await toNextTuesday(p1);
+  await toNextTuesday(p2);
+  const row = p1.locator('.class-row', { has: p1.locator('button', { hasText: /^Book$/ }) }).first();
+  const title = (await row.locator('h3').textContent()).trim();
+  await row.getByRole('button', { name: /^Book/ }).click();
+  await p1.getByRole('dialog').getByLabel(/full name/i).fill('Jo Park');
+  await p1.getByRole('dialog').getByLabel(/email/i).fill('jo@example.com');
+  await p1.getByRole('button', { name: /confirm demo reservation/i }).click();
+  await p1.getByText('Demo reservation saved').waitFor();
+  // The second tab still believes the class is open: its in-memory list is stale.
+  await p2.locator('.class-row', { hasText: title }).getByRole('button', { name: /^Book/ }).click();
+  await p2.getByRole('dialog').getByLabel(/full name/i).fill('Jo Park');
+  await p2.getByRole('dialog').getByLabel(/email/i).fill('jo@example.com');
+  await p2.getByRole('button', { name: /confirm demo reservation/i }).click();
+  await p2.getByText(/already reserved a place/i).waitFor();
+  const n = await p2.evaluate(() => JSON.parse(localStorage.getItem('vigor-club-demo-reservations-v1')).length);
+  check('A stale second tab cannot book the same class twice', n === 1);
+  await p1.getByRole('button', { name: 'Done' }).click();
+  await p1.locator('.res-list li').first().getByRole('button', { name: /^Cancel/ }).click();
+  await p1.getByRole('button', { name: 'Yes, cancel it' }).click();
+
+  // A full class offers no booking form, only an honest explanation.
+  let foundFull = false;
+  for (const next of [false, true]) {
+    await open(p1, '/schedule');
+    if (next) await p1.getByRole('button', { name: /next week/i }).click();
+    for (const day of ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']) {
+      const tab = p1.getByRole('button', { name: new RegExp(day) }).first();
+      if (await tab.isDisabled()) continue;
+      await tab.click();
+      const full = p1.locator('.class-row .class-state.is-off', { hasText: /^Full/ }).first();
+      if (await full.count()) {
+        await full.locator('xpath=ancestor::li').getByRole('button', { name: /Details/ }).click();
+        await p1.getByRole('dialog').waitFor();
+        foundFull = (await p1.getByRole('dialog').getByText(/class is full/i).count()) === 1 && (await p1.getByRole('button', { name: /confirm demo reservation/i }).count()) === 0;
+        break;
+      }
+    }
+    if (foundFull) break;
+  }
+  check('A full class shows no booking form and says it is full (demo)', foundFull);
+  await mctx.close();
+}
 
 // 8. Membership
 await open(page, '/membership');

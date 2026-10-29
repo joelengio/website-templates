@@ -61,7 +61,7 @@ export default function Contact() {
   const c = site.contact;
   return (
     <>
-      <Seo title="Contact" description="Contact VIGOR CLUB (fictional): demonstration address, opening hours and a validated enquiry form for membership, training and classes." />
+      <Seo title="Contact" description={`Contact ${site.brand.name} (fictional): demonstration address, opening hours and a validated enquiry form for membership, training and classes.`} />
       <PageHero eyebrow="Contact" title={<>Let’s <span className="accent">talk.</span></>} intro="Questions about membership, classes or coaching? Send a message — this demonstration form validates your enquiry but does not deliver it unless you configure a form endpoint." />
       <section className="section section--tight">
         <div className="container contact-grid">

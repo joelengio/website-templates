@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 — 2026-10-29 (independent QA release)
+- **Imagery:** replaced the procedural athlete silhouettes (a headless blob "lifter" in the hero, blank-face trainer silhouettes) with 27 verified Unsplash-licensed photographs — dark gyms, racks, kettlebells, boxing, recovery — each documented (photographer + source page) in `ASSET_LICENSES.md` / `scripts/photos/sources.json`. Trainer cards are now bold monogram cards in the brand's lime-on-charcoal style. Journal articles no longer reuse the same picture (two pairs did); the unused `hero-alt` image was removed.
+- **Booking logic:** `book()` now enforces the closed-cut-off and capacity rules itself (previously only the UI hid the form) and re-reads stored reservations before checking duplicates/overlaps, so a stale second tab or a double submit cannot book the same class twice; `cancel()` also sees other tabs' changes. Dated unit tests now use a fixed clock instead of expiring in November 2026.
+- **Accessibility:** audit now runs WCAG 2.1 A/AA **plus best-practice** with animations settled (the old run sampled mid-fade); fixed heading-order skips on Programs, Trainers, Facilities and Journal.
+- **Customization:** page `<meta>` descriptions hard-coded "VIGOR CLUB" instead of using `site.brand.name`; the demo notice did too.
+- **Hosting/tooling:** `firebase.json` no longer marks un-hashed `/images/*` as `immutable` for a year; added `nosniff`/referrer/frame headers; dev/build/preview run with `--configLoader runner` (default loader warned about extensionless imports); removed the stale `review/` illustration sheets and `npm run review`; the ZIP no longer carries QA screenshot sheets (`documentation/`).
+- **Tests:** +2 unit tests (closed/full enforcement, stale-tab duplicate/cancel), +2 browser checks (stale second tab cannot double-book; a full class shows no form); `E2E_BROWSER=firefox|webkit` support in `scripts/e2e.mjs`.
+
 ## 1.0.0 — 2026-10-29
 Initial release of **OneStop Infinite Template 11 — VIGOR CLUB**.
 

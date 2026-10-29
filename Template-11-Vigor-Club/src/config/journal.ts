@@ -76,7 +76,7 @@ export const articles: Article[] = [
     title: 'The kettlebell swing: a hinge, not a squat',
     category: 'Technique',
     excerpt: 'Three cues that help most beginners find a safe, powerful swing pattern.',
-    date: '2026-06-25', readMinutes: 4, author: 'Tessa Whitlock', image: j[3], tags: ['kettlebell', 'technique'],
+    date: '2026-06-25', readMinutes: 4, author: 'Tessa Whitlock', image: j[5], tags: ['kettlebell', 'technique'],
     body: [
       { paragraphs: ['The swing is one of the most useful conditioning movements — and one of the most commonly mis-taught. The key is to treat it as a hip hinge.'] },
       { heading: 'Three cues', paragraphs: ['Push your hips back as if closing a car door with them. Keep your back long and the bell close to your body. Snap your hips forward and let the bell float to chest height — your arms guide it, they do not lift it.'] },
@@ -88,7 +88,7 @@ export const articles: Article[] = [
     title: 'Pacing sprint intervals so the last one counts',
     category: 'Training',
     excerpt: 'Interval work is about repeatable quality. Learn to pace the first rounds so the final one is still sharp.',
-    date: '2026-06-05', readMinutes: 5, author: 'Jonas Lindqvist', image: j[4], tags: ['hiit', 'pacing'],
+    date: '2026-06-05', readMinutes: 5, author: 'Jonas Lindqvist', image: j[6], tags: ['hiit', 'pacing'],
     body: [
       { paragraphs: ['Many people start the first interval too hard and spend the rest of the session surviving. A better target is to produce the same quality of effort across every round.'] },
       { heading: 'Use a reference effort', paragraphs: ['Choose an effort you could repeat eight times and call it your base. Occasionally go a little harder, but always return to your reference.'] },

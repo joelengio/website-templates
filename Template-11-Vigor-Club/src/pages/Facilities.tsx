@@ -16,9 +16,10 @@ export default function Facilities() {
   return (
     <>
       <Seo title="Facilities" description="Six training zones: strength, cardio, functional, group exercise, private coaching and recovery. Browse the gallery." />
-      <PageHero eyebrow="Facilities" title={<>Built for <span className="accent">serious</span> training.</>} intro="Six purpose-built zones under one roof. Illustrations stand in for photography in this template." />
+      <PageHero eyebrow="Facilities" title={<>Built for <span className="accent">serious</span> training.</>} intro="Six purpose-built zones under one roof. Photography is licensed stock used for demonstration — replace it with your own." />
       <section className="section section--tight">
         <div className="container">
+          <h2 className="sr-only">Training zones</h2>
           <div className="facility-grid">
             {facilities.map((f, i) => <Reveal key={f.slug}><FacilityCard facility={f} index={i} /></Reveal>)}
           </div>
