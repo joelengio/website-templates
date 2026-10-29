@@ -1,0 +1,29 @@
+OneStop Infinite Template Licence — Template 14 "EVERAFTER"
+
+Copyright (c) 2026 OneStop Infinite. All rights reserved except as granted below.
+
+1. Grant. The purchaser (the "Licensee") receives a non-exclusive, non-transferable, perpetual licence to use, modify and
+   deploy the source code, styles, configuration and original artwork of this template (the "Template") to build websites
+   for the Licensee or for the Licensee's clients, including commercial websites.
+
+2. Restrictions. The Licensee may not (a) resell, sublicense, share or redistribute the Template, in original or modified
+   form, as a template, theme, starter kit or competing product; (b) publish the Template source in a public repository
+   as a template; or (c) represent the Template as the Licensee's own template product.
+
+3. Third-party materials. Photographs, fonts and dependencies included with the Template are the property of their
+   respective authors and are licensed under their own terms, which are listed in ASSET_LICENSES.md. Nothing in this
+   licence changes those terms. Attribution required by Creative Commons (CC BY) photographs must be kept, or the
+   photographs must be replaced with the Licensee's own licensed images.
+
+4. Fictional content. All names, businesses, venues, people, prices, testimonials and articles in the Template are
+   fictional demonstration content. The Licensee is responsible for replacing them with accurate content before launch.
+
+5. Publisher identity. "OneStop Infinite" is the publisher of the Template. The Licensee's own business branding is
+   configured separately (src/config/site.ts) and is not affected by this licence. The publisher credit in the footer
+   may be removed by setting `site.publisher.show` to false.
+
+6. No warranty. THE TEMPLATE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT
+   LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+   THE PUBLISHER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY ARISING FROM THE USE OF THE TEMPLATE.
+
+Open-source dependencies (React, React Router, Vite and others) are licensed under their own licences (primarily MIT).
