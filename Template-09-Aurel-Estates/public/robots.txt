@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /favorites
+Disallow: /compare
+
+Sitemap: https://aurel-estates.example.com/sitemap.xml
