@@ -1,0 +1,67 @@
+// Image registry. Every image has a 1280px master and a 640px thumbnail in /public/images.
+// Add your own photography by dropping files in /public/images and registering them here.
+import type { ImageAsset } from './types';
+
+const img = (key: string, w: number, h: number, alt: string): ImageAsset => ({
+  key,
+  src: `/images/${key}.jpg`,
+  thumb: `/images/${key}-640.jpg`,
+  width: w,
+  height: h,
+  alt,
+});
+
+export const images = {
+  'hero-table': img('hero-table', 1920, 1280, "A candlelit dining table set with a plated dish, wine glasses and cutlery"),
+  'dining-dark': img('dining-dark', 1280, 853, "A dark, moody dining room with leather banquettes and set tables"),
+  'dining-teal': img('dining-teal', 848, 1280, "An intimate dining room with warm pendant lighting and a staircase"),
+  'dining-tables': img('dining-tables', 853, 1280, "Candlelit tables laid with glassware in a dark-panelled dining room"),
+  'dining-green': img('dining-green', 960, 1280, "A restaurant dining room with a green banquette, linen-covered tables and plants"),
+  'dining-window': img('dining-window', 1280, 854, "A formal dining room with white linen tables beside tall windows"),
+  'terrace': img('terrace', 1280, 960, "A waterside terrace with tables under a canopy at dusk"),
+  'open-kitchen': img('open-kitchen', 1280, 914, "A professional open kitchen with copper pendant lamps"),
+  'kitchen-pass': img('kitchen-pass', 1280, 853, "A chef standing at the pass of a busy professional kitchen"),
+  'chef-plating': img('chef-plating', 832, 1280, "A chef in an apron carefully plating a dish under warm heat lamps"),
+  'chef-portrait': img('chef-portrait', 1280, 1280, "Portrait of a chef in whites with arms crossed"),
+  'cooking-team': img('cooking-team', 1280, 853, "Two cooks and a colleague preparing food together in a bright kitchen"),
+  'chopping': img('chopping', 853, 1280, "Hands chopping fresh herbs and mushrooms on a board"),
+  'group-dinner': img('group-dinner', 1280, 853, "Guests sharing a lively group dinner around a long table"),
+  'friends-dinner': img('friends-dinner', 1280, 960, "Friends sharing plates around a patterned restaurant table"),
+  'overhead-room': img('overhead-room', 853, 1280, "An overhead view of a restaurant floor with set tables"),
+  'long-tables': img('long-tables', 1280, 853, "Long wooden tables in a spacious airy dining hall"),
+  'salmon-salsa': img('salmon-salsa', 853, 1280, "Pan-seared salmon on a bed of sauce topped with a diced fruit salsa"),
+  'salmon-dark': img('salmon-dark', 1280, 853, "Seared salmon fillet with greens on a dark plate"),
+  'pork-chop': img('pork-chop', 1280, 848, "A roasted pork chop with potatoes and charred broccoli"),
+  'steak-fries': img('steak-fries', 1280, 853, "Sliced steak with a pile of crisp fries on a white plate"),
+  'ribs-board': img('ribs-board', 1280, 855, "Glazed ribs on a wooden board with tomato and dipping sauce"),
+  'grill-platter': img('grill-platter', 853, 1280, "A mixed grill platter of roasted meats with sauces and vegetables"),
+  'meatballs': img('meatballs', 850, 1280, "Browned meatballs on a bed of rocket leaves"),
+  'paella': img('paella', 1280, 854, "A pan of seafood paella with mussels and lemon"),
+  'prawn-spaghetti': img('prawn-spaghetti', 1280, 853, "Spaghetti with prawns and cherry tomatoes in a black pan"),
+  'seafood-stew': img('seafood-stew', 1280, 866, "A bowl of prawn stew with rice and herbs"),
+  'salmon-curry': img('salmon-curry', 853, 1280, "Salmon fillets in a golden saffron-coloured sauce with lemon slices"),
+  'farfalle': img('farfalle', 1280, 854, "Farfalle pasta salad with tomatoes and fresh herbs"),
+  'pasta-table': img('pasta-table', 861, 1280, "Two plates of pasta with wine on a laid table"),
+  'veg-board': img('veg-board', 1280, 1280, "A chopping board of fresh vegetables, eggs and herbs"),
+  'buddha-bowl': img('buddha-bowl', 1280, 853, "A colourful bowl of vegetables, avocado and chickpeas"),
+  'dark-salad': img('dark-salad', 853, 1280, "A plate of crisp salad with red onion and feta on a dark plate"),
+  'pomegranate-salad': img('pomegranate-salad', 853, 1280, "A salad of avocado, greens and pomegranate seeds"),
+  'grain-plate': img('grain-plate', 1280, 853, "A plate of grains with roasted tomatoes and green beans"),
+  'egg-toast': img('egg-toast', 903, 1280, "Toasted bread topped with avocado, spinach and soft-boiled eggs"),
+  'egg-toast-two': img('egg-toast-two', 1280, 1280, "A fried egg on toasted bread with avocado"),
+  'tuna-salad': img('tuna-salad', 1280, 1280, "A salad plate of rocket, tuna, egg and tomato"),
+  'chocolate-cake': img('chocolate-cake', 1280, 942, "A chocolate cake with ganache drizzle and cream rosettes"),
+  'raspberry-cake': img('raspberry-cake', 1024, 1280, "A slice of layered raspberry sponge cake on a dark plate"),
+  'sundae': img('sundae', 720, 1280, "A chocolate sundae layered with cream and biscuit crumb in a tall glass"),
+  'tarts': img('tarts', 853, 1280, "Small fruit tarts topped with berries and edible flowers"),
+  'brownie': img('brownie', 853, 1280, "Stacked chocolate brownies with a glossy sauce drizzle"),
+  'cocktail': img('cocktail', 1280, 853, "An amber cocktail garnished with fresh herbs on a dark bar top"),
+  'whisky': img('whisky', 1280, 855, "A glass of whisky with a large ice cube being poured over"),
+  'coffee-pour': img('coffee-pour', 1280, 853, "A barista pouring hot water over coffee in a pour-over setup"),
+  'espresso': img('espresso', 853, 1280, "Freshly ground coffee in a portafilter beside coffee beans"),
+  'pancakes': img('pancakes', 1059, 1280, "A stack of pancakes with fruit and syrup on a dark plate"),
+  'brunch-spread': img('brunch-spread', 1280, 853, "A top-down view of a brunch table with several bowls and plates"),
+} as const;
+
+export type ImageKey = keyof typeof images;
+export const getImage = (key: ImageKey): ImageAsset => images[key];

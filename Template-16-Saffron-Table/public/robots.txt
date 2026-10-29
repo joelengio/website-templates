@@ -1,0 +1,7 @@
+# Saffron Table — demonstration site
+User-agent: *
+Allow: /
+Disallow: /order
+Disallow: /reserve/manage
+
+Sitemap: https://saffron-table.example/sitemap.xml
