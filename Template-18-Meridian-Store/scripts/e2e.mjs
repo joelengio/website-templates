@@ -168,7 +168,7 @@ await guard('desktop behaviour checks', async () => {
   await page.getByLabel('Search products').first().fill('');
   await page.locator('aside').getByRole('checkbox', { name: /Homeware/ }).check();
   await page.locator('aside').getByRole('checkbox', { name: /In stock only/ }).check();
-  await page.locator('aside').getByRole('button', { name: 'Under $50' }).click();
+  await page.locator('aside').getByRole('button', { name: '$50 – $150' }).click();
   await page.waitForTimeout(150);
   const multi = await count();
   const chips = await page.locator('.chips .chip').count();
@@ -279,12 +279,12 @@ await guard('desktop behaviour checks', async () => {
   check('search overlay shows live suggestions', (await page.locator('.search-results li').count()) > 0);
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: 'Shop menu' }).click();
-  check('mega menu opens from the caret button', await page.getByRole('link', { name: 'Furniture & lighting' }).first().isVisible());
+  check('mega menu opens from the caret button', await page.locator('.mega').getByRole('link', { name: 'Furniture & lighting', exact: true }).isVisible());
   await page.keyboard.press('Escape');
-  check('mega menu closes with Escape', !(await page.getByRole('link', { name: 'Furniture & lighting' }).first().isVisible()));
-  await page.getByRole('link', { name: 'Collections', exact: true }).hover();
+  check('mega menu closes with Escape', !(await page.locator('.mega').getByRole('link', { name: 'Furniture & lighting', exact: true }).isVisible()));
+  await page.locator('.primary-nav').getByRole('link', { name: 'Collections', exact: true }).hover();
   await page.waitForTimeout(250);
-  check('mega menu opens on hover', await page.getByRole('link', { name: 'Light & Form' }).first().isVisible());
+  check('mega menu opens on hover', await page.locator('.mega').getByRole('link', { name: 'Light & Form', exact: true }).isVisible());
   await page.screenshot({ path: path.join(out, '1440-mega-menu.png') });
 
   // missing image fallback
