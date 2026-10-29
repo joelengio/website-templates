@@ -163,7 +163,8 @@ test.describe('filters', () => {
     await expect(page.getByText('10 doctors shown')).toBeVisible();
     await page.getByLabel('Specialty').selectOption('dermatology');
     await expect(page.getByText('2 doctors shown')).toBeVisible();
-    await page.getByLabel('Accepting new patients').check();
+    await page.getByLabel('Accepting new patients').click();
+    await expect(page.getByLabel('Accepting new patients')).toBeChecked();
     await expect(page.getByText('1 doctor shown')).toBeVisible();
     await page.getByRole('button', { name: 'Clear filters' }).click();
     await page.getByLabel('Language').selectOption('Arabic');
@@ -171,7 +172,8 @@ test.describe('filters', () => {
     await page.getByRole('button', { name: 'Clear filters' }).click();
     await page.getByLabel('Available on').selectOption('6');
     await expect(page.locator('.doctor-card').first()).toBeVisible();
-    await page.getByLabel('Offers video consultations').check();
+    await page.getByLabel('Offers video consultations').click();
+    await expect(page.getByLabel('Offers video consultations')).toBeChecked();
     expect(await page.locator('.doctor-card').count()).toBeGreaterThan(0);
   });
   test('services category chips and search', async ({ page }) => {

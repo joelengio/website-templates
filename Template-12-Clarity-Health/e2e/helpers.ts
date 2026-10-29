@@ -11,14 +11,15 @@ export async function loadAll(page: Page) {
   await page.waitForLoadState('networkidle');
   await page.evaluate(async () => {
     for (let y = 0; y < document.body.scrollHeight; y += 400) {
-      window.scrollTo(0, y);
+      window.scrollTo({ top: y, behavior: 'instant' });
       await new Promise((r) => setTimeout(r, 60));
     }
     // Force any lazy image that Chromium has not started yet, then wait (bounded) for every image to settle.
     document.querySelectorAll('img').forEach((i) => { i.loading = 'eager'; });
     const deadline = Date.now() + 8000;
     while (Date.now() < deadline && [...document.images].some((i) => !i.complete)) await new Promise((r) => setTimeout(r, 100));
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    await new Promise((r) => setTimeout(r, 250));
   });
 }
 

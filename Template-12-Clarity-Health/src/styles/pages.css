@@ -124,7 +124,7 @@
 .booking-layout { display: grid; gap: 28px; align-items: start; }
 @media (min-width: 1020px) { .booking-layout { grid-template-columns: minmax(0, 1fr) 340px; } .booking-aside { position: sticky; top: calc(var(--header-h) + 16px); } }
 .booking-main { min-width: 0; }
-.stepper { list-style: none; padding: 0; margin: 0 0 22px; display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; }
+.stepper { list-style: none; padding: 0; margin: 0 0 22px; display: flex; flex-wrap: wrap; gap: 6px; }
 .stepper li { flex: 1 0 auto; }
 .stepper li > span, .stepper li > button { display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border-radius: 999px; border: 0; background: transparent; color: var(--c-muted); font-size: 0.88rem; font-weight: 600; min-height: 44px; white-space: nowrap; }
 .stepper li > button { cursor: pointer; color: var(--c-navy); }
