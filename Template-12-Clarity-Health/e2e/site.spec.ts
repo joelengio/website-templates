@@ -130,6 +130,7 @@ test.describe('navigation', () => {
   });
   test('skip link is the first tab stop and jumps to main content', async ({ page }) => {
     await page.goto('/about');
+    await page.locator('h1').waitFor();
     await page.keyboard.press('Tab');
     const skip = page.getByRole('link', { name: 'Skip to content' });
     await expect(skip).toBeFocused();
@@ -207,11 +208,11 @@ test.describe('booking', () => {
     await expect(page.getByText(/not a real appointment/i).first()).toBeVisible();
     await page.getByRole('button', { name: 'Continue' }).click();
     await expect(page.getByRole('alert')).toContainText('choose a specialty');
-    await page.getByText('General Medicine', { exact: true }).click();
+    await page.getByRole('radio', { name: /General Medicine/ }).check();
     await page.getByRole('button', { name: 'Continue' }).click();
-    await page.getByText('No preference', { exact: true }).click();
+    await page.getByRole('radio', { name: /No preference/ }).check();
     await page.getByRole('button', { name: 'Continue' }).click();
-    await page.getByText('Initial consultation', { exact: true }).click();
+    await page.getByRole('radio', { name: /Initial consultation/ }).check();
     await page.getByRole('button', { name: 'Continue' }).click();
     // date + time
     await page.getByRole('button', { name: 'Continue' }).click();

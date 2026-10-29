@@ -27,12 +27,12 @@ test.describe('axe on interactive states', () => {
   test('booking steps, calendar, review and confirmation', async ({ page }) => {
     await page.goto('/book');
     expect(await scan(page)).toEqual([]);
-    await page.getByText('General Medicine', { exact: true }).click();
+    await page.getByRole('radio', { name: /General Medicine/ }).check();
     await page.getByRole('button', { name: 'Continue' }).click();
     expect(await scan(page)).toEqual([]);
-    await page.getByText('No preference', { exact: true }).click();
+    await page.getByRole('radio', { name: /No preference/ }).check();
     await page.getByRole('button', { name: 'Continue' }).click();
-    await page.getByText('Initial consultation', { exact: true }).click();
+    await page.getByRole('radio', { name: /Initial consultation/ }).check();
     expect(await scan(page)).toEqual([]);
     await page.getByRole('button', { name: 'Continue' }).click();
     expect(await scan(page)).toEqual([]);

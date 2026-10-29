@@ -12,11 +12,14 @@ export async function loadAll(page: Page) {
   await page.evaluate(async () => {
     for (let y = 0; y < document.body.scrollHeight; y += 400) {
       window.scrollTo(0, y);
-      await new Promise((r) => setTimeout(r, 90));
+      await new Promise((r) => setTimeout(r, 60));
     }
+    // Force any lazy image that Chromium has not started yet, then wait (bounded) for every image to settle.
+    document.querySelectorAll('img').forEach((i) => { i.loading = 'eager'; });
+    const deadline = Date.now() + 8000;
+    while (Date.now() < deadline && [...document.images].some((i) => !i.complete)) await new Promise((r) => setTimeout(r, 100));
     window.scrollTo(0, 0);
   });
-  await page.evaluate(() => Promise.all([...document.images].map((i) => i.decode().catch(() => undefined))));
 }
 
 /** Picks the first bookable day on the calendar (moving to later months if needed). */
@@ -39,11 +42,11 @@ export async function pickSlot(page: Page, index = 0) {
 
 export async function bookGeneralMedicine(page: Page, email = 'alex@example.com') {
   await page.goto('/book');
-  await page.getByText('General Medicine', { exact: true }).click();
+  await page.getByRole('radio', { name: /General Medicine/ }).check();
   await page.getByRole('button', { name: 'Continue' }).click();
-  await page.getByText('No preference', { exact: true }).click();
+  await page.getByRole('radio', { name: /No preference/ }).check();
   await page.getByRole('button', { name: 'Continue' }).click();
-  await page.getByText('Initial consultation', { exact: true }).click();
+  await page.getByRole('radio', { name: /Initial consultation/ }).check();
   await page.getByRole('button', { name: 'Continue' }).click();
   await pickDay(page);
   await pickSlot(page);

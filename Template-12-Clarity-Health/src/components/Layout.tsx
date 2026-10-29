@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { site } from '../config/site';
 import { ctas, footerBlurb, footerGroups, navigation } from '../config/navigation';
@@ -152,7 +152,9 @@ export function Layout() {
       </div>
       <Header />
       <main id="main" tabIndex={-1} className="page" key={pathname}>
-        <Outlet />
+        <Suspense fallback={<div className="route-loading" role="status">Loading…</div>}>
+          <Outlet />
+        </Suspense>
       </main>
       <Footer />
     </>

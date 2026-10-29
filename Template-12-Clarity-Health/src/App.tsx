@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Layout } from './components/Layout';
 import Home from './pages/Home';
@@ -21,8 +21,7 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 
 export default function App() {
   return (
-    <Suspense fallback={<div className="route-loading" role="status">Loading…</div>}>
-      <Routes>
+    <Routes>
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="specialties" element={<Specialties />} />
@@ -41,7 +40,6 @@ export default function App() {
           <Route path="demo-notice" element={<DemoNotice />} />
           <Route path="*" element={<NotFound />} />
         </Route>
-      </Routes>
-    </Suspense>
+    </Routes>
   );
 }
