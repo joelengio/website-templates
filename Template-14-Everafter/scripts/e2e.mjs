@@ -15,9 +15,10 @@ const browser = await launch();
 const routes = await routesFromConfig();
 console.log(`Discovered ${routes.length} routes from sitemap.xml`);
 const widths = [360, 390, 768, 1024, 1440];
+const quick = !!process.env.E2E_QUICK; // skip the long per-route sweeps while iterating
 
 // 1. Every route at every breakpoint: direct URL access, console errors, broken images, overflow, headings, alt text, targets
-await Promise.all(widths.map(async (w) => {
+await Promise.all((quick ? [] : widths).map(async (w) => {
   const ctx = await browser.newContext({ viewport: { width: w, height: 800 } });
   const page = await ctx.newPage();
   const errors = [], failed = [];
@@ -61,7 +62,7 @@ const runAxe = async (p) => {
   await p.addScriptTag({ content: axeSrc });
   return p.evaluate(async () => (await window.axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] })).violations.filter((x) => ['serious', 'critical', 'moderate'].includes(x.impact)).map((x) => `${x.id}[${x.impact}](${x.nodes.length}): ${x.nodes[0].target}`));
 };
-{
+if (!quick) {
   const actx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
   const ap = await actx.newPage();
   const found = [];
@@ -303,7 +304,7 @@ check('Review step lists the answers', (await page.locator('.review dd').allInne
 await page.getByRole('button', { name: /Edit Destination/ }).click();
 check('Review "Edit" jumps back to that step', (await page.locator('.progress__text').innerText()).includes('Step 3 of 9'));
 await page.getByLabel('Where are you thinking of?').fill('Porto');
-for (let i = 0; i < 5; i++) { await page.getByRole('button', { name: /Continue|Skip/ }).click(); }
+for (let i = 0; i < 6; i++) { await page.getByRole('button', { name: /Continue|Skip/ }).click(); }
 check('Returning to the review keeps edited answers', (await page.locator('.review dd').allInnerTexts()).join(' ').includes('Porto'));
 await page.getByRole('button', { name: 'Complete preview' }).click();
 check('Completion requires acknowledging the demonstration', (await page.getByText(/confirm that you understand this enquiry is a demonstration/).count()) >= 1);
@@ -339,7 +340,7 @@ check('Unticking save deletes the stored draft', (await page.evaluate(() => loca
 
 // 13. Journal: search, category, article, related
 await open(page, BASE, '/journal');
-const jcount = () => page.locator('.grid--journal-all .acard').count();
+const jcount = async () => { await page.waitForTimeout(150); return page.locator('.grid--journal-all .acard').count(); };
 check('Journal lists 9 articles', (await jcount()) === 9);
 await page.getByRole('button', { name: 'Design', exact: true }).click();
 check('Journal category filter works', (await jcount()) === 2, String(await jcount()));
@@ -350,6 +351,7 @@ await page.getByRole('searchbox').fill('zzzzqqq');
 check('Journal search with no results shows the empty state', (await page.getByText('No articles found').count()) === 1);
 await page.getByRole('button', { name: 'Show all articles' }).click();
 await page.locator('.acard__link').first().click();
+await page.locator('.article-body').waitFor();
 check('Article page shows heading, body and related content', (await page.locator('h1').count()) === 1 && (await page.locator('.article-body p').count()) >= 3 && (await page.locator('#rel-title').count()) === 1 && (await page.locator('.grid--journal .acard').count()) === 3);
 
 // 14. Contact form
@@ -370,10 +372,10 @@ check('Contact page shows opening hours, office and social links', await open(pa
 
 // 15. Footer newsletter form is honest
 await page.locator('.newsletter input').fill('bad');
-await page.getByRole('button', { name: 'Preview' }).click();
+await page.locator('.newsletter button').click();
 check('Newsletter form validates email', (await page.locator('.newsletter__msg.is-error').count()) === 1);
 await page.locator('.newsletter input').fill('ok@example.com');
-await page.getByRole('button', { name: 'Preview' }).click();
+await page.locator('.newsletter button').click();
 check('Newsletter form says nothing was subscribed', (await page.getByText(/no subscription was created/).count()) === 1);
 
 // 16. Keyboard: skip link

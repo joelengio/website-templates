@@ -25,7 +25,7 @@ export default function DemoNotice() {
           </ul>
           <h2>Using the template</h2>
           <p>Business owners can replace all content and connect forms to a backend. See <code>CUSTOMIZATION_GUIDE.md</code> in the project for exact steps.</p>
-          <p><Link to="/plan" className="link-arrow">Try the questionnaire</Link> · <Link to="/contact" className="link-arrow">Visit contact</Link></p>
+          <p className="link-row"><Link to="/plan" className="link-arrow">Try the questionnaire</Link><Link to="/contact" className="link-arrow">Visit contact</Link><Link to="/credits" className="link-arrow">Photo credits</Link></p>
           {site.publisher.show && <p className="fineprint">{site.publisher.note} {site.publisher.templateName}.</p>}
         </div>
       </section>

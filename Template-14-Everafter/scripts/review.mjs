@@ -44,6 +44,8 @@ for (const prof of profiles) {
   const page = await ctx.newPage();
   const items = [];
   const grab = async (label, id) => {
+    await page.evaluate(() => { window.scrollTo({ top: 0, behavior: 'instant' }); document.activeElement?.blur?.(); });
+    await page.waitForTimeout(250);
     const file = path.join(tmp, `${prof.name}-${id}.png`);
     const h = await page.evaluate(() => document.documentElement.scrollHeight);
     await page.screenshot({ path: file, clip: { x: 0, y: 0, width: prof.width, height: Math.min(h, prof.crop) }, fullPage: true });
@@ -97,7 +99,7 @@ for (const prof of profiles) {
   await page.getByRole('button', { name: 'Continue' }).click();
   await page.getByRole('checkbox', { name: /Full planning/ }).check();
   await page.getByRole('button', { name: 'Continue' }).click();
-  await page.getByRole('radio', { name: /\$25,000/ }).check();
+  await page.getByRole('radio', { name: /^\$25,000/ }).check();
   await page.getByRole('button', { name: 'Continue' }).click();
   await page.getByLabel('Your name').fill('Alex Rowe');
   await page.getByLabel('Email address').fill('alex@example.com');

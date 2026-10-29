@@ -127,7 +127,7 @@
 .project-facts dl > div { display: flex; justify-content: space-between; gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--c-line); font-size: 0.95rem; }
 .project-facts dt { color: var(--c-muted); flex: none; }
 .project-facts dd { text-align: right; }
-.project-facts dd a { color: var(--c-burgundy); }
+.project-facts dd a { color: var(--c-burgundy); display: inline-block; padding: 4px 0; }
 .project-facts .btn { margin-top: 26px; width: 100%; }
 .swatches { display: inline-flex; gap: 6px; }
 .swatch { width: 24px; height: 24px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.15); display: block; }
@@ -336,3 +336,7 @@
 .credits p { margin: 0; font-size: 0.9rem; color: var(--c-muted); overflow-wrap: anywhere; }
 .credits__title { color: var(--c-ink) !important; font-weight: 500; }
 .credits a { color: var(--c-burgundy); display: inline-block; padding: 2px 0; }
+
+/* Keep focused step headings clear of the sticky header when scrolled into view */
+.plan__title, .plan-done h1 { scroll-margin-top: calc(var(--header-h) + 150px); }
+.link-row { display: flex; flex-wrap: wrap; gap: 14px 32px; margin-top: 2rem !important; }

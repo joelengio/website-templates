@@ -14,7 +14,7 @@ interface Entry {
 const catalog = {
   'hero-arch': { alt: 'A white fabric wedding arch framing a still pond at dusk', position: '50% 55%' },
   'arch-lakeside': { alt: 'A rustic timber ceremony arch dressed with blooms beside a lake', position: '50% 60%' },
-  'como-gardens': { alt: 'Villa gardens on the shore of Lake Como beneath wooded mountains', position: '50% 90%' },
+  'como-gardens': { alt: 'Villa gardens on the shore of Lake Como beneath wooded mountains', position: '72% 90%' },
   'como-villa': { alt: 'A lakeside villa with a tower, covered in ivy, on the shore of an Italian lake', position: '40% 50%' },
   'como-hall': { alt: 'A grand frescoed gallery with polished marble floors and tall windows', position: '50% 50%' },
   'detail-glasses': { alt: 'Rows of crystal glasses and folded napkins on a dressed banquet table', position: '50% 50%' },

@@ -30,8 +30,8 @@ export async function launch() {
 export async function open(page, base, url) {
   await page.goto(base + url, { waitUntil: 'networkidle' });
   await page.evaluate(async () => {
-    for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 30)); }
-    window.scrollTo(0, 0);
+    for (let y = 0; y < document.body.scrollHeight; y += 600) { window.scrollTo({ top: y, behavior: 'instant' }); await new Promise((r) => setTimeout(r, 30)); }
+    window.scrollTo({ top: 0, behavior: 'instant' });
   });
   await page.evaluate(() => Promise.all([...document.images].map((i) => { i.loading = 'eager'; return i.decode().catch(() => {}); })));
   // Settle reveal animations so screenshots and contrast checks see final colours.
