@@ -1,0 +1,16 @@
+OneStop Infinite Template 12 — CLARITY HEALTH
+Copyright © OneStop Infinite.
+
+This template is distributed by OneStop Infinite for commercial resale and client use under the terms of your purchase or
+reseller agreement with OneStop Infinite. The agreement, not this file, defines your exact rights; this file records that the
+source code, configuration, copy, generated artwork and documentation in this project are owned by OneStop Infinite.
+
+Third-party software (React, React Router, Vite, the bundled fonts and other dependencies) remains under its own open-source
+licences; see ASSET_LICENSES.md and each package's licence in node_modules.
+
+"CLARITY HEALTH" is a fictional demonstration brand and clinic. Replace it with your client's own brand before launch. The
+template credit to OneStop Infinite lives in src/config/site.ts (site.publisher) and is kept separate from the clinic's content.
+
+THE TEMPLATE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. It is not a medical device, medical advice service or
+compliant patient-data system. Anyone who uses it for a real clinic is responsible for clinical content review, accessibility
+and privacy-law review, and for any backend they add.
