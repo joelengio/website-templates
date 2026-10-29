@@ -1,5 +1,5 @@
 import { Link, type LinkProps } from 'react-router-dom';
-import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import { forwardRef, type ButtonHTMLAttributes, type ReactNode } from 'react';
 import { Icon } from './Icon';
 
 type Variant = 'primary' | 'ghost' | 'light' | 'brass';
@@ -13,6 +13,9 @@ export function LinkButton({ variant = 'primary', arrow, children, className = '
   );
 }
 
-export function Button({ variant = 'primary', className = '', type = 'button', ...rest }: ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant }) {
-  return <button type={type} className={`btn btn--${variant} ${className}`} {...rest} />;
-}
+export const Button = forwardRef<HTMLButtonElement, ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant }>(function Button(
+  { variant = 'primary', className = '', type = 'button', ...rest },
+  ref,
+) {
+  return <button ref={ref} type={type} className={`btn btn--${variant} ${className}`} {...rest} />;
+});

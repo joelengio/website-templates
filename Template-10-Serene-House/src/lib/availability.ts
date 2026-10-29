@@ -5,7 +5,7 @@ import type { BusinessDay, StaffMember } from '../config/types';
 import { toISODate, parseISODate } from './format';
 import type { BookingRecord } from './bookings';
 
-const toMinutes = (hm: string) => {
+export const toMinutes = (hm: string) => {
   const [h, m] = hm.split(':').map(Number);
   return h * 60 + m;
 };
@@ -51,7 +51,7 @@ export interface Slot {
   available: boolean;
 }
 
-const overlaps = (aStart: number, aLen: number, bStart: number, bLen: number) => aStart < bStart + bLen && bStart < aStart + aLen;
+export const overlaps = (aStart: number, aLen: number, bStart: number, bLen: number) => aStart < bStart + bLen && bStart < aStart + aLen;
 
 export function staffIsFree(
   member: StaffMember,

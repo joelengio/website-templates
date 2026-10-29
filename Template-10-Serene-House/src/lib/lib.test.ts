@@ -2,7 +2,7 @@ import { describe, expect, it, beforeEach } from 'vitest';
 import { bookableDates, getSlots, hash01, hoursFor, isOpenDate, resolveStaff } from './availability';
 import { staff } from '../config/staff';
 import { addBooking, cancelBooking, getBookings, resetBookingsCache, updateBooking, type BookingRecord } from './bookings';
-import { eligibleStaff, resolveService, servicePrice } from './booking-logic';
+import { eligibleStaff, findCustomerConflict, resolveService, servicePrice } from './booking-logic';
 import { validateContact, validateCustomer, isEmail } from './validation';
 import { formatDuration, formatPrice, parseISODate, toISODate } from './format';
 
@@ -75,6 +75,23 @@ describe('booking store', () => {
     window.localStorage.setItem('serene-house-demo-bookings-v1', '{not json');
     resetBookingsCache();
     expect(getBookings()).toEqual([]);
+  });
+});
+
+describe('duplicate booking guard', () => {
+  const rec = (over: Partial<BookingRecord> = {}) => ({ ...base(), id: 'a', reference: 'SH-AAAAAA', status: 'confirmed', createdAt: '', ...over }) as BookingRecord;
+  it('flags the same email at an overlapping time, ignoring case and spacing', () => {
+    const list = [rec()];
+    expect(findCustomerConflict(list, ' T@Example.com ', '2030-01-07', '10:30', 60)?.id).toBe('a');
+    expect(findCustomerConflict(list, 't@example.com', '2030-01-07', '09:30', 60)?.id).toBe('a');
+  });
+  it('allows back-to-back, other days, other guests, cancelled bookings and the booking being rescheduled', () => {
+    const list = [rec()];
+    expect(findCustomerConflict(list, 't@example.com', '2030-01-07', '11:00', 60)).toBeUndefined();
+    expect(findCustomerConflict(list, 't@example.com', '2030-01-08', '10:00', 60)).toBeUndefined();
+    expect(findCustomerConflict(list, 'other@example.com', '2030-01-07', '10:00', 60)).toBeUndefined();
+    expect(findCustomerConflict([rec({ status: 'cancelled' })], 't@example.com', '2030-01-07', '10:00', 60)).toBeUndefined();
+    expect(findCustomerConflict(list, 't@example.com', '2030-01-07', '10:00', 60, 'a')).toBeUndefined();
   });
 });
 

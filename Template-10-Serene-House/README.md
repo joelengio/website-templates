@@ -10,7 +10,7 @@ testimonial and article is placeholder content for you to replace.
 
 ## What's included
 
-Home · Treatments (filter, search, detail pages) · Packages (breakdowns + comparison) · Booking (7-step demo flow, manage/reschedule/cancel)
+Home · Treatments (filter, search, detail pages) · Packages (breakdowns + comparison) · Booking (5-step demo flow with simulated availability, duplicate-booking guard, manage/reschedule/cancel)
 · About · Gallery (filters + accessible lightbox) · Journal (search, categories, articles) · Contact (validated demo form, hours, demo map)
 · Demo notice · 404. Everything is driven from `src/config/` — see [CUSTOMIZATION_GUIDE.md](CUSTOMIZATION_GUIDE.md).
 
@@ -39,6 +39,7 @@ npm test             # Vitest unit + integration tests (jsdom)
 npm run build        # type-check + production build into dist/
 npm run test:e2e     # real-browser checks against the production build (needs Chromium; set CHROMIUM_PATH if not auto-detected)
 npm run check        # typecheck + lint + test + build
+E2E_BROWSER=firefox npm run test:e2e   # same checks in Firefox (npx playwright-core install firefox first); webkit also supported where the OS libraries exist
 ```
 
 ## Production build
@@ -66,10 +67,12 @@ firebase deploy --only hosting
 
 No credentials or API keys are stored in this template. Any other static host works too — configure an SPA fallback to `index.html`.
 
-## Regenerating the artwork
+## Imagery
 
-The bundled imagery is original, procedurally generated illustration (no third-party photos). `npm run images` regenerates
-`public/images/*.webp` from `scripts/art/` using Chromium. You will normally replace these with your own photography — see the guide.
+The demo pictures are licensed stock photography (Unsplash License, each photo individually verified — see [ASSET_LICENSES.md](ASSET_LICENSES.md)).
+Replace them with your own photography before launch (CUSTOMIZATION_GUIDE.md §4). Team "portraits" are generated monogram cards;
+`npm run images` regenerates those and the demo-map backdrop with Chromium. `scripts/photos/sources.json` records which source photograph
+feeds which file (`scripts/photos/build-photos.py` can rebuild them from the original downloads; it is optional and not needed to build the site).
 
 ## Project structure
 

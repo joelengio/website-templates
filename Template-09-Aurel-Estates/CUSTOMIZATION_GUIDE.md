@@ -33,6 +33,7 @@ Changes appear instantly in `npm run dev`; run `npm run build` to publish.
 | Properties | `src/config/properties.ts` |
 | Filterable features & labels | `src/config/features.ts` |
 | Price steps in filters | `features.ts → priceSteps` |
+| Saved-search limit | `src/lib/savedSearches.ts → MAX_SAVED_SEARCHES` (remove `<SavedSearches />` from `src/pages/Properties.tsx` to drop the feature) |
 | Photos & alt text | `src/config/images.ts` + files in `public/images/` |
 | Favicon / app icon | `public/favicon.svg`, `public/apple-touch-icon.png` |
 | Firebase project | `.firebaserc` (copy from `.firebaserc.example`) |
@@ -41,7 +42,7 @@ Changes appear instantly in `npm run dev`; run `npm run build` to publish.
 
 1. `site.ts`: name, tagline, contact, `url`, currency, units; set `demo.showBanner: false` and rewrite `demo.footerDisclaimer`.
 2. `theme.ts`: colours + fonts.
-3. Replace logo, favicon and `index.html` `<title>`/description defaults.
+3. Replace logo and favicon. The static `<title>`, description, canonical, Open Graph and theme-colour tags in `index.html` are rewritten from `site.ts`/`theme.ts` at build — do not edit them by hand; set `site.url` (or `VITE_SITE_URL`) so they are absolute.
 4. Replace `properties.ts` entries and photos; rewrite `content.ts`.
 5. Connect the form endpoint (§6).
 6. `npm run check` then deploy.

@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { treatments, treatmentCategories } from '../config/treatments';
 import { packages } from '../config/packages';
 import { booking as cfg } from '../config/booking';
 import { site } from '../config/site';
 import { bookableDates, getSlots, resolveStaff } from '../lib/availability';
-import { addBooking, findBooking, updateBooking, useBookings, type BookingRecord } from '../lib/bookings';
-import { eligibleStaff, resolveService, servicePrice, type ServiceKind } from '../lib/booking-logic';
+import { addBooking, findBooking, getBookings, updateBooking, useBookings, type BookingRecord } from '../lib/bookings';
+import { eligibleStaff, findCustomerConflict, resolveService, servicePrice, type ServiceKind } from '../lib/booking-logic';
 import { formatDuration, formatLongDate, formatPrice, formatTime, parseISODate } from '../lib/format';
 import { validateCustomer, type CustomerFields, type Errors } from '../lib/validation';
 import { Seo } from '../components/Seo';
@@ -22,6 +22,7 @@ const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export default function Booking() {
   const [params] = useSearchParams();
+  const navigate = useNavigate();
   const rescheduleId = params.get('reschedule');
   const bookings = useBookings();
   const existing = rescheduleId ? bookings.find((b) => b.id === rescheduleId && b.status === 'confirmed') : undefined;
@@ -97,6 +98,13 @@ export default function Booking() {
         document.getElementById(`bk-${Object.keys(errs)[0]}`)?.focus();
         return;
       }
+      const clash = service && findCustomerConflict(bookings, customer.email, date, time, service.durationMinutes);
+      if (clash) {
+        setErrors({ email: `This email already has a booking at that time (${clash.reference}).` });
+        setStepError('You already have an overlapping booking. Choose another time or manage your existing booking.');
+        document.getElementById('bk-email')?.focus();
+        return;
+      }
     }
     setStepIdx((i) => Math.min(i + 1, steps.length - 1));
   };
@@ -105,7 +113,15 @@ export default function Booking() {
   const confirm = () => {
     if (!service) return;
     if (!consent) return setStepError('Please tick the box to confirm you understand this is a demonstration booking.');
-    const others = bookings;
+    // Read the store directly (not render state) so a double click or a second tab cannot slip past the checks.
+    const others = getBookings();
+    const email = existing ? existing.customer.email : customer.email;
+    const clash = findCustomerConflict(others, email, date, time, service.durationMinutes, existing?.id);
+    if (clash) {
+      setTime('');
+      setStepIdx(steps.indexOf('datetime'));
+      return setStepError(`You already have a booking at that time (${clash.reference}). Please choose another time.`);
+    }
     const member = resolveStaff(pool, date, time, service.durationMinutes, others, existing?.id);
     if (!member) {
       setTime('');
@@ -125,6 +141,7 @@ export default function Booking() {
   };
 
   const restart = () => {
+    if (rescheduleId) navigate('/booking', { replace: true });
     setConfirmed(null); setSlug(''); setOptionMinutes(undefined); setStaffPref('any'); setGuests(1); setDate(''); setTime('');
     setCustomer(NO_CUSTOMER); setConsent(false); setStepIdx(0); setErrors({});
   };

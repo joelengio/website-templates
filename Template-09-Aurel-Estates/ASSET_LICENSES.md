@@ -1,6 +1,6 @@
 # Asset Licenses
 
-Last reviewed: 2026-10-29
+Last reviewed: 2026-10-29 (QA release 1.1.0: every source URL below was re-requested and still resolves on `images.unsplash.com`, the host for free Unsplash-License photos — Unsplash+ premium photos are served from `plus.unsplash.com`. Photographer names could not be looked up from CDN ids and were not invented.)
 
 ## Photography — Unsplash License
 

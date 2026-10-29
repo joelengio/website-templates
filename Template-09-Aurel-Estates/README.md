@@ -10,14 +10,15 @@ Design: luxurious editorial real estate — deep forest green, ivory and brass, 
 - **7 page types:** Home, Properties (listings), Property details, About / Team, Services, Journal / Guides (+ article pages), Contact — plus Favorites, Compare and 404.
 - **15 fictional demo properties** with photo galleries, specs, descriptions and features.
 - **Search, multi-filter, sort, reset, empty states** — type, neighborhood, price range, bedrooms, bathrooms, features, hide "under offer". Filter state lives in the URL (shareable links).
+- **Saved searches:** save any filter + sort combination under a name, re-apply or delete it later (stored in this browser only; no email alerts are sent).
 - **Responsive mobile filter drawer**, active-filter chips, live result count for screen readers.
 - **Interactive gallery** with thumbnails, keyboard-operable lightbox (←/→/Esc, focus trap, focus return).
 - **Favorites** (localStorage, synced across tabs) and **Compare up to 3** (tray + side-by-side table).
 - **Inquiry form** with accessible validation, selected property auto-populated, honeypot, and **honest demo mode** (no fake "sent" message when no endpoint is configured).
 - **Config-driven:** brand, logo, colours, fonts, copy, navigation, footer, CTAs, properties, images, and section order/visibility.
 - **Accessibility:** skip link, focus management on route change, focus-trapped dialogs, `prefers-reduced-motion`, axe-core checked (WCAG 2.1 A/AA).
-- **SEO:** per-page title/description/canonical/Open Graph, favicon, generated `sitemap.xml` + `robots.txt`.
-- **Firebase Hosting** config included (`firebase.json`, SPA rewrite, cache headers).
+- **SEO:** per-page title/description/canonical/Open Graph; the static `index.html` head (title, description, canonical, absolute OG/Twitter URLs, theme colour) is generated from `src/config` at build time; favicon; generated `sitemap.xml` + `robots.txt`; `noindex` on 404, Favorites and Compare.
+- **Firebase Hosting** config included (`firebase.json`, SPA rewrite, cache + security headers).
 
 ## Quick start
 

@@ -82,6 +82,35 @@ describe('listings', () => {
   });
 });
 
+describe('saved searches', () => {
+  it('saves a combined filter, restores it after a reset and a reload, and can delete it', async () => {
+    localStorage.clear();
+    const user = userEvent.setup();
+    const first = renderAt('/properties');
+    const sidebar = await screen.findByRole('complementary', { name: 'Filters' });
+    expect(screen.getByRole('button', { name: /Save this search/ })).toBeDisabled();
+    await user.click(within(sidebar).getByRole('checkbox', { name: 'Cottage' }));
+    await user.click(screen.getByRole('button', { name: /Save this search/ }));
+    const nameBox = screen.getByLabelText('Name for this search');
+    await user.clear(nameBox);
+    await user.type(nameBox, 'Cottages for me');
+    await user.click(screen.getByRole('button', { name: 'Save' }));
+    expect(await screen.findByRole('button', { name: 'Cottages for me' })).toBeInTheDocument();
+    const cottageCount = screen.getAllByRole('article').length;
+    await user.click(screen.getByRole('button', { name: /Save this search/ }));
+    expect(screen.getByText(/already saved as “Cottages for me”/)).toBeInTheDocument();
+    await user.click(screen.getAllByRole('button', { name: /Remove filter: Cottage/ })[0]);
+    expect(screen.getAllByRole('article').length).toBeGreaterThan(cottageCount);
+    first.unmount();
+    renderAt('/properties');
+    await user.click(await screen.findByRole('button', { name: 'Cottages for me' }));
+    expect(screen.getAllByRole('article')).toHaveLength(cottageCount);
+    await user.click(screen.getByRole('button', { name: 'Delete saved search: Cottages for me' }));
+    expect(screen.queryByRole('button', { name: 'Cottages for me' })).not.toBeInTheDocument();
+    expect(JSON.parse(localStorage.getItem(`${site.storagePrefix}:savedSearches`)!)).toEqual([]);
+  });
+});
+
 describe('favorites and compare', () => {
   it('persists favorites in localStorage and lists them', async () => {
     const user = userEvent.setup();

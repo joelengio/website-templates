@@ -14,7 +14,7 @@ export function TreatmentCard({ t }: { t: Treatment }) {
   const mins = t.options.map((o) => o.minutes);
   return (
     <article className="card treatment-card">
-      <Link to={`/treatments/${t.slug}`} className="card-media" aria-label={`${t.name} — view details`} tabIndex={-1}>
+      <Link to={`/treatments/${t.slug}`} className="card-media" aria-hidden="true" tabIndex={-1}>
         <Img image={t.image} sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" />
       </Link>
       <div className="card-body">
@@ -35,7 +35,7 @@ export function PackageCard({ p }: { p: SpaPackage }) {
   const cat = packageCategories.find((c) => c.id === p.category)?.name;
   return (
     <article className={`card package-card ${p.highlight ? 'is-highlight' : ''}`}>
-      <Link to={`/packages#${p.slug}`} className="card-media" tabIndex={-1} aria-label={`${p.name} — view breakdown`}>
+      <Link to={`/packages#${p.slug}`} className="card-media" aria-hidden="true" tabIndex={-1}>
         <Img image={p.image} sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" />
         {p.highlight && <span className="badge">Most loved</span>}
       </Link>
@@ -56,7 +56,7 @@ export function PackageCard({ p }: { p: SpaPackage }) {
 export function ArticleCard({ a }: { a: Article }) {
   return (
     <article className="card article-card">
-      <Link to={`/journal/${a.slug}`} className="card-media" tabIndex={-1} aria-label={`Read ${a.title}`}>
+      <Link to={`/journal/${a.slug}`} className="card-media" aria-hidden="true" tabIndex={-1}>
         <Img image={a.image} sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw" />
       </Link>
       <div className="card-body">

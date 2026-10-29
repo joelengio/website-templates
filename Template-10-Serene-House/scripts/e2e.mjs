@@ -1,7 +1,7 @@
 // Real-browser end-to-end checks. Builds are served with `vite preview`.
 // Usage: npm run build && npm run test:e2e   (set CHROMIUM_PATH if Chromium is not auto-detected)
 // Writes screenshots to ./e2e-output (git-ignored).
-import { chromium } from 'playwright-core';
+import { chromium, firefox, webkit } from 'playwright-core';
 import { spawn } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -13,13 +13,15 @@ mkdirSync(out, { recursive: true });
 const results = [];
 const check = (name, ok, detail = '') => { results.push({ name, ok }); console.log(`${ok ? 'PASS' : 'FAIL'}  ${name}${detail ? ' — ' + detail : ''}`); };
 
-const server = spawn('npx', ['vite', 'preview', '--port', String(PORT), '--strictPort'], { stdio: 'ignore' });
+const server = spawn('npx', ['vite', 'preview', '--configLoader', 'runner', '--port', String(PORT), '--strictPort'], { stdio: 'ignore' });
 const stop = () => server.kill();
 process.on('exit', stop);
 for (let i = 0; i < 50; i++) { try { if ((await fetch(BASE)).ok) break; } catch { /* wait */ } await new Promise((r) => setTimeout(r, 200)); }
 
+// E2E_BROWSER=firefox|webkit runs the same checks in another engine (install it first: npx playwright-core install firefox).
+const engine = process.env.E2E_BROWSER || 'chromium';
 const exe = [process.env.CHROMIUM_PATH, '/opt/pw-browsers/chromium'].find((p) => p && existsSync(p));
-const browser = await chromium.launch({ executablePath: exe, args: ['--no-sandbox'] });
+const browser = engine === 'chromium' ? await chromium.launch({ executablePath: exe, args: ['--no-sandbox'] }) : await { firefox, webkit }[engine].launch();
 const routes = ['/', '/treatments', '/treatments/signature-serene-massage', '/packages', '/booking', '/booking/manage', '/about', '/gallery', '/journal', '/journal/the-art-of-slow-mornings', '/contact', '/demo-notice'];
 const widths = [360, 390, 768, 1024, 1440];
 
@@ -57,20 +59,24 @@ for (const w of widths) {
   await ctx.close();
 }
 
-// 1b. Automated accessibility audit (axe-core) — serious/critical violations fail
+// 1b. Automated accessibility audit (axe-core).
+// Run with reduced motion so reveal transitions have finished: otherwise axe samples half-faded text and silently
+// skips colour-contrast checks. Every WCAG 2.x A/AA and best-practice violation (any impact) fails the build.
 {
   const axeSrc = readFileSync(path.resolve('node_modules/axe-core/axe.min.js'), 'utf8');
-  const actx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
-  const ap = await actx.newPage();
   const found = [];
-  for (const r of routes) {
-    await open(ap, r);
-    await ap.addScriptTag({ content: axeSrc });
-    const v = await ap.evaluate(async () => (await window.axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] })).violations.filter((x) => ['serious', 'critical'].includes(x.impact)).map((x) => `${x.id}(${x.nodes.length}): ${x.nodes[0].target}`));
-    if (v.length) found.push({ r, v });
+  for (const width of [1280, 390]) {
+    const actx = await browser.newContext({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
+    const ap = await actx.newPage();
+    for (const r of [...routes, '/missing-page']) {
+      await open(ap, r);
+      await ap.addScriptTag({ content: axeSrc });
+      const v = await ap.evaluate(async () => (await window.axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'best-practice'] })).violations.map((x) => `${x.id}(${x.impact}) ${x.nodes.slice(0, 2).map((n) => n.target.join(' ')).join(' ; ')}`));
+      if (v.length) found.push({ width, r, v });
+    }
+    await actx.close();
   }
-  check('axe-core WCAG 2.1 A/AA: no serious/critical violations on all routes', found.length === 0, JSON.stringify(found).slice(0, 900));
-  await actx.close();
+  check('axe-core WCAG 2.1 A/AA + best-practice: zero violations (12 routes + 404, 1280 & 390 px, motion settled)', found.length === 0, JSON.stringify(found).slice(0, 900));
 }
 
 const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
@@ -146,6 +152,73 @@ await page.getByRole('button', { name: 'Cancel booking' }).click();
 await page.getByRole('button', { name: 'Yes, cancel it' }).click();
 check('Cancel marks booking cancelled', (await page.locator('.status--cancelled').count()) === 1);
 
+// 7b. Availability allocation + duplicate-booking prevention (realistic multi-booking journey)
+{
+  const KEY = 'serene-house-demo-bookings-v1';
+  const stash = () => page.evaluate((k) => JSON.parse(localStorage.getItem(k) || '[]'), KEY);
+  const pickDateTime = async (staffName) => {
+    await page.goto(BASE + '/booking?treatment=signature-serene-massage', { waitUntil: 'networkidle' });
+    if (staffName) await page.getByRole('radio', { name: new RegExp(staffName) }).check();
+    await page.getByRole('button', { name: 'Continue' }).click();
+    await page.locator('.cal-day:not([disabled])').first().click();
+  };
+  const finish = async (name, email) => {
+    await page.getByRole('button', { name: 'Continue' }).click();
+    await page.getByLabel('Full name').fill(name);
+    await page.getByLabel('Email', { exact: false }).first().fill(email);
+    await page.getByRole('button', { name: 'Continue' }).click();
+  };
+  const confirmBooking = async () => {
+    await page.getByRole('checkbox').check();
+    await page.getByRole('button', { name: 'Confirm demo booking' }).click();
+    await page.getByText('Demo booking confirmed').waitFor();
+  };
+  await page.goto(BASE + '/', { waitUntil: 'networkidle' });
+  await page.evaluate((k) => localStorage.removeItem(k), KEY);
+  await pickDateTime();
+  const slot = page.locator('.slot:not([disabled])').first();
+  const slotLabel = (await slot.innerText()).trim();
+  await slot.click();
+  await finish('Casey Lane', 'casey@example.com');
+  await confirmBooking();
+  const [first] = await stash();
+  // same guest, same time -> blocked before confirmation
+  await pickDateTime();
+  await page.locator('.slot', { hasText: slotLabel }).first().click();
+  await finish('Casey Lane', 'CASEY@example.com');
+  await page.getByText(/already has a booking at that time/).first().waitFor();
+  check('Duplicate booking by the same guest/time is blocked', (await stash()).length === 1 && (await page.getByRole('checkbox').count()) === 0);
+  // different guest, same slot, no preference -> a different therapist is allocated
+  await pickDateTime();
+  await page.locator('.slot', { hasText: slotLabel }).first().click();
+  await finish('Dana Fox', 'dana@example.com');
+  await confirmBooking();
+  const all = await stash();
+  check('A second guest gets a different therapist at the same time', all.length === 2 && all[0].staffId !== first.staffId && all[0].date === first.date && all[0].time === first.time);
+  // choosing the already-booked therapist makes that time unavailable
+  await pickDateTime(first.staffName);
+  check('Slot is disabled for a therapist who is already booked', await page.locator('.slot', { hasText: slotLabel }).first().isDisabled());
+  // cancelling frees the slot again
+  await page.goto(BASE + '/booking/manage', { waitUntil: 'networkidle' });
+  await page.locator('.booking-item', { hasText: 'casey@example.com' }).getByRole('button', { name: 'Cancel booking' }).click();
+  await page.getByRole('button', { name: 'Yes, cancel it' }).click();
+  await pickDateTime(first.staffName);
+  check('Cancelling a booking frees the therapist\u2019s slot', await page.locator('.slot', { hasText: slotLabel }).first().isEnabled());
+  // "Make another" after a reschedule starts a clean new booking
+  await page.goto(BASE + '/booking/manage', { waitUntil: 'networkidle' });
+  await page.locator('.booking-item', { hasText: 'dana@example.com' }).getByRole('link', { name: 'Reschedule' }).click();
+  await page.locator('.cal-day:not([disabled])').nth(2).click();
+  await page.locator('.slot:not([disabled])').first().click();
+  await page.getByRole('button', { name: 'Continue' }).click();
+  await page.getByRole('checkbox').check();
+  await page.getByRole('button', { name: 'Confirm new time' }).click();
+  await page.getByText('Demo booking updated').waitFor();
+  await page.getByRole('button', { name: 'Make another demo booking' }).click();
+  await page.getByRole('heading', { name: 'Choose your treatment or package' }).waitFor();
+  check('"Make another booking" after rescheduling returns to a fresh booking flow', !page.url().includes('reschedule'));
+  await page.evaluate((k) => localStorage.removeItem(k), KEY);
+}
+
 // 8. Contact form never fakes delivery
 await open(page, '/contact');
 await page.getByRole('button', { name: /Validate message/ }).click();
@@ -161,6 +234,11 @@ const first = page.locator('.masonry-item').first();
 await first.focus(); await page.keyboard.press('Enter');
 check('Lightbox opens', await page.getByRole('dialog').isVisible());
 await page.keyboard.press('ArrowRight');
+await page.waitForTimeout(500); // let the 250 ms entrance animation finish
+const vp = page.viewportSize();
+const box = await page.locator('.lightbox').boundingBox();
+const imgBox = await page.locator('.lightbox img').boundingBox();
+check('Lightbox covers the whole viewport and its image is fully on screen', Math.abs(box.x) < 1 && Math.abs(box.y) < 1 && Math.abs(box.width - vp.width) < 2 && Math.abs(box.height - vp.height) < 2 && imgBox.y >= 0 && imgBox.y + imgBox.height <= vp.height + 1, JSON.stringify({ box, imgBox, vp }));
 check('Lightbox ArrowRight advances', (await page.locator('.lb-figure figcaption').innerText()).includes('2 /'));
 check('Lightbox focus is trapped inside dialog', await page.evaluate(() => document.querySelector('.lightbox').contains(document.activeElement)));
 await page.keyboard.press('Escape');

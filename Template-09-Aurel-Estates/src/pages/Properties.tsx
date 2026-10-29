@@ -12,6 +12,7 @@ import { FilterPanel } from '../components/FilterPanel';
 import { Icon } from '../components/Icon';
 import { Modal } from '../components/Modal';
 import { PropertyCard } from '../components/PropertyCard';
+import { SavedSearches } from '../components/SavedSearches';
 import { PageHero } from '../components/Section';
 
 const typeOptions = Array.from(new Set(properties.map((p) => p.type))).sort();
@@ -92,6 +93,8 @@ export default function Properties() {
                 </select>
               </div>
             </div>
+
+            <SavedSearches filters={filters} onApply={commit} />
 
             {chips.length > 0 && (
               <ul className="active-chips" aria-label="Active filters">

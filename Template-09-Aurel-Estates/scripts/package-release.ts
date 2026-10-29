@@ -15,7 +15,8 @@ const outDir = join(root, 'handoff');
 const name = 'OneStop-Infinite-Template-09-Aurel-Estates.zip';
 const out = join(outDir, name);
 
-const excludedDirs = new Set(['node_modules', 'dist', '.git', 'handoff', 'playwright-report', 'test-results', '.firebase', '.vite']);
+// documentation/review holds the large QA screenshot sheets (kept in git, not shipped inside the site archive).
+const excludedDirs = new Set(['node_modules', 'dist', '.git', 'handoff', 'documentation', 'playwright-report', 'test-results', '.firebase', '.vite']);
 const excludedFile = (f: string) =>
   /\.(zip|tgz|gz|7z|rar|tsbuildinfo|log|pem|key)$/i.test(f) || f === '.DS_Store' || f === '.firebaserc' || (/^\.env/.test(f) && f !== '.env.example');
 

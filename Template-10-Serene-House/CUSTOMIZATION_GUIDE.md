@@ -54,9 +54,16 @@ Everything you normally change lives in **`src/config/`**. You should not need t
 
 **Add a gallery image** — put an optimised `.webp` in `public/images/`, then add `item('gX', 'category', 'file-name', width, height, 'alt text', 'Caption')` to `gallery.ts`.
 
-## 4. Replacing the artwork with photography
+## 4. Replacing the demo photography
 
-All imagery is original generated illustration. To use photos: add optimised WebP files (≈1600 px wide, <250 KB) to `public/images/`, then update the entries in `src/config/images.ts` (`src`, `width`, `height`, accurate `alt`). Record each photo's source and licence in `ASSET_LICENSES.md`. Only use images you are licensed to use commercially.
+The bundled photographs are Unsplash-licensed demo images (see `ASSET_LICENSES.md`). Every picture is registered in `src/config/images.ts` (plus `gallery.ts`; treatments/packages/staff/journal reference those entries). To use your own:
+
+1. Export optimised WebP files (≈1600 px wide, <250 KB; hero/CTA ≈2000 px). Overwrite the files in `public/images/` (keep the name) **or** add new files and change `src`, `width`, `height` and the accurate `alt` text in `images.ts`.
+2. Team cards (`team-1…6.webp`) are monogram placeholders — replace with portraits (800×1000) and update the alt text in `teamImages`.
+3. Record each photo's source and licence in `ASSET_LICENSES.md`. Only use images you are licensed to use commercially, and use releases for people shown.
+4. Run `npm test` — it fails if a referenced file is missing, alt text is missing, or an unreferenced file is left in `public/images/`.
+
+Note: image files are not content-hashed. Firebase caches `/images` for one day (`firebase.json`); rename files when replacing them if you need visitors to see changes sooner.
 
 ## 5. Making bookings real
 

@@ -1,4 +1,4 @@
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
 import { readList, storageKey, writeList } from '../lib/storage';
 
 export const MAX_COMPARE = 3;
@@ -32,14 +32,21 @@ export function ShortlistProvider({ children }: { children: ReactNode }) {
     return () => window.removeEventListener('storage', onStorage);
   }, []);
 
+  // Persist synchronously from the event handler (not inside a state updater): a reload right after a click must
+  // still find the saved value, and updaters must stay free of side effects.
+  const favoritesRef = useRef(favorites);
+  useEffect(() => {
+    favoritesRef.current = favorites;
+  }, [favorites]);
+
   const toggleFavorite = useCallback((id: string) => {
-    setFavorites((prev) => {
-      const has = prev.includes(id);
-      const next = has ? prev.filter((x) => x !== id) : [...prev, id];
-      writeList('favorites', next);
-      setAnnouncement(has ? 'Removed from saved homes' : 'Saved to your favorites');
-      return next;
-    });
+    const prev = favoritesRef.current;
+    const has = prev.includes(id);
+    const next = has ? prev.filter((x) => x !== id) : [...prev, id];
+    favoritesRef.current = next;
+    setFavorites(next);
+    writeList('favorites', next);
+    setAnnouncement(has ? 'Removed from saved homes' : 'Saved to your favorites');
   }, []);
 
   const toggleCompare = useCallback(

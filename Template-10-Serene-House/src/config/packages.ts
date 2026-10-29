@@ -41,7 +41,7 @@ export const packages: SpaPackage[] = [
       { label: 'Herbal tea ritual', value: 20 }
     ],
     features: ['massage', 'facial', 'access'],
-    image: images.pkgRenew,
+    image: images.pkgReset,
     featured: true
   },
   {
@@ -64,7 +64,7 @@ export const packages: SpaPackage[] = [
       { label: 'Light seasonal lunch', value: 40 }
     ],
     features: ['massage', 'facial', 'body', 'lunch', 'access', 'gift'],
-    image: images.pkgDay,
+    image: images.pkgRenewal,
     highlight: true
   },
   {
@@ -107,7 +107,7 @@ export const packages: SpaPackage[] = [
       { label: 'Thermal suite access', value: 35 }
     ],
     features: ['access'],
-    image: images.pkgCouples
+    image: images.pkgTwilight
   },
   {
     slug: 'couples-harmony',
@@ -150,7 +150,7 @@ export const packages: SpaPackage[] = [
       { label: 'Take-home mask ×2', value: 40 }
     ],
     features: ['facial', 'gift', 'access'],
-    image: images.pkgDay
+    image: images.pkgGlow
   },
   {
     slug: 'autumn-hearth-ritual',
@@ -192,7 +192,7 @@ export const packages: SpaPackage[] = [
       { label: 'Winter skin gift', value: 25 }
     ],
     features: ['facial', 'body', 'gift'],
-    image: images.pkgRenew,
+    image: images.pkgWinter,
     validUntil: 'Demo offer — valid through 28 February'
   }
 ];

@@ -1,0 +1,751 @@
+{
+ "license": "Unsplash License (https://unsplash.com/license) — verified per photo page: \"Free to use under the Unsplash License\" (not Unsplash+). Checked 2026-10-29.",
+ "sources": [
+  {
+   "id": "lounge",
+   "unsplashPage": "https://unsplash.com/photos/FkB2CUuqU_c",
+   "photographer": "Virginia Marinova",
+   "photographerProfile": "https://unsplash.com/@virginiaphotostories",
+   "cdnId": "photo-1773924093206-9a433a14bb44"
+  },
+  {
+   "id": "candles",
+   "unsplashPage": "https://unsplash.com/photos/8QNjTDIlf-g",
+   "photographer": "Mary Skrynnikova",
+   "photographerProfile": "https://unsplash.com/@mary_skr",
+   "cdnId": "photo-1636714507452-48716cfa1818"
+  },
+  {
+   "id": "backmassage",
+   "unsplashPage": "https://unsplash.com/photos/7yeqemd-p90",
+   "photographer": "Jakub Klucký",
+   "photographerProfile": "https://unsplash.com/@jakubklucky",
+   "cdnId": "photo-1745327883508-b6cd32e5dde5"
+  },
+  {
+   "id": "hotstones",
+   "unsplashPage": "https://unsplash.com/photos/ZbzYDboN7fg",
+   "photographer": "engin akyurt",
+   "photographerProfile": "https://unsplash.com/@enginakyurt",
+   "cdnId": "photo-1600334089648-b0d9d3028eb2"
+  },
+  {
+   "id": "herbalballs",
+   "unsplashPage": "https://unsplash.com/photos/YeekhTXpTgY",
+   "photographer": "Charanjeet Dhiman",
+   "photographerProfile": "https://unsplash.com/@charanjeet_dhiman",
+   "cdnId": "photo-1775133262667-316bd4d9e5b5"
+  },
+  {
+   "id": "facialbrush",
+   "unsplashPage": "https://unsplash.com/photos/Xxs9WvkUPLo",
+   "photographer": "kimia kazemi",
+   "photographerProfile": "https://unsplash.com/@kimick",
+   "cdnId": "photo-1761718209835-c8586b7dcac0"
+  },
+  {
+   "id": "petalbath",
+   "unsplashPage": "https://unsplash.com/photos/nxxjtC1sLvE",
+   "photographer": "Sokhna Khoudia Saliou MBACKE",
+   "photographerProfile": "https://unsplash.com/@snx_khoudja",
+   "cdnId": "photo-1781736363509-a2327b675a03"
+  },
+  {
+   "id": "steamroom",
+   "unsplashPage": "https://unsplash.com/photos/9qYFu1NzpS8",
+   "photographer": "Dominik Neuner",
+   "photographerProfile": "https://unsplash.com/@moalach",
+   "cdnId": "photo-1761470575018-135c213340eb"
+  },
+  {
+   "id": "amberbottle",
+   "unsplashPage": "https://unsplash.com/photos/0MoF-Fe0w0A",
+   "photographer": "Christin Hume",
+   "photographerProfile": "https://unsplash.com/@christinhumephoto",
+   "cdnId": "photo-1515377905703-c4788e51af15"
+  },
+  {
+   "id": "rosemary",
+   "unsplashPage": "https://unsplash.com/photos/piNWjJp1O6k",
+   "photographer": "Ahmet Koç",
+   "photographerProfile": "https://unsplash.com/@ahmetkoc",
+   "cdnId": "photo-1760445529648-9c8af38a0bb3"
+  },
+  {
+   "id": "lavender",
+   "unsplashPage": "https://unsplash.com/photos/AnmpW0zPX6o",
+   "photographer": "Ramona Šēnfelde",
+   "photographerProfile": "https://unsplash.com/@ramonakudure",
+   "cdnId": "photo-1763839221812-b01e3ff8f2a9"
+  },
+  {
+   "id": "whitetowels",
+   "unsplashPage": "https://unsplash.com/photos/qPNgpYUCW0c",
+   "photographer": "Mads Leif Hansen",
+   "photographerProfile": "https://unsplash.com/@mads_leif_hansen",
+   "cdnId": "photo-1760722974657-f64bce2f9cc5"
+  },
+  {
+   "id": "rolledtowels",
+   "unsplashPage": "https://unsplash.com/photos/0Qv4fUvlSrI",
+   "photographer": "iridial",
+   "photographerProfile": "https://unsplash.com/@iridial_",
+   "cdnId": "photo-1787168295699-03aed18d17d4"
+  },
+  {
+   "id": "smoothstones",
+   "unsplashPage": "https://unsplash.com/photos/4gYAH4b00Pg",
+   "photographer": "Amanda Swanepoel",
+   "photographerProfile": "https://unsplash.com/@amandaswanepoel",
+   "cdnId": "photo-1758499947613-545e373b2ee5"
+  },
+  {
+   "id": "beigerocks",
+   "unsplashPage": "https://unsplash.com/photos/Zi2sRR34tHo",
+   "photographer": "Laura Chouette",
+   "photographerProfile": "https://unsplash.com/@laurachouette",
+   "cdnId": "photo-1782231723866-854d7407607a"
+  },
+  {
+   "id": "teapot",
+   "unsplashPage": "https://unsplash.com/photos/m-gqDRzbJLQ",
+   "photographer": "Content Pixie",
+   "photographerProfile": "https://unsplash.com/@contentpixie",
+   "cdnId": "photo-1564890369478-c89ca6d9cde9"
+  },
+  {
+   "id": "bedmountains",
+   "unsplashPage": "https://unsplash.com/photos/qSB35JVPe0s",
+   "photographer": "sidath vimukthi",
+   "photographerProfile": "https://unsplash.com/@sidathkc",
+   "cdnId": "photo-1689729739836-7fcc2c84d788"
+  },
+  {
+   "id": "jacuzzi",
+   "unsplashPage": "https://unsplash.com/photos/qWcK3pZpwmE",
+   "photographer": "Dionyl Mari",
+   "photographerProfile": "https://unsplash.com/@dionylmari",
+   "cdnId": "photo-1778331246390-2b91f56864e4"
+  },
+  {
+   "id": "deckview",
+   "unsplashPage": "https://unsplash.com/photos/gyI81iDtsz0",
+   "photographer": "sidath vimukthi",
+   "photographerProfile": "https://unsplash.com/@sidathkc",
+   "cdnId": "photo-1689729855420-d8dde176bf91"
+  },
+  {
+   "id": "leavestable",
+   "unsplashPage": "https://unsplash.com/photos/cXHsWI3gBws",
+   "photographer": "Svitlana",
+   "photographerProfile": "https://unsplash.com/@kekse_und_ich",
+   "cdnId": "photo-1633933329875-044a32f4837f"
+  },
+  {
+   "id": "poolfeature",
+   "unsplashPage": "https://unsplash.com/photos/CsqHFS6ZXfM",
+   "photographer": "Frames For Your Heart",
+   "photographerProfile": "https://unsplash.com/@framesforyourheart",
+   "cdnId": "photo-1603077864615-538e955d1ad1"
+  },
+  {
+   "id": "tiledtub",
+   "unsplashPage": "https://unsplash.com/photos/xa2Q7-KkRjY",
+   "photographer": "Clay Banks",
+   "photographerProfile": "https://unsplash.com/@claybanks",
+   "cdnId": "photo-1773423386572-4ad451dc6c26"
+  },
+  {
+   "id": "pooltrees",
+   "unsplashPage": "https://unsplash.com/photos/ls2i2Mh0M4Q",
+   "photographer": "Patrick Robert Doyle",
+   "photographerProfile": "https://unsplash.com/@teapowered",
+   "cdnId": "photo-1676302144341-10563603f99a"
+  },
+  {
+   "id": "bathblinds",
+   "unsplashPage": "https://unsplash.com/photos/h2QZxsSlx0I",
+   "photographer": "João Emanuel",
+   "photographerProfile": "https://unsplash.com/@jjemanuel",
+   "cdnId": "photo-1779894015350-c5486bf8f618"
+  },
+  {
+   "id": "woodtray",
+   "unsplashPage": "https://unsplash.com/photos/oY64u5tN-gY",
+   "photographer": "Benjamin Cheng",
+   "photographerProfile": "https://unsplash.com/@benjamin_photography",
+   "cdnId": "photo-1700918232124-f64da19e73eb"
+  },
+  {
+   "id": "saunaforest",
+   "unsplashPage": "https://unsplash.com/photos/xrjx6nX3Mp4",
+   "photographer": "Clay Banks",
+   "photographerProfile": "https://unsplash.com/@claybanks",
+   "cdnId": "photo-1786799901347-e45b3e2d64ea"
+  },
+  {
+   "id": "outdoorlounge",
+   "unsplashPage": "https://unsplash.com/photos/WlmsLIIPHSw",
+   "photographer": "Kam Idris",
+   "photographerProfile": "https://unsplash.com/@ka_idris",
+   "cdnId": "photo-1774771698908-c797c66b242b"
+  },
+  {
+   "id": "patiohills",
+   "unsplashPage": "https://unsplash.com/photos/xmLIQR7qNRo",
+   "photographer": "Caroline Badran",
+   "photographerProfile": "https://unsplash.com/@___atmos",
+   "cdnId": "photo-1761591672132-b4d3588992d1"
+  },
+  {
+   "id": "bathcandles",
+   "unsplashPage": "https://unsplash.com/photos/7HO5_lgtf8M",
+   "photographer": "Dina Makhmutova",
+   "photographerProfile": "https://unsplash.com/@dinamakhmutova",
+   "cdnId": "photo-1720118509152-2df877673bee"
+  },
+  {
+   "id": "flowershands",
+   "unsplashPage": "https://unsplash.com/photos/TESRMXNkYiI",
+   "photographer": "Alina Chernovolova",
+   "photographerProfile": "https://unsplash.com/@alinachernovol",
+   "cdnId": "photo-1765691622563-a57c825c8223"
+  },
+  {
+   "id": "bedwindow",
+   "unsplashPage": "https://unsplash.com/photos/LV0OCPkmEWo",
+   "photographer": "sidath vimukthi",
+   "photographerProfile": "https://unsplash.com/@sidathkc",
+   "cdnId": "photo-1689729738817-fb1f4256769d"
+  },
+  {
+   "id": "poolside",
+   "unsplashPage": "https://unsplash.com/photos/7Nt5IjtH0Lo",
+   "photographer": "Leo_Visions",
+   "photographerProfile": "https://unsplash.com/@leo_visions_",
+   "cdnId": "photo-1782203601089-55f664badd93"
+  }
+ ],
+ "slots": [
+  {
+   "file": "hero-arch",
+   "width": 2000,
+   "height": 1200,
+   "source": "pooltrees",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "hero-mist",
+   "width": 2000,
+   "height": 1200,
+   "source": "lounge",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "intro-stones",
+   "width": 1000,
+   "height": 1300,
+   "source": "beigerocks",
+   "focus": [
+    0.5,
+    0.55
+   ]
+  },
+  {
+   "file": "intro-leaves",
+   "width": 1600,
+   "height": 1067,
+   "source": "woodtray",
+   "focus": [
+    0.5,
+    0.35
+   ]
+  },
+  {
+   "file": "philosophy-ripples",
+   "width": 2000,
+   "height": 1200,
+   "source": "bedmountains",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "cta-dunes",
+   "width": 2000,
+   "height": 1200,
+   "source": "deckview",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "treat-massage",
+   "width": 1600,
+   "height": 1067,
+   "source": "backmassage",
+   "focus": [
+    0.5,
+    0.45
+   ]
+  },
+  {
+   "file": "treat-deep",
+   "width": 1600,
+   "height": 1067,
+   "source": "herbalballs",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "treat-stone",
+   "width": 1600,
+   "height": 1067,
+   "source": "hotstones",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "treat-prenatal",
+   "width": 1600,
+   "height": 1067,
+   "source": "flowershands",
+   "focus": [
+    0.5,
+    0.4
+   ]
+  },
+  {
+   "file": "treat-facial",
+   "width": 1600,
+   "height": 1067,
+   "source": "facialbrush",
+   "focus": [
+    0.5,
+    0.3
+   ]
+  },
+  {
+   "file": "treat-skincare",
+   "width": 1600,
+   "height": 1067,
+   "source": "amberbottle",
+   "focus": [
+    0.6,
+    0.4
+   ]
+  },
+  {
+   "file": "treat-calm",
+   "width": 1600,
+   "height": 1067,
+   "source": "lavender",
+   "focus": [
+    0.5,
+    0.3
+   ]
+  },
+  {
+   "file": "treat-scrub",
+   "width": 1600,
+   "height": 1067,
+   "source": "rosemary",
+   "focus": [
+    0.5,
+    0.4
+   ]
+  },
+  {
+   "file": "treat-wrap",
+   "width": 1600,
+   "height": 1067,
+   "source": "whitetowels",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "treat-bath",
+   "width": 1600,
+   "height": 1067,
+   "source": "petalbath",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "treat-ritual",
+   "width": 1600,
+   "height": 1067,
+   "source": "rolledtowels",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "treat-breath",
+   "width": 1600,
+   "height": 1067,
+   "source": "patiohills",
+   "focus": [
+    0.5,
+    0.4
+   ]
+  },
+  {
+   "file": "treat-sound",
+   "width": 1600,
+   "height": 1067,
+   "source": "steamroom",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "treat-nidra",
+   "width": 1600,
+   "height": 1067,
+   "source": "outdoorlounge",
+   "focus": [
+    0.5,
+    0.7
+   ]
+  },
+  {
+   "file": "treat-aroma",
+   "width": 1600,
+   "height": 1067,
+   "source": "candles",
+   "focus": [
+    0.5,
+    0.55
+   ]
+  },
+  {
+   "file": "pkg-reset",
+   "width": 1600,
+   "height": 1067,
+   "source": "bathblinds",
+   "focus": [
+    0.5,
+    0.6
+   ]
+  },
+  {
+   "file": "pkg-renewal",
+   "width": 1600,
+   "height": 1067,
+   "source": "tiledtub",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "pkg-day",
+   "width": 1600,
+   "height": 1067,
+   "source": "poolside",
+   "focus": [
+    0.5,
+    0.4
+   ]
+  },
+  {
+   "file": "pkg-twilight",
+   "width": 1600,
+   "height": 1067,
+   "source": "bathcandles",
+   "focus": [
+    0.5,
+    0.4
+   ]
+  },
+  {
+   "file": "pkg-couples",
+   "width": 1600,
+   "height": 1067,
+   "source": "jacuzzi",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "pkg-glow",
+   "width": 1600,
+   "height": 1067,
+   "source": "woodtray",
+   "focus": [
+    0.5,
+    0.55
+   ]
+  },
+  {
+   "file": "pkg-seasonal",
+   "width": 1600,
+   "height": 1067,
+   "source": "teapot",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "pkg-winter",
+   "width": 1600,
+   "height": 1067,
+   "source": "saunaforest",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "about-story",
+   "width": 1000,
+   "height": 1300,
+   "source": "outdoorlounge",
+   "focus": [
+    0.5,
+    0.6
+   ]
+  },
+  {
+   "file": "about-facility",
+   "width": 2000,
+   "height": 1200,
+   "source": "bedwindow",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "about-garden",
+   "width": 1000,
+   "height": 1300,
+   "source": "leavestable",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "gal-lounge",
+   "width": 1600,
+   "height": 1067,
+   "source": "lounge",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "gal-candle",
+   "width": 1000,
+   "height": 1300,
+   "source": "candles",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "gal-pool",
+   "width": 1000,
+   "height": 1300,
+   "source": "poolfeature",
+   "focus": [
+    0.5,
+    0.45
+   ]
+  },
+  {
+   "file": "gal-oils",
+   "width": 1000,
+   "height": 1300,
+   "source": "woodtray",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "gal-suite",
+   "width": 1600,
+   "height": 1067,
+   "source": "whitetowels",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "gal-bloom",
+   "width": 1200,
+   "height": 1200,
+   "source": "flowershands",
+   "focus": [
+    0.5,
+    0.4
+   ]
+  },
+  {
+   "file": "gal-stones",
+   "width": 1200,
+   "height": 1200,
+   "source": "smoothstones",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "gal-towels",
+   "width": 1600,
+   "height": 1067,
+   "source": "rolledtowels",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "gal-hills",
+   "width": 1600,
+   "height": 1067,
+   "source": "bedmountains",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "gal-sand",
+   "width": 1200,
+   "height": 1200,
+   "source": "teapot",
+   "focus": [
+    0.6,
+    0.5
+   ]
+  },
+  {
+   "file": "gal-garden",
+   "width": 1200,
+   "height": 1200,
+   "source": "lavender",
+   "focus": [
+    0.5,
+    0.35
+   ]
+  },
+  {
+   "file": "j-1",
+   "width": 1600,
+   "height": 1067,
+   "source": "teapot",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "j-2",
+   "width": 1600,
+   "height": 1067,
+   "source": "patiohills",
+   "focus": [
+    0.5,
+    0.35
+   ]
+  },
+  {
+   "file": "j-3",
+   "width": 1600,
+   "height": 1067,
+   "source": "saunaforest",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "j-4",
+   "width": 1600,
+   "height": 1067,
+   "source": "amberbottle",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "j-5",
+   "width": 1600,
+   "height": 1067,
+   "source": "whitetowels",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "j-6",
+   "width": 1600,
+   "height": 1067,
+   "source": "deckview",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  },
+  {
+   "file": "j-7",
+   "width": 1600,
+   "height": 1067,
+   "source": "backmassage",
+   "focus": [
+    0.5,
+    0.45
+   ]
+  },
+  {
+   "file": "j-8",
+   "width": 1600,
+   "height": 1067,
+   "source": "bathcandles",
+   "focus": [
+    0.5,
+    0.4
+   ]
+  },
+  {
+   "file": "og-image",
+   "width": 1200,
+   "height": 630,
+   "source": "pooltrees",
+   "focus": [
+    0.5,
+    0.5
+   ]
+  }
+ ]
+}
