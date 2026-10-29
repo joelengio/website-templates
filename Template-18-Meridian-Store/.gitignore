@@ -1,0 +1,11 @@
+node_modules
+dist
+coverage
+*.local
+.firebase
+.env
+.env.*
+!.env.example
+e2e-output
+e2e.log
+*.tsbuildinfo
