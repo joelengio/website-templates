@@ -131,8 +131,10 @@ function Header() {
     setMega((cur) => { const curLabel = cur && cur.path === location.pathname ? cur.label : null; const next = typeof update === 'function' ? update(curLabel) : update; return next ? { label: next, path: location.pathname } : null; });
   return (
     <>
-      <div className="demo-band" role="note"><div className="container"><strong>DEMO</strong> {site.demo.banner}</div></div>
-      <Announcement />
+      <aside aria-label="Store notices">
+        <div className="demo-band"><div className="container"><strong>DEMO</strong> {site.demo.banner}</div></div>
+        <Announcement />
+      </aside>
       <header className="site-header">
       <div className="header-main container">
         <button type="button" className="icon-btn menu-btn" onClick={() => setMenuOpen(true)} aria-label="Open menu"><Icon name="menu" /></button>

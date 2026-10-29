@@ -138,6 +138,7 @@ export function ProductBrowser({ products, hideCategories, emptyHint }: { produc
           </div>
         </div>
 
+        <h2 className="sr-only">Product results</h2>
         <div className="results-bar">
           <p className="results-count" role="status" aria-live="polite">{results.length} {results.length === 1 ? 'product' : 'products'}</p>
           {chips.length > 0 && (
