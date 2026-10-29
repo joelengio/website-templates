@@ -36,7 +36,7 @@ export function Layout() {
         Skip to main content
       </a>
       {site.demo.showBanner && (
-        <div className="demo-banner" role="note">
+        <div className="demo-banner" role="region" aria-label="Demonstration notice">
           {site.demo.bannerText}
         </div>
       )}

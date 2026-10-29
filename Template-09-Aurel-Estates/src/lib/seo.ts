@@ -15,11 +15,12 @@ export function absoluteUrl(path: string): string {
 }
 
 /** Updates <title>, description, canonical and Open Graph tags for the current page. */
-export function applySeo(opts: { title?: string; description?: string; path?: string; image?: string }): void {
+export function applySeo(opts: { title?: string; description?: string; path?: string; image?: string; noindex?: boolean }): void {
   const title = opts.title ? site.seo.titleTemplate.replace('%s', opts.title) : site.seo.defaultTitle;
   const description = opts.description ?? site.seo.description;
   const path = opts.path ?? window.location.pathname;
   document.title = title;
+  setMeta('name', 'robots', opts.noindex ? 'noindex, nofollow' : 'index, follow');
   setMeta('name', 'description', description);
   setMeta('property', 'og:title', title);
   setMeta('property', 'og:description', description);

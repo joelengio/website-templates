@@ -53,7 +53,7 @@ export default function Treatments() {
           </div>
           <p className="result-count" role="status" aria-live="polite">{results.length} {results.length === 1 ? 'treatment' : 'treatments'} shown</p>
           {results.length ? (
-            <div className="grid grid-3">{results.map((t) => <TreatmentCard key={t.slug} t={t} />)}</div>
+            <><h2 className="sr-only">Treatment list</h2><div className="grid grid-3">{results.map((t) => <TreatmentCard key={t.slug} t={t} />)}</div></>
           ) : (
             <EmptyState title="No treatments found" text="Try a different search term or clear the filters to see the full menu." action={<Button variant="outline" onClick={() => setParams({}, { replace: true })}>Clear filters</Button>} />
           )}

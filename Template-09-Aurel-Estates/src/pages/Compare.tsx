@@ -11,7 +11,7 @@ import { PageHero } from '../components/Section';
 
 export default function Compare() {
   const { compare, toggleCompare, clearCompare } = useShortlist();
-  useSeo({ title: 'Compare homes', description: 'Compare up to three properties side by side.', path: '/compare' });
+  useSeo({ title: 'Compare homes', description: 'Compare up to three properties side by side.', path: '/compare', noindex: true });
   const list = compare.map((id) => properties.find((p) => p.id === id)).filter((p): p is NonNullable<typeof p> => Boolean(p));
   const allFeatures = (Object.keys(featureLabels) as FeatureKey[]).filter((k) => list.some((p) => p.features.includes(k)));
 

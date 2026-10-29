@@ -130,7 +130,7 @@ test('inquiry form: property preselected, validation, honest demo result', async
 });
 
 test('hero search routes to filtered listings', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/', { waitUntil: 'networkidle' }); // let the app hydrate before using the form (WebKit is quicker to click than to boot)
   await page.getByLabel('Type', { exact: true }).selectOption('Cottage');
   await page.getByRole('button', { name: 'Search' }).click();
   await expect(page).toHaveURL(/properties\?type=Cottage/);
@@ -160,4 +160,53 @@ test('direct deep links resolve (SPA fallback) and footer credits the template o
   await page.goto('/journal/preparing-your-home-for-sale');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Preparing your home');
   await expect(page.locator('footer')).toContainText('Website template by OneStop Infinite');
+});
+
+test('combined filters + sorting survive reload; a saved search can be re-applied and deleted', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/properties');
+  const cards = page.locator('article.property-card');
+  await cards.first().waitFor();
+  const side = page.getByRole('complementary', { name: 'Filters' });
+  await side.getByLabel('Villa').check();
+  await side.getByLabel('Swimming pool').check();
+  await page.getByLabel('Sort by').selectOption('price-desc');
+  await expect(page).toHaveURL(/type=Villa.*features=pool.*sort=price-desc|sort=price-desc/);
+  const prices = async () => (await cards.locator('.property-card__price, .price').allTextContents()).map((t) => Number(t.replace(/[^\d]/g, ''))).filter(Boolean);
+  const sorted = await prices();
+  expect(sorted.length).toBeGreaterThan(0);
+  expect(sorted).toEqual([...sorted].sort((a, b) => b - a));
+  const filteredCount = await cards.count();
+
+  await page.reload();
+  await expect(cards).toHaveCount(filteredCount);
+  await expect(page.getByLabel('Sort by')).toHaveValue('price-desc');
+
+  await page.getByRole('button', { name: /Save this search/ }).click();
+  await page.getByLabel('Name for this search').fill('Pool villas');
+  await page.getByRole('button', { name: 'Save', exact: true }).click();
+  await expect(page.getByRole('button', { name: 'Pool villas', exact: true })).toBeVisible();
+  await expect(page.getByText(/No email alerts are sent/)).toBeVisible();
+
+  await page.goto('/properties');
+  await expect(cards).not.toHaveCount(filteredCount);
+  await page.getByRole('button', { name: 'Pool villas', exact: true }).click();
+  await expect(cards).toHaveCount(filteredCount);
+  await expect(page).toHaveURL(/type=Villa/);
+
+  await page.getByRole('button', { name: 'Delete saved search: Pool villas' }).click();
+  await expect(page.getByRole('button', { name: 'Pool villas', exact: true })).toHaveCount(0);
+});
+
+test('static HTML head carries absolute canonical/OG URLs; private and 404 pages are noindex', async ({ request, page }) => {
+  const html = await (await request.get('/')).text();
+  expect(html).toMatch(/<link rel="canonical" href="https?:\/\/[^"]+\/"/);
+  expect(html).toMatch(/<meta property="og:image" content="https?:\/\//);
+  expect(html).toMatch(/<meta property="og:url" content="https?:\/\//);
+  await page.goto('/properties/cedar-ridge');
+  await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', 'index, follow');
+  for (const path of ['/favorites', '/compare', '/does-not-exist']) {
+    await page.goto(path);
+    await expect(page.locator('meta[name=robots]')).toHaveAttribute('content', /noindex/);
+  }
 });

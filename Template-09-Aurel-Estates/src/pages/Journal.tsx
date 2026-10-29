@@ -29,6 +29,7 @@ export function JournalIndex() {
           <p className="sr-only" role="status" aria-live="polite">
             Showing {list.length} {list.length === 1 ? 'article' : 'articles'}
           </p>
+          <h2 className="sr-only">All articles</h2>
           <ul className="article-grid article-grid--wide">
             {list.map((a) => (
               <li key={a.slug}>

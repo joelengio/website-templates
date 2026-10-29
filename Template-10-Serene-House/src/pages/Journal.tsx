@@ -40,7 +40,7 @@ export default function Journal() {
             </div>
           </div>
           <p className="result-count" role="status" aria-live="polite">{results.length} {results.length === 1 ? 'article' : 'articles'} shown</p>
-          {results.length ? <div className="grid grid-3">{results.map((a) => <ArticleCard key={a.slug} a={a} />)}</div> : <EmptyState title="No articles found" text="Try another keyword or category." action={<Button variant="outline" onClick={() => setParams({}, { replace: true })}>Clear filters</Button>} />}
+          {results.length ? <><h2 className="sr-only">Articles</h2><div className="grid grid-3">{results.map((a) => <ArticleCard key={a.slug} a={a} />)}</div></> : <EmptyState title="No articles found" text="Try another keyword or category." action={<Button variant="outline" onClick={() => setParams({}, { replace: true })}>Clear filters</Button>} />}
         </div>
       </section>
     </>

@@ -156,7 +156,7 @@ export function Layout() {
   return (
     <>
       <a href="#main" className="skip-link">Skip to content</a>
-      <div className="demo-bar">
+      <div className="demo-bar" role="region" aria-label="Demonstration notice">
         <p>Demonstration website — SERENE HOUSE is fictional. Bookings and messages are not sent to a real business.</p>
       </div>
       <Header />

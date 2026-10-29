@@ -4,6 +4,7 @@ import { defaultFilters, filterProperties, parseFilters, serializeFilters, sortP
 import { validateInquiry, type InquiryValues } from './validation';
 import { resolveSections } from './sections';
 import { formatPrice } from './format';
+import { describeFilters, filtersFromSaved, readSavedSearches, searchQuery, writeSavedSearches, MAX_SAVED_SEARCHES } from './savedSearches';
 
 describe('filters', () => {
   it('returns everything with default filters', () => {
@@ -64,4 +65,28 @@ describe('sections + format', () => {
     expect(r).toEqual(['b', 'c']);
   });
   it('formats prices in the configured currency', () => expect(formatPrice(2450000)).toBe('$2,450,000'));
+});
+
+describe('saved searches', () => {
+  const combo = { ...defaultFilters, types: ['Villa'], areas: ['Saltmarsh Bay'], beds: 4, maxPrice: 5000000, sort: 'price-desc' as const };
+  it('round-trips a combined filter set through its stored query', () => {
+    const restored = filtersFromSaved({ id: 'x', name: 'n', query: searchQuery(combo), savedAt: '' });
+    expect(restored).toEqual(combo);
+    expect(filterProperties(properties, restored).map((p) => p.id)).toEqual(filterProperties(properties, combo).map((p) => p.id));
+  });
+  it('describes filters briefly', () => {
+    expect(describeFilters(combo)).toBe('Villa · Saltmarsh Bay · 4+ beds · up to $5M');
+    expect(describeFilters({ ...combo, features: ['pool', 'gym'] })).toMatch(/\+\d$/);
+  });
+  it('persists to localStorage, ignores junk and caps the list', () => {
+    localStorage.clear();
+    expect(readSavedSearches()).toEqual([]);
+    const many = Array.from({ length: MAX_SAVED_SEARCHES + 3 }, (_, i) => ({ id: `i${i}`, name: `n${i}`, query: `q=${i}`, savedAt: '' }));
+    writeSavedSearches(many);
+    expect(readSavedSearches()).toHaveLength(MAX_SAVED_SEARCHES);
+    localStorage.setItem(Object.keys(localStorage)[0], '{not json');
+    expect(readSavedSearches()).toEqual([]);
+    localStorage.setItem(Object.keys(localStorage)[0], JSON.stringify([{ id: 1 }, null, 'x']));
+    expect(readSavedSearches()).toEqual([]);
+  });
 });

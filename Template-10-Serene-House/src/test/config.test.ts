@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { treatments, treatmentCategories, packages, packageCategories, packageComparisonRows, staff, galleryItems, galleryCategories, articles, journalCategories, homeSections, images, site, packageSavings } from '../config';
 import { teamImages, journalImages } from '../config/images';
@@ -36,6 +36,18 @@ describe('central configuration integrity', () => {
     all.forEach((i) => { expect(existsSync(pub(i.src)), i.src).toBe(true); expect(i.alt.length).toBeGreaterThan(5); });
     expect(existsSync(pub(site.brand.logo))).toBe(true);
     expect(existsSync(pub(site.brand.favicon))).toBe(true);
+  });
+  it('treatments, packages, gallery and journal never repeat the same picture', () => {
+    const uniq = (list: { image: { src: string } }[]) => new Set(list.map((i) => i.image.src)).size === list.length;
+    expect(uniq(treatments)).toBe(true);
+    expect(uniq(packages)).toBe(true);
+    expect(uniq(galleryItems)).toBe(true);
+    expect(new Set(journalImages.map((i) => i.src)).size).toBe(journalImages.length);
+  });
+  it('has no orphaned files in public/images', () => {
+    const used = new Set([...Object.values(images), ...teamImages, ...journalImages, ...galleryItems.map((g) => g.image)].map((i) => i.src.replace('/images/', '')));
+    const orphans = readdirSync(pub('/images')).filter((f) => !used.has(f));
+    expect(orphans).toEqual([]);
   });
   it('home sections are unique and known', () => {
     expect(unique(homeSections.map((s) => s.id))).toBe(true);

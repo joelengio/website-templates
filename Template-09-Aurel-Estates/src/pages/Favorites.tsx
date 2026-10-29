@@ -7,7 +7,7 @@ import { PageHero } from '../components/Section';
 
 export default function Favorites() {
   const { favorites } = useShortlist();
-  useSeo({ title: 'Saved homes', description: 'Your saved homes, stored in this browser.', path: '/favorites' });
+  useSeo({ title: 'Saved homes', description: 'Your saved homes, stored in this browser.', path: '/favorites', noindex: true });
   const list = favorites.map((id) => properties.find((p) => p.id === id)).filter((p): p is NonNullable<typeof p> => Boolean(p));
   return (
     <>

@@ -15,7 +15,10 @@ export function formatPriceShort(value: number): string {
     currency: site.currency,
     notation: 'compact',
     maximumFractionDigits: 1,
-  }).format(value);
+    minimumFractionDigits: 0,
+  })
+    .format(value)
+    .replace(/\.0(?=\D|$)/, '');
 }
 
 const SQFT_PER_SQM = 10.7639;

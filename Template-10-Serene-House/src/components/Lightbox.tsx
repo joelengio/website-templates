@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import type { GalleryItem } from '../config/types';
 import { Icon } from './Icon';
 
@@ -35,7 +36,9 @@ export function Lightbox({ items, index, onClose, onIndex }: { items: GalleryIte
   }, [go, onClose]);
 
   if (!item) return null;
-  return (
+  // Portal to <body>: the routed <main> runs an entrance animation (transform), which would otherwise become the
+  // containing block of this `position: fixed` overlay and push the image below the fold.
+  return createPortal(
     <div
       ref={ref}
       className="lightbox"
@@ -58,6 +61,7 @@ export function Lightbox({ items, index, onClose, onIndex }: { items: GalleryIte
         <figcaption aria-live="polite">{item.caption} <span>{index + 1} / {items.length}</span></figcaption>
       </figure>
       <button type="button" className="lb-nav lb-next" onClick={() => go(1)} aria-label="Next image"><Icon name="chevronRight" size={28} /></button>
-    </div>
+    </div>,
+    document.body
   );
 }

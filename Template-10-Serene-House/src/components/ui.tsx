@@ -89,7 +89,7 @@ export function EmptyState({ title, text, action }: { title: string; text: strin
   return (
     <div className="empty" role="status">
       <Icon name="leaf" size={32} />
-      <h3 className="h-display">{title}</h3>
+      <h2 className="h-display">{title}</h2>
       <p>{text}</p>
       {action}
     </div>

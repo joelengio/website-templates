@@ -42,7 +42,7 @@ export const treatments: Treatment[] = [
       'Ideal for athletes, desk workers and anyone carrying tension in the neck, shoulders or lower back.'
     ],
     options: [{ minutes: 60, price: 160 }, { minutes: 90, price: 225 }],
-    image: images.treatStone,
+    image: images.treatDeep,
     benefits: ['Releases chronic tension', 'Improves mobility', 'Targets problem areas'],
     includes: ['Warm compress preparation', 'Focused area work', 'Gentle stretching'],
     suitableFor: 'Those who prefer firm pressure. Please mention any injuries when booking.',
@@ -76,7 +76,7 @@ export const treatments: Treatment[] = [
       'Created for the second and third trimesters, with unhurried time to simply rest.'
     ],
     options: [{ minutes: 60, price: 150 }],
-    image: images.treatBody,
+    image: images.treatPrenatal,
     benefits: ['Relieves lower-back strain', 'Soothes swollen legs', 'Quiet time to rest'],
     includes: ['Supportive bolster positioning', 'Pregnancy-safe oils', 'Warm herbal tea'],
     suitableFor: 'Second and third trimester. Please confirm with your care provider.',
@@ -128,7 +128,7 @@ export const treatments: Treatment[] = [
       'Every product is free of synthetic fragrance and chosen for sensitivity.'
     ],
     options: [{ minutes: 50, price: 120 }],
-    image: images.treatBotanical,
+    image: images.treatCalm,
     benefits: ['Calms redness', 'Supports skin barrier', 'Fragrance-free'],
     includes: ['Gentle cleanse', 'Cooling stone massage', 'Barrier-repair mask'],
     suitableFor: 'Sensitive, reactive or rosacea-prone skin.',
@@ -145,7 +145,7 @@ export const treatments: Treatment[] = [
       'Often paired with a massage for a complete body ritual.'
     ],
     options: [{ minutes: 45, price: 110 }],
-    image: images.treatBotanical,
+    image: images.treatScrub,
     benefits: ['Smoother skin', 'Improved circulation', 'Natural glow'],
     includes: ['Full-body exfoliation', 'Warm rinse', 'Body oil finish'],
     suitableFor: 'Most skin types. Not for freshly shaved or sunburnt skin.',
@@ -162,7 +162,7 @@ export const treatments: Treatment[] = [
       'Skin emerges refined and deeply nourished.'
     ],
     options: [{ minutes: 75, price: 175 }],
-    image: images.treatBody,
+    image: images.treatWrap,
     benefits: ['Mineral nourishment', 'Softer skin', 'Deep relaxation'],
     includes: ['Warm clay application', 'Heated wrap', 'Scalp and foot massage'],
     suitableFor: 'Most people. Please share any allergies when booking.',
@@ -180,7 +180,7 @@ export const treatments: Treatment[] = [
       'A restorative stand-alone indulgence or a perfect prelude to massage.'
     ],
     options: [{ minutes: 45, price: 95 }],
-    image: images.treatMassage,
+    image: images.treatBath,
     benefits: ['Softens skin', 'Soothes mind and body', 'Private and unhurried'],
     includes: ['Private bath suite', 'Rose and oat soak', 'Chilled towel and sparkling water'],
     suitableFor: 'Everyone. Couples can share a suite.',
@@ -214,7 +214,7 @@ export const treatments: Treatment[] = [
       'You will leave with simple practices to use at home.'
     ],
     options: [{ minutes: 45, price: 80 }],
-    image: images.treatWellness,
+    image: images.treatBreath,
     benefits: ['Reduces stress', 'Improves focus', 'Simple tools to take home'],
     includes: ['Guided session', 'Take-home practice notes', 'Herbal tea'],
     suitableFor: 'Beginners welcome. Not suitable during pregnancy without medical advice.',
@@ -231,7 +231,7 @@ export const treatments: Treatment[] = [
       'Mats, bolsters and blankets are provided.'
     ],
     options: [{ minutes: 60, price: 65 }],
-    image: images.treatWellness,
+    image: images.treatSound,
     benefits: ['Deep rest', 'Eases racing thoughts', 'Restorative in groups or solo'],
     includes: ['Mat, bolster and blanket', 'Crystal bowl and chime soundscape'],
     suitableFor: 'Everyone. Group sessions may be shared with other guests.',
@@ -248,7 +248,7 @@ export const treatments: Treatment[] = [
       'No movement experience is needed.'
     ],
     options: [{ minutes: 50, price: 60 }],
-    image: images.treatRitual,
+    image: images.treatNidra,
     benefits: ['Deep relaxation', 'Supports better sleep', 'Gentle and accessible'],
     includes: ['Bolsters and blankets', 'Guided practice'],
     suitableFor: 'All levels.',
@@ -265,7 +265,7 @@ export const treatments: Treatment[] = [
       'Includes a short hand and arm massage with your chosen blend.'
     ],
     options: [{ minutes: 40, price: 70 }],
-    image: images.treatSkincare,
+    image: images.treatAroma,
     benefits: ['Personalised blend', 'Learn scent and wellbeing basics', 'Take-home keepsake'],
     includes: ['Scent consultation', 'Custom roll-on blend', 'Hand and arm massage'],
     suitableFor: 'Everyone. Please mention any fragrance sensitivities.',
