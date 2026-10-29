@@ -38,7 +38,10 @@ function seoFiles(): Plugin {
         `<meta property="og:image" content="${siteUrl}${site.seo.ogImage}" />`,
         `<meta name="twitter:card" content="${site.seo.twitterCard}" />`
       ].join('\n    ');
-      return html.replace(/<title>.*?<\/title>/, tags);
+      return html
+        .replace(/<title>.*?<\/title>/, tags)
+        // The no-JavaScript message names the brand too, so it must follow the central configuration.
+        .replace(/<noscript>[\s\S]*?<\/noscript>/, `<noscript>${esc(site.brand.name)} is a demonstration website and needs JavaScript enabled. In an emergency, call your local emergency number.</noscript>`);
     },
     generateBundle() {
       const today = new Date().toISOString().slice(0, 10);

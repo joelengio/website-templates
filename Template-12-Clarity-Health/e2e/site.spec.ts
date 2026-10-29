@@ -6,9 +6,13 @@ for (const width of WIDTHS) {
   test.describe(`viewport ${width}px`, () => {
     test.use({ viewport: { width, height: 844 } });
     for (const route of ROUTES) {
-      test(`${route} renders cleanly`, async ({ page }) => {
+      test(`${route} renders cleanly`, async ({ page, browserName }) => {
         const errors: string[] = [];
-        page.on('console', (m) => m.type() === 'error' && errors.push(m.text()));
+        // WebKit (Playwright's Linux build) reports a CSP "Refused to apply a stylesheet" console error for ANY page that contains a
+        // <select> when style-src is 'self' — reproducible with a 3-line static page and no site code, because the engine injects its own
+        // control stylesheet. It is ignored for WebKit only, and only that exact message; every other console error still fails the test.
+        const webkitSelectCsp = (t: string) => browserName === 'webkit' && /^Refused to apply a stylesheet because its hash, its nonce, or 'unsafe-inline' does not appear/.test(t);
+        page.on('console', (m) => m.type() === 'error' && !webkitSelectCsp(m.text()) && errors.push(m.text()));
         page.on('pageerror', (e) => errors.push(String(e)));
         page.on('response', (r) => r.status() >= 400 && !r.url().endsWith('/this-page-does-not-exist') && errors.push(`${r.status()} ${r.url()}`));
         await page.goto(route);
@@ -271,6 +275,32 @@ test.describe('booking', () => {
     await page.getByRole('button', { name: 'Confirm demo appointment' }).click();
     await expect(page.getByRole('alert')).toContainText(/already have/);
     expect(JSON.parse((await page.evaluate(() => window.localStorage.getItem('clarity-health:demo-appointments:v1')))!)).toHaveLength(1);
+  });
+
+  test('two tabs cannot both confirm the same appointment (stale tab is blocked)', async ({ context }) => {
+    const KEY = 'clarity-health:demo-appointments:v1';
+    const toReview = async (pg: import('@playwright/test').Page) => {
+      await pg.goto('/book?specialty=general-medicine&service=initial-consultation');
+      await expect(pg.getByRole('heading', { name: /date and time/i })).toBeVisible();
+      await pickDay(pg);
+      await pickSlot(pg, 0);
+      await pg.getByRole('button', { name: 'Continue' }).click();
+      await pg.getByLabel(/Full name/).fill('Sam Rivers');
+      await pg.getByLabel(/E-mail address/).fill('sam@example.com');
+      await pg.getByLabel(/I understand this is a demonstration/).check();
+      await pg.getByRole('button', { name: 'Continue' }).click();
+      await expect(pg.getByRole('button', { name: 'Confirm demo appointment' })).toBeVisible();
+    };
+    const a = await context.newPage();
+    const b = await context.newPage();
+    await toReview(a);
+    await toReview(b);
+    await a.getByRole('button', { name: 'Confirm demo appointment' }).click();
+    await expect(a.getByRole('heading', { level: 1, name: /Demo appointment saved/ })).toBeVisible();
+    // Tab b still shows its review step as if nothing had happened.
+    await b.getByRole('button', { name: 'Confirm demo appointment' }).click();
+    await expect(b.getByRole('alert')).toContainText(/already have|just been taken/);
+    expect(JSON.parse((await b.evaluate((k) => window.localStorage.getItem(k), KEY))!)).toHaveLength(1);
   });
 
   test('reschedule and cancel a saved appointment', async ({ page }) => {

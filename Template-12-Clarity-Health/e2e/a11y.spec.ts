@@ -2,6 +2,9 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 import { bookGeneralMedicine, loadAll, ROUTES } from './helpers';
 
+// Motion is reduced so entrance animations have finished: axe skips colour-contrast on half-faded text.
+test.use({ reducedMotion: 'reduce' });
+
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
 
 async function scan(page: import('@playwright/test').Page) {

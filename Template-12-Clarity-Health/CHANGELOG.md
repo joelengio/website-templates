@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 — 2026-10-29 (independent QA release)
+- **Booking bug fixed:** when a time was taken between selecting it and confirming (for example by a second tab), the app sent the user back to the date step but *wiped the explanation* — the error was cleared by the same state update that cleared the stale time, so the user saw an unexplained reset. The message now stays visible (and is scrolled into view). Regression test: two tabs cannot both confirm; the stale one is told why.
+- **Hosting:** `firebase.json` no longer marks un-hashed `/images/*` as `immutable` for a year (a replaced image would have stayed stale for returning visitors); `/assets/**` stays immutable; trailing slash normalised. The existing CSP and security headers are unchanged.
+- **Tooling:** dev/build/preview run with `--configLoader runner` (the default loader warned about extensionless imports); the release ZIP script now validates the archive (no forbidden entries, root files present, `unzip -t`), excludes caches and the QA screenshot sheets, and no longer drops `.env.example`; the old, stale `review/` sheets and `npm run review` were replaced by `documentation/review/` (kept out of the ZIP).
+- **Tests:** accessibility scans now run with motion settled (entrance animations otherwise hide contrast from axe); `PW_BROWSER=firefox|webkit` runs the suite in another engine; +1 two-tab booking test.
+- **Copy:** doctor-profile notice said "photographs"; the portraits are illustrations.
+- **Assessment:** the generated illustration set is cohesive and was kept as the template's art direction rather than swapped for stock photography (see `documentation/review/REVIEW.md`).
+
 ## 1.0.0 — Initial release
 - Pages: Home, Specialties (+ detail), Doctors (+ detail), Services (+ detail), Appointment booking, My demo appointments (view / reschedule / cancel),
   About, Patient information, Journal (+ articles), Contact & locations, Demo & privacy notice, 404.

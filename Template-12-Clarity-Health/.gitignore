@@ -7,8 +7,10 @@ dist
 playwright-report
 test-results
 e2e-output
-review/shots
+documentation/review/shots
 .firebase
 .DS_Store
 *.tsbuildinfo
 coverage
+
+.vitest

@@ -16,10 +16,16 @@ export default function Services() {
   const specialty = params.get('specialty') ?? 'all';
 
   const set = (key: string, value: string) => {
-    const next = new URLSearchParams(params);
-    if (value && value !== 'all') next.set(key, value);
-    else next.delete(key);
-    setParams(next, { replace: true });
+    // Functional update: always builds on the latest URL, never on a render-time snapshot that a just-clicked "Clear filters" has not replaced yet.
+    setParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value && value !== 'all') next.set(key, value);
+        else next.delete(key);
+        return next;
+      },
+      { replace: true }
+    );
   };
   const clear = () => setParams({}, { replace: true });
 
@@ -33,7 +39,7 @@ export default function Services() {
 
   return (
     <>
-      <Seo title="Services" description="Browse the CLARITY HEALTH demonstration services catalog: consultations, diagnostics, preventive care, specialist treatments and wellness screenings, with durations and demo prices." />
+      <Seo title="Services" description={`Browse the ${site.brand.name} demonstration services catalog: consultations, diagnostics, preventive care, specialist treatments and wellness screenings, with durations and demo prices.`} />
       <PageHero eyebrow="Medical services" title="A complete services catalog" lead="Filter by category or specialty, or search by name. Durations are shown for every service.">
         {booking.pricing.show && <Notice title="Demo prices">Prices are invented placeholders and can be hidden in <code>src/config/booking.ts</code>. {site.notices.medical}</Notice>}
       </PageHero>

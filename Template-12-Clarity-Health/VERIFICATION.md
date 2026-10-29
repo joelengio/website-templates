@@ -1,59 +1,42 @@
-# Verification record
+# Verification report — CLARITY HEALTH (Template 12, v1.1.0)
 
-Every result below was produced by actually running the command in this project. Date of the runs: 2026-10-29. Environment: Linux, Node 22.22, npm 10.9,
-Chromium (Playwright 1.64.1 driver using a pre-installed Chromium at `/opt/pw-browsers/chromium`).
+Independent QA run on 2026-10-29 · Linux · Node 22.22 · npm 10.9 · Chromium 1243, Firefox 155, WebKit 27.2 (Playwright 1.64).
+Everything below was actually executed on the final source tree. Screenshot contact sheets and the written review are in `documentation/review/`
+(kept in git, not shipped in the ZIP).
 
+## Automated results
 | Check | Command | Result |
 |---|---|---|
-| TypeScript (strict) | `npm run typecheck` | Pass, 0 errors |
-| ESLint | `npm run lint` | Pass, 0 errors, 0 warnings |
-| Unit + integration tests | `npm test` | **79 passed / 79** (3 files: `lib.test.ts` 34, `config.test.ts` 7, integration `app.test.tsx` 38) |
-| Production build | `npm run build` | Pass; `dist/` includes `sitemap.xml` and `robots.txt` |
-| Browser E2E + accessibility | `npm run test:e2e` | **151 passed / 151** (`site.spec.ts` 116, `a11y.spec.ts` 35), ≈2 min |
+| Clean install | `npm ci` (also repeated inside a fresh extraction of the release ZIP) | OK — `npm audit`: 0 vulnerabilities |
+| TypeScript (strict) | `npm run typecheck` | 0 errors |
+| ESLint | `npm run lint` | 0 errors, 0 warnings |
+| Unit + integration tests | `npm test` | **79 / 79 passed** (3 files) |
+| Production build | `npm run build` | OK; sitemap.xml (67 URLs) + robots.txt generated; no Vite warnings |
+| Browser suite — Chromium | `npx playwright test` | **152 / 152 passed** |
+| Browser suite — Firefox 155 | `PW_BROWSER=firefox npx playwright test --workers=2` | **152 / 152 passed** |
+| Browser suite — WebKit 27.2 | `PW_BROWSER=webkit npx playwright test --workers=2` | **152 / 152 passed** |
+| Fresh-extract run | unzip → `npm ci` → `npm run check` → `npx playwright test` | passed — the final ZIP was extracted into an empty directory and the same commands were run there (same counts) |
 
-## What the browser suite covers
-- **Every route (16, including the 404) at 360, 390, 768, 1024 and 1440 px (80 runs):** no horizontal overflow, no broken images (lazy images forced and checked), exactly one `h1`,
-  alt attribute on every image, interactive controls ≥ 24 px (buttons ≥ 44 px high), and no console errors or failed requests.
-- **Accessibility (axe-core, WCAG 2.0/2.1/2.2 A + AA and best-practice rules):** every route at 1440 px and 390 px, plus the booking wizard at each step (including validation errors,
-  calendar/time slots, review and confirmation), the appointments page with the cancel dialog open, the open mobile menu, and filtered/empty states. **0 violations.**
-  Automated scanning does not replace a manual screen-reader and keyboard audit; no manual assistive-technology testing was performed.
-- **Deep links** load directly (HTTP 200 through the Firebase-style rewrite) for every route; unknown routes and unknown doctor/specialty/service/article slugs show a 404 state.
-- **SEO:** unique titles, descriptions, canonical and Open Graph tags per page; `noindex` on `/appointments`; `robots.txt`, `sitemap.xml` (contains specialty/doctor/service/article URLs) and favicon are served.
-- **Headers:** the Content-Security-Policy and other security headers from `firebase.json` are applied by the test server, and the whole suite runs under that CSP without violations.
-  (The test server mimics Firebase; the CSP was not tested against a real Firebase deployment.)
-- **Filters:** specialty search/category; doctor specialty/language/weekday/new-patients/video; service category and search; journal category and search; empty states and clear-filters.
-- **Booking:** full six-step flow with per-step validation, calendar keyboard navigation, slot selection, review, confirmation, persistence across reload, duplicate prevention,
-  rescheduling, cancellation through the accessible dialog (focus moves in, Escape closes, focus returns), deleting all local data, blocked `localStorage`, and the flow at 360 px.
-- **Contact form:** validation, no network POST, wording never claims delivery; location tabs with arrow keys.
-- **Navigation:** active state, mobile menu (open, Escape, focus return), skip link, footer links; `prefers-reduced-motion`.
+### What the suites cover
+- **Vitest:** configuration integrity (every specialty has doctors and services, doctor ↔ specialty ↔ service ↔ consultation-mode compatibility, unique slugs, every referenced image exists with alt text); availability generation (opening hours, working days, window, closed dates, busy slots); booking store (persistence, corrupt/blocked storage, cancel, delete all); duplicate-prevention rules (same e-mail overlap, same service/day, per-e-mail cap, reschedule ignoring itself); validation (names, e-mail, phone, no medical fields); search; SEO tags; theme variables; customization (rebrand, hide/reorder home sections).
+- **Playwright (Chromium, Firefox, WebKit):** all 16 routes at **360, 390, 768, 1024, 1440 px** (no overflow, no broken images, one `h1`, no console errors or failed requests); direct deep links through a server that applies `firebase.json` rewrites **and its Content-Security-Policy**; 404s; robots/sitemap/favicon; per-page title/description/canonical/Open Graph; nav active state, mobile menu focus trap, skip link; filters/search for specialties, doctors, services and journal;
+  **full booking** with per-step validation, keyboard calendar, slot disappearance, duplicate blocking, **two-tab stale-confirmation protection**, reschedule, cancel dialog (focus, Escape, return), persistence, delete-all, blocked-localStorage warning, mobile booking at 360 px; contact validation without any delivery claim; reduced motion.
+- **axe-core** (WCAG 2.0/2.1/2.2 A/AA **+ best-practice**, motion settled) on every route at 1440 and 390 px, and on interactive states (booking steps, calendar, review, confirmation, open dialog, open mobile menu, filtered and empty states): **zero violations**.
 
-## Customization
-`app.test.tsx` mutates the configuration at runtime and verifies propagation: brand name and demo notice, theme variables, price visibility, and homepage section visibility.
-`config.test.ts` checks referential integrity (every doctor/service/article links to an existing specialty; every image key resolves to an existing file; fictional labelling; no compliance/accreditation claims).
+## Medical-safety and honesty review
+The booking collects only name, e-mail and an optional phone number and says, in the step and in the contact form, never to enter symptoms, medical history, insurance or ID numbers. Every booking surface, the confirmation and the footer state that nothing is real and nothing is sent; an emergency-number notice is always visible; the doctors are labelled fictional; articles are labelled as not clinician-reviewed; the About and Demo notice pages state that **no accreditation, award or regulatory compliance (HIPAA, GDPR or otherwise) is claimed**. Nothing simulates clinical confirmation.
 
-## Visual review
-Labelled contact sheets built from the E2E screenshots: `review/contact-sheet-desktop-1440.jpg`, `review/contact-sheet-tablet-768.jpg`, `review/contact-sheet-mobile-390.jpg`.
-Per-route/per-width screenshots (80 files) are generated into `review/shots/` by the test run and are git-ignored.
+## Customization (actually exercised)
+A scratch copy was rebranded **only through `src/config`** (brand name and short name, site URL, SEO title and suffix, phone, navy theme colour, a navigation label, the home "doctors" section switched off), built and inspected in a browser: header/footer showed the new name and label, the doctors band disappeared, page titles and meta descriptions used the new brand, and `index.html` (title, canonical, `<noscript>`) and `sitemap.xml` followed. This exposed one defect, fixed: eleven pages and the `<noscript>` message hard-coded the brand.
 
-## Issues found and fixed during verification
-- Header overflowed at 390 px (CTA button not hidden on small screens) — fixed.
-- `?service=` booking shortcut dropped the service when no doctor was given — fixed (defaults to "no preference").
-- Navigation and header disappeared while a lazy route chunk loaded — Suspense boundary moved inside the layout.
-- axe: header link name mismatch, heading order on listing pages, invalid `aside` roles, scrollable stepper — fixed.
-- Doctors who are not accepting new patients could previously be reached through a booking shortcut — now excluded and the profile offers another doctor.
+## Defects found by this QA pass (all fixed — see CHANGELOG 1.1.0)
+Unexplained reset after a taken time (error message erased by the same state update); hard-coded brand in meta descriptions and `<noscript>`; filter handlers building on a render-time URL snapshot (a click right after "Clear filters" could resurrect old filters — found as a one-off CI-style failure and fixed with functional updates); year-long `immutable` caching of un-hashed images; ZIP script dropping `.env.example` and skipping validation; deprecated Vite config loader; stale review sheets; "photographs" wording for illustrations.
 
 ## Known limitations
-- Imagery is generated illustration, not photography (see `ASSET_LICENSES.md`).
-- Not tested on real mobile devices, Safari or Firefox (Chromium only), or with real screen readers.
-- Colour contrast was verified by axe's automated rules only.
-- Bookings and inquiries have no backend by design.
-- Firebase deployment was configured but not performed.
-
-## Release archive checks
-Performed on a preliminary build of the archive whose contents differ from the final one only by this section of `VERIFICATION.md`:
-`unzip -t` reported no errors; the `.sha256` file matched; the archive was extracted to an empty directory and `npm ci`, `npm run typecheck`, `npm run lint`,
-`npm test` (79 passed) and `npm run build` all succeeded there. The archive contains 155 files and none from `node_modules`, `dist`, `.git`, other templates, other ZIPs, env files or credentials.
-The E2E suite was run from the working tree, not from the extracted copy.
-
-## Release archive
-`handoff/OneStop-Infinite-Template-12-Clarity-Health.zip` with `.sha256` beside it. The checksum cannot be stored inside the archive it describes; read it from the `.sha256` file.
+- **Demonstration-only booking:** availability is generated locally from configured hours and each doctor's working days; appointments live in the visitor's `localStorage` only, with no server, e-mail, calendar, payment or clinical system. A real clinic must supply a backend plus independent legal, privacy and security review before collecting any patient data.
+- The contact-form endpoint option (`site.contact.formEndpoint`) is unit-tested but was not exercised against a live service.
+- Client-side rendered SPA: per-page meta is set in the browser; the static head has site-wide defaults. No prerendering.
+- Firebase deployment was **not executed** (no credentials). `firebase.json` (rewrite, caching, security headers and CSP) was exercised only through `scripts/serve-dist.mjs`, which mimics it.
+- Imagery is generated illustration, not photography — a deliberate, licence-clean art direction (see ASSET_LICENSES.md and `documentation/review/REVIEW.md`).
+- WebKit (Playwright's Linux build) logs a CSP console error ("Refused to apply a stylesheet…") on any page containing a `<select>` when `style-src` is `'self'` — reproduced with a three-line static page and no site code. The WebKit run ignores exactly that message (and nothing else); Chromium and Firefox have no such exemption and are clean.
+- Accessibility evidence is axe-core + keyboard automation + visual review, not a screen-reader session. No Lighthouse run. Firefox/WebKit ran on Linux, not on Apple/Android devices.
