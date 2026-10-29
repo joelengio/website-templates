@@ -1,0 +1,13 @@
+OneStop Infinite Template 16 — Saffron Table
+Copyright © OneStop Infinite.
+
+This template is distributed by OneStop Infinite for commercial resale and client use under the terms of your purchase or reseller
+agreement with OneStop Infinite. Third-party assets (photography, fonts, npm dependencies) remain under their own licenses; see
+ASSET_LICENSES.md.
+
+"Saffron Table" is a fictional demonstration brand with fictional people, awards, reviews, prices and addresses. Replace all of it
+with your client's real brand and content before launch. Keep the OneStop Infinite publisher credit unless your agreement allows
+removing it (`site.publisher.showCredit` in src/config/site.ts).
+
+THE TEMPLATE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND. The reservation, enquiry and order features are local demonstrations,
+not production booking, ordering or payment systems.
