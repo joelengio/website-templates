@@ -85,14 +85,19 @@ function FilterPanel({ filters, apply, products, hideCategories, idPrefix }: { f
 /** Search, filter, sort and results grid. Filter state lives in the URL query string so every view is a shareable deep link. */
 export function ProductBrowser({ products, hideCategories, emptyHint }: { products: Product[]; hideCategories?: boolean; emptyHint?: string }) {
   const [params, setParams] = useSearchParams();
-  const filters = useMemo(() => filtersFromParams(params), [params]);
+  // Filter state is held locally so controlled inputs respond instantly, and mirrored to the URL (deep links, back/forward).
+  const paramString = params.toString();
+  const [filters, setFilters] = useState(() => filtersFromParams(params));
+  const [synced, setSynced] = useState(paramString);
+  if (paramString !== synced) { setSynced(paramString); setFilters(filtersFromParams(params)); }
+  const commit = (next: Filters) => { const sp = filtersToParams(next); setSynced(sp.toString()); setFilters(next); setParams(sp, { replace: true }); };
   const [drawer, setDrawer] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   useDialog(drawer, () => setDrawer(false), drawerRef);
 
   const results = useMemo(() => filterProducts(products, filters), [products, filters]);
-  const apply = (patch: Partial<Filters>) => setParams(filtersToParams({ ...filters, ...patch }), { replace: true });
-  const reset = () => setParams(filtersToParams({ ...emptyFilters(), sort: filters.sort }), { replace: true });
+  const apply = (patch: Partial<Filters>) => commit({ ...filters, ...patch });
+  const reset = () => commit({ ...emptyFilters(), sort: filters.sort });
   const count = activeFilterCount(filters) - (hideCategories ? filters.categories.length : 0);
 
   const chips: { key: string; label: string; remove: () => void }[] = [];
