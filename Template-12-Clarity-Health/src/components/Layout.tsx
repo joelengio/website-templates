@@ -55,7 +55,7 @@ function Header() {
   return (
     <header className={`site-header ${scrolled ? 'is-scrolled' : ''} ${open ? 'is-open' : ''}`}>
       <div className="container header-inner">
-        <Link to="/" className="brand-link" aria-label={`${site.brand.name} — home`}>
+        <Link to="/" className="brand-link">
           <Logo />
         </Link>
         <nav className="nav-desktop" aria-label="Primary">

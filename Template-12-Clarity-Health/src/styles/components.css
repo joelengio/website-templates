@@ -124,7 +124,7 @@
 .notice-emergency > svg { color: var(--c-danger); }
 .empty-state { text-align: center; padding: 48px 20px; border: 1.5px dashed var(--c-field); border-radius: var(--r-md); background: #fff; display: grid; justify-items: center; gap: 6px; }
 .empty-state svg { color: var(--c-teal-ink); }
-.empty-state h3 { margin: 6px 0 0; }
+.empty-state h2 { margin: 6px 0 0; }
 .empty-state p { color: var(--c-muted); max-width: 46ch; }
 
 /* ---------- Forms ---------- */

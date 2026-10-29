@@ -91,13 +91,13 @@ export function Breadcrumbs({ items }: { items: { label: string; to?: string }[]
 
 export function Notice({ tone = 'info', title, children, role }: { tone?: 'info' | 'warning' | 'emergency'; title?: string; children: ReactNode; role?: 'note' | 'alert' | 'status' }) {
   return (
-    <aside className={`notice notice-${tone}`} role={role ?? 'note'}>
+    <div className={`notice notice-${tone}`} role={role ?? 'note'}>
       <Icon name={tone === 'info' ? 'info' : 'alert'} size={22} />
       <div>
         {title && <p className="notice-title">{title}</p>}
         <div className="notice-body">{children}</div>
       </div>
-    </aside>
+    </div>
   );
 }
 
@@ -105,7 +105,7 @@ export function EmptyState({ title, children, action }: { title: string; childre
   return (
     <div className="empty-state" role="status">
       <Icon name="search" size={34} />
-      <h3>{title}</h3>
+      <h2 className="h3">{title}</h2>
       {children && <p>{children}</p>}
       {action}
     </div>

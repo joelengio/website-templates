@@ -85,6 +85,7 @@ export default function Doctors() {
             {filtered && <Button variant="ghost" onClick={clear}>Clear filters</Button>}
           </form>
           <p className="result-count" role="status" aria-live="polite">{results.length} {results.length === 1 ? 'doctor' : 'doctors'} shown</p>
+          <h2 className="sr-only">Doctor results</h2>
           {results.length ? (
             <div className="grid grid-4">{results.map((d) => <DoctorCard key={d.id} d={d} />)}</div>
           ) : (

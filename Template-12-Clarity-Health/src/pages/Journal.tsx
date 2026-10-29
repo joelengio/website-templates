@@ -42,6 +42,7 @@ export default function Journal() {
             {(q || category !== 'all') && <Button variant="ghost" onClick={clear}>Clear filters</Button>}
           </form>
           <p className="result-count" role="status" aria-live="polite">{results.length} {results.length === 1 ? 'article' : 'articles'} shown</p>
+          <h2 className="sr-only">Article results</h2>
           {results.length ? (
             <div className="grid grid-3">{results.map((a) => <ArticleCard key={a.id} a={a} />)}</div>
           ) : (

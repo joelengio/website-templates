@@ -46,6 +46,7 @@ export default function Specialties() {
             {filtered && <Button variant="ghost" onClick={() => setParams({}, { replace: true })}>Clear filters</Button>}
           </form>
           <p className="result-count" role="status" aria-live="polite">{results.length} {results.length === 1 ? 'specialty' : 'specialties'} shown</p>
+          <h2 className="sr-only">Specialty results</h2>
           {results.length ? (
             <div className="grid grid-4">{results.map((s) => <SpecialtyCard key={s.id} s={s} />)}</div>
           ) : (
