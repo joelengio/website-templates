@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /learn
+
+Sitemap: https://northstar-academy.example.com/sitemap.xml
