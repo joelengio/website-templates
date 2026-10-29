@@ -11,7 +11,7 @@ import { Img, LinkButton, Notice, PageHero, SectionHeader } from '../components/
 export default function About() {
   return (
     <>
-      <Seo title="About" description="The fictional story, values, mission and patient-care philosophy of CLARITY HEALTH, a demonstration clinic for a website template." />
+      <Seo title="About" description={`The fictional story, values, mission and patient-care philosophy of ${site.brand.name}, a demonstration clinic for a website template.`} />
       <PageHero eyebrow={about.hero.eyebrow} title={about.hero.title} lead={about.hero.lead} image={about.hero.image} />
       <section className="section-tight">
         <div className="container two-col">

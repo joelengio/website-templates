@@ -19,7 +19,7 @@ export default function ServiceDetail() {
   const firstSpec = s.specialtyIds[0];
   return (
     <>
-      <Seo title={`${s.name} — service`} description={`${s.summary} Duration ${formatDuration(s.durationMinutes)}. Demonstration service at CLARITY HEALTH.`} />
+      <Seo title={`${s.name} — service`} description={`${s.summary} Duration ${formatDuration(s.durationMinutes)}. Demonstration service at ${site.brand.name}.`} />
       <div className="container"><Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Services', to: '/services' }, { label: s.name }]} /></div>
       <header className="detail-hero">
         <div className="container detail-grid">

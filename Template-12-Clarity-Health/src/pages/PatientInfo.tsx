@@ -11,7 +11,7 @@ export default function PatientInfo() {
   const [open, setOpen] = useState<string | null>(null);
   return (
     <>
-      <Seo title="Patient information" description="First-visit guide, demonstration opening hours, appointment preparation, FAQs, payment placeholders, policies and emergency information for CLARITY HEALTH (fictional)." />
+      <Seo title="Patient information" description={`First-visit guide, demonstration opening hours, appointment preparation, FAQs, payment placeholders, policies and emergency information for ${site.brand.name} (fictional).`} />
       <PageHero eyebrow={p.hero.eyebrow} title={p.hero.title} lead={p.hero.lead}>
         <Notice tone="emergency" title="Emergency information" role="alert">{site.notices.emergency}</Notice>
       </PageHero>

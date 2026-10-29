@@ -89,7 +89,7 @@ export const site = {
       'This is a demonstration. Appointment details you enter are saved only in this browser (localStorage) so you can view, reschedule or cancel them. Nothing is sent to a server, and no real clinic receives it. Please never enter real medical information.',
     booking:
       'DEMONSTRATION BOOKING — this does not create a real medical appointment. Do not use it to book care. Entries stay in this browser only.',
-    doctor: 'Fictional demonstration profile — not a real clinician. Names, photographs and qualifications are invented.',
+    doctor: 'Fictional demonstration profile — not a real clinician. Names, portraits and qualifications are invented.',
     contactForm: 'Demonstration form — there is no backend, so nothing is sent or delivered. Please do not enter medical details.',
     articles: 'General educational content written for this template. It has not been reviewed by a clinician and is not medical advice.'
   }

@@ -117,6 +117,7 @@ function NewBookingFlow() {
   const [stepError, setStepError] = useState('');
   const [contactErrors, setContactErrors] = useState<Errors<keyof ContactDetails | 'consent'>>({});
   const [confirmed, setConfirmed] = useState<BookingRecord | null>(null);
+  const errorRef = useRef<HTMLParagraphElement>(null);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const first = useRef(true);
 
@@ -127,6 +128,11 @@ function NewBookingFlow() {
     }
     headingRef.current?.focus();
   }, [step, confirmed]);
+
+  // After being sent back to an earlier step with an explanation, make sure that explanation is on screen.
+  useEffect(() => {
+    if (stepError) errorRef.current?.scrollIntoView({ block: 'nearest' });
+  }, [stepError, step]);
 
   const update = (patch: Partial<Draft>) => {
     setStepError('');
@@ -182,7 +188,8 @@ function NewBookingFlow() {
     if (!res.ok) {
       setStepError(res.error);
       if (res.step !== undefined) {
-        if (res.step === 3 && res.error.startsWith('Sorry')) update({ time: '' });
+        // Clear only the stale time. (Going through update() would also wipe the message explaining why we came back here.)
+        if (res.step === 3 && res.error.startsWith('Sorry')) setDraft((d) => ({ ...d, time: '' }));
         setStep(res.step);
       }
       return;
@@ -202,7 +209,7 @@ function NewBookingFlow() {
 
   return (
     <>
-      <Seo title="Book a demo appointment" description="Step through the complete CLARITY HEALTH demonstration booking: specialty, doctor, service, date, time, details and review. Nothing is sent and no real appointment is made." noindex />
+      <Seo title="Book a demo appointment" description={`Step through the complete ${site.brand.name} demonstration booking: specialty, doctor, service, date, time, details and review. Nothing is sent and no real appointment is made.`} noindex />
       <BookingIntro title="Book a demo appointment" lead="Six short steps. Everything stays in this browser — no real clinic is contacted." />
       <section className="section-tight booking-section">
         <div className="container booking-layout">
@@ -320,7 +327,7 @@ function NewBookingFlow() {
                 </div>
               )}
 
-              {stepError && <p className="form-alert" role="alert"><Icon name="alert" size={18} /> {stepError}</p>}
+              {stepError && <p className="form-alert" role="alert" ref={errorRef}><Icon name="alert" size={18} /> {stepError}</p>}
 
               <div className="step-actions">
                 <Button variant="ghost" icon="arrow-left" onClick={back} disabled={step === 0} className="back-btn">Back</Button>

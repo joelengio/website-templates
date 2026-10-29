@@ -83,7 +83,8 @@ it and when — and only if that review really happened.
 
 ### Images
 Register each image in `images.ts` with `src`, `alt`, `width`, `height`, and reference it by key from other config files. Use WebP, keep files under
-~150 KB, and write meaningful alt text. The shipped images are generated illustrations — see `ASSET_LICENSES.md`; `npm run images` regenerates them.
+~150 KB, and write meaningful alt text. The shipped images are original generated illustrations in one consistent style (deliberate: no real patients, clinicians or premises are depicted, so no model or property releases are involved) — see `ASSET_LICENSES.md`; `npm run images` regenerates them.
+To move to photography, replace the files (or the `src` entries) and keep `width`/`height`/`alt` accurate. `npm test` fails if a referenced image is missing, lacks alt text, or an unreferenced file is left in `public/images/`. Images are not content-hashed and Firebase caches `/images` for one day, so rename files if visitors must see a swap sooner. Use photographs of people only with signed releases.
 Replacing a file in `public/images/` with one of the same name also works.
 
 ### Notices

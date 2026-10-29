@@ -3,6 +3,7 @@ import { booking } from '../config/booking';
 import { DoctorCard } from '../components/Cards';
 import { Icon } from '../components/Icon';
 import { Seo } from '../components/Seo';
+import { site } from '../config/site';
 import { Breadcrumbs, Img, LinkButton, SectionHeader } from '../components/ui';
 import { doctorsOfSpecialty, servicesOfSpecialty, specialtyBySlug } from '../lib/catalog';
 import { formatDuration, formatPrice } from '../lib/format';
@@ -16,7 +17,7 @@ export default function SpecialtyDetail() {
   const svcs = servicesOfSpecialty(s.id);
   return (
     <>
-      <Seo title={`${s.name} — specialty`} description={`${s.summary} Demonstration services and fictional doctors for ${s.name} at CLARITY HEALTH.`} image={`/images/${s.image}.webp`} />
+      <Seo title={`${s.name} — specialty`} description={`${s.summary} Demonstration services and fictional doctors for ${s.name} at ${site.brand.name}.`} image={`/images/${s.image}.webp`} />
       <div className="container"><Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Specialties', to: '/specialties' }, { label: s.name }]} /></div>
       <header className="detail-hero">
         <div className="container detail-grid">

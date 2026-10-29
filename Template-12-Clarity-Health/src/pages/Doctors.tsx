@@ -25,10 +25,16 @@ export default function Doctors() {
   const video = params.get('video') === '1';
 
   const set = (key: string, value: string) => {
-    const next = new URLSearchParams(params);
-    if (value && value !== 'all') next.set(key, value);
-    else next.delete(key);
-    setParams(next, { replace: true });
+    // Functional update: always builds on the latest URL, never on a render-time snapshot that a just-clicked "Clear filters" has not replaced yet.
+    setParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value && value !== 'all') next.set(key, value);
+        else next.delete(key);
+        return next;
+      },
+      { replace: true }
+    );
   };
 
   const results = doctors.filter(
@@ -45,7 +51,7 @@ export default function Doctors() {
 
   return (
     <>
-      <Seo title="Doctors" description="Meet the fictional demonstration clinicians of CLARITY HEALTH. Filter by specialty, language and availability and start a demo booking." />
+      <Seo title="Doctors" description={`Meet the fictional demonstration clinicians of ${site.brand.name}. Filter by specialty, language and availability and start a demo booking.`} />
       <PageHero eyebrow="Our clinicians" title="Meet the team (fictional)" lead="Ten invented clinicians across eight specialties. Search, then filter by specialty, language and availability.">
         <Notice title="Fictional profiles">{site.notices.doctor}</Notice>
       </PageHero>

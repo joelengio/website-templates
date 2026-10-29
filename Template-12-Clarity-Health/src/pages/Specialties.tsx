@@ -2,6 +2,7 @@ import { useSearchParams } from 'react-router-dom';
 import { specialties, specialtyCategories } from '../config/specialties';
 import { SpecialtyCard } from '../components/Cards';
 import { Seo } from '../components/Seo';
+import { site } from '../config/site';
 import { Button, EmptyState, PageHero } from '../components/ui';
 import { doctorsOfSpecialty, servicesOfSpecialty } from '../lib/catalog';
 import { matchesQuery } from '../lib/search';
@@ -12,10 +13,16 @@ export default function Specialties() {
   const category = params.get('category') ?? 'all';
 
   const set = (key: string, value: string) => {
-    const next = new URLSearchParams(params);
-    if (value && value !== 'all') next.set(key, value);
-    else next.delete(key);
-    setParams(next, { replace: true });
+    // Functional update: always builds on the latest URL, never on a render-time snapshot that a just-clicked "Clear filters" has not replaced yet.
+    setParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value && value !== 'all') next.set(key, value);
+        else next.delete(key);
+        return next;
+      },
+      { replace: true }
+    );
   };
 
   const results = specialties.filter(
@@ -27,7 +34,7 @@ export default function Specialties() {
 
   return (
     <>
-      <Seo title="Specialties" description="Explore the eight demonstration specialties at CLARITY HEALTH — from general medicine and cardiology to dentistry, physiotherapy and women’s health." />
+      <Seo title="Specialties" description={`Explore the eight demonstration specialties at ${site.brand.name} — from general medicine and cardiology to dentistry, physiotherapy and women’s health.`} />
       <PageHero eyebrow="Specialties" title="Eight specialties, one joined-up clinic" lead="Search or filter the demonstration specialties. Each has its own services, fictional doctors and a booking shortcut." />
       <section className="section-tight">
         <div className="container">

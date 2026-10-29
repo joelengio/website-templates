@@ -11,10 +11,16 @@ export default function Journal() {
   const q = params.get('q') ?? '';
   const category = params.get('category') ?? 'all';
   const set = (key: string, value: string) => {
-    const next = new URLSearchParams(params);
-    if (value && value !== 'all') next.set(key, value);
-    else next.delete(key);
-    setParams(next, { replace: true });
+    // Functional update: always builds on the latest URL, never on a render-time snapshot that a just-clicked "Clear filters" has not replaced yet.
+    setParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (value && value !== 'all') next.set(key, value);
+        else next.delete(key);
+        return next;
+      },
+      { replace: true }
+    );
   };
   const clear = () => setParams({}, { replace: true });
   const results = [...articles]
@@ -22,7 +28,7 @@ export default function Journal() {
     .filter((a) => (category === 'all' || a.category === category) && matchesQuery(q, a.title, a.excerpt, a.category, a.sections.map((s) => [s.heading, ...s.paragraphs, ...(s.list ?? [])]).flat()));
   return (
     <>
-      <Seo title="Health journal" description="General, plain-language health information articles written for the CLARITY HEALTH demonstration. Educational only — not medical advice." />
+      <Seo title="Health journal" description={`General, plain-language health information articles written for the ${site.brand.name} demonstration. Educational only — not medical advice.`} />
       <PageHero eyebrow="Journal" title="Health insights, in plain language" lead="General educational articles written for this template. Search by keyword or browse by category.">
         <Notice title="Educational content only">{site.notices.articles}</Notice>
       </PageHero>

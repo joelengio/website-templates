@@ -7,8 +7,8 @@ import { LinkButton, Notice, PageHero } from '../components/ui';
 export default function DemoNotice() {
   return (
     <>
-      <Seo title="Demo & privacy notice" description="How the CLARITY HEALTH demonstration works: what is stored in your browser, what is never collected, and the limits of this template." />
-      <PageHero eyebrow="Demonstration & privacy" title="What this website is — and is not" lead="CLARITY HEALTH is a website template showcase. Please read this short notice." />
+      <Seo title="Demo & privacy notice" description={`How the ${site.brand.name} demonstration works: what is stored in your browser, what is never collected, and the limits of this template.`} />
+      <PageHero eyebrow="Demonstration & privacy" title="What this website is — and is not" lead={`${site.brand.name} is a website template showcase. Please read this short notice.`} />
       <section className="section-tight">
         <div className="container narrow prose">
           <Notice tone="emergency" title="Emergencies" role="alert">{site.notices.emergency}</Notice>

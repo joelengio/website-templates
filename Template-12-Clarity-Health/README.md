@@ -32,7 +32,7 @@ npm run lint         # ESLint
 npm test             # Vitest unit + integration tests
 npm run check        # typecheck + lint + tests + production build
 npm run build && npm run test:e2e   # Playwright browser tests + axe-core scans
-npm run review       # regenerate review/ contact sheets from the E2E screenshots
+PW_BROWSER=firefox npm run test:e2e   # same suite in Firefox (or webkit) — `npx playwright install firefox webkit` first
 ```
 `npm run test:e2e` serves `dist/` with `scripts/serve-dist.mjs`, which applies the rewrites and headers from `firebase.json`.
 Playwright uses the Chromium at `/opt/pw-browsers/chromium` or `PW_CHROMIUM_PATH` if present; otherwise run `npx playwright install chromium` once.

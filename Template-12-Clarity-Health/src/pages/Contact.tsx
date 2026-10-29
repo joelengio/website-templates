@@ -49,7 +49,7 @@ export default function Contact() {
 
   return (
     <>
-      <Seo title="Contact & locations" description="Demonstration contact details, department contacts, opening hours and locations for the fictional CLARITY HEALTH clinic, plus a validated demo inquiry form." />
+      <Seo title="Contact & locations" description={`Demonstration contact details, department contacts, opening hours and locations for the fictional ${site.brand.name} clinic, plus a validated demo inquiry form.`} />
       <PageHero eyebrow="Contact & locations" title="Find us, or say hello (it’s a demo)" lead="Every detail below is fictional. The form validates your input but has no backend, so nothing is sent.">
         <Notice tone="emergency" title="Emergency?" role="alert">{site.notices.emergency}</Notice>
       </PageHero>
