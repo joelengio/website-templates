@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://folio-finance.example.com/sitemap.xml
