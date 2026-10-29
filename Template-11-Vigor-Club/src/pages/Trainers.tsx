@@ -1,4 +1,5 @@
 import { Seo } from '../components/Seo';
+import { site } from '../config/site';
 import { PageHero, Reveal } from '../components/ui';
 import { TrainerCard } from '../components/Cards';
 import { credentialNote, trainers } from '../config/trainers';
@@ -8,12 +9,13 @@ import { LinkButton } from '../components/ui';
 export default function Trainers() {
   return (
     <>
-      <Seo title="Trainers" description="Meet six fictional VIGOR CLUB coaches: strength, boxing, mobility, performance, functional and personal training specialists." />
+      <Seo title="Trainers" description={`Meet six fictional ${site.brand.name} coaches: strength, boxing, mobility, performance, functional and personal training specialists.`} />
       <PageHero eyebrow="Coaches" title={<>The people <span className="accent">behind</span> the work.</>} intro="Six coaches with different specialities and one shared standard of coaching.">
         <p className="note note--inline">{credentialNote}</p>
       </PageHero>
       <section className="section section--tight">
         <div className="container">
+          <h2 className="sr-only">Our trainers</h2>
           <div className="grid grid--trainers">
             {trainers.map((t) => <Reveal key={t.slug}><TrainerCard trainer={t} /></Reveal>)}
           </div>

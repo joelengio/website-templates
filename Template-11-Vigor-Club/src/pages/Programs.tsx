@@ -61,9 +61,12 @@ export default function Programs() {
           </div>
           <p className="result-count" role="status" aria-live="polite">{list.length} {list.length === 1 ? 'program' : 'programs'}{active ? ' match your filters' : ''}</p>
           {list.length ? (
+            <>
+            <h2 className="sr-only">Program list</h2>
             <div className="grid grid--cards">
               {list.map((p, i) => <Reveal key={p.slug}><ProgramCard program={p} index={i} /></Reveal>)}
             </div>
+            </>
           ) : (
             <EmptyState title="No programs match" text="Try a different search term or clear your filters to see all programs." action={<Button variant="ghost" onClick={() => setParams({}, { replace: true })}>Clear all filters</Button>} />
           )}

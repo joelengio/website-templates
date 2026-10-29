@@ -37,13 +37,13 @@ npm run dev       # http://localhost:5173
 | `npm run typecheck` / `npm run lint` | TypeScript and ESLint |
 | `npm test` | Vitest unit + integration tests (config integrity, logic, pages, booking, pricing, forms, customization) |
 | `npm run test:e2e` | Playwright browser E2E + axe-core accessibility checks against the production build (run `npm run build` first) |
-| `npm run review` | Captures all routes at 360/390/768/1024/1440px and builds labelled contact sheets in `review/` |
 | `npm run check` | typecheck + lint + tests + build |
-| `npm run images` | Regenerates the original illustration set in `public/images` (needs Chromium) |
+| `npm run images` | Regenerates the trainer monogram cards and the demo-map backdrop in `public/images` (needs Chromium) |
 | `npm run package` | Builds the single canonical hand-off ZIP in `handoff/` |
 
-E2E/review scripts use `playwright-core` and look for Chromium at `$CHROMIUM_PATH` or `/opt/pw-browsers/chromium`.
+E2E scripts use `playwright-core` and look for Chromium at `$CHROMIUM_PATH` or `/opt/pw-browsers/chromium`.
 Elsewhere install a browser (`npx playwright-core install chromium`) and set `CHROMIUM_PATH`.
+Set `E2E_BROWSER=firefox` or `webkit` to run the same checks in another engine (`npx playwright-core install firefox webkit` first).
 
 ## Deploy (Firebase Hosting)
 `firebase.json` serves `dist/` with an SPA rewrite so every route (including nested ones such as `/programs/hiit`) loads directly.
@@ -63,7 +63,7 @@ src/components/  Layout, Modal, Lightbox, cards, UI primitives, Logo, Icon, Seo
 src/lib/         schedule logic, reservations, validation, filters, pricing, forms, storage, SEO, theme
 src/styles/      base.css (tokens/typography) · components.css · pages.css
 src/test/        Vitest suites
-scripts/         e2e.mjs, review.mjs, make-zip.mjs, art/ (illustration generator)
+scripts/         e2e.mjs, make-zip.mjs, art/ (monogram + map generators), photos/ (photo source manifest)
 public/          images, favicon, logo
 ```
 
@@ -76,7 +76,7 @@ public/          images, favicon, logo
   in demo mode and only says "sent" after a successful server response.
 * **Business content** — address, phone, email, trainers, qualifications, testimonials, prices and articles are fictional.
   Social links point to the platforms' home pages as placeholders.
-* **Imagery** — original generated illustrations, not photographs (see [ASSET_LICENSES.md](ASSET_LICENSES.md)).
+* **Imagery** — licensed stock photographs (Unsplash License, each verified; photographer and source page recorded in [ASSET_LICENSES.md](ASSET_LICENSES.md)). They do not show a real club or its trainers; some show people, for whom the licence gives no model release — replace before launch. Trainer cards are monogram placeholders.
 
 ## Accessibility & performance notes
 Skip link, semantic landmarks, one `h1` per page, visible focus rings, labelled form fields with inline errors, focus-trapped

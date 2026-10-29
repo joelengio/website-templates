@@ -97,12 +97,16 @@ The signup flow validates and records a *demo enquiry*; it never charges or acti
 * `testimonials.ts` → `testimonials[]`. Only publish **real** testimonials with permission; the template's are fictional.
 
 ## 9. Replacing images
+(Page `<meta>` descriptions use `site.brand.name`, so renaming the club in `src/config/site.ts` updates them too.)
 All images are referenced in `src/config/images.ts` (and `facilities.ts`/`programs.ts`/`journal.ts` via that file).
 1. Put optimised files in `public/images/` (WebP/AVIF/JPEG, ≤ ~250 KB each is a good target).
 2. Update `src/` entries in `images.ts`: `src`, accurate `width`/`height` (prevents layout shift) and a descriptive `alt`.
 3. Keep `og-image` at 1200×630 for social previews.
-The included artwork can be regenerated with `npm run images` (see `scripts/art/`). Document the licence of every
-replacement image in `ASSET_LICENSES.md`.
+The bundled pictures are Unsplash-licensed demo photographs (see `ASSET_LICENSES.md`); `scripts/photos/sources.json` records which source feeds which file.
+Trainer cards (`trainer-1…6.webp`) are monogram placeholders — replace with portraits (800×1000) and update `trainerImages` alt text; `npm run images` regenerates the placeholders and the demo-map backdrop.
+The test suite fails if a referenced image is missing, has no alt text, or an unreferenced file is left in `public/images/`.
+Images are not content-hashed and Firebase caches `/images` for one day; rename files when replacing them if visitors must see changes sooner.
+Document the licence of every replacement image in `ASSET_LICENSES.md`.
 
 ## 10. Homepage sections
 `src/config/home.ts` → `homeSections` is the ordered list. Example — hide testimonials and move the journal before pricing:
