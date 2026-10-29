@@ -89,8 +89,13 @@ export function ProductBrowser({ products, hideCategories, emptyHint }: { produc
   const paramString = params.toString();
   const [filters, setFilters] = useState(() => filtersFromParams(params));
   const [synced, setSynced] = useState(paramString);
-  if (paramString !== synced) { setSynced(paramString); setFilters(filtersFromParams(params)); }
-  const commit = (next: Filters) => { const sp = filtersToParams(next); setSynced(sp.toString()); setFilters(next); setParams(sp, { replace: true }); };
+  const [written, setWritten] = useState<string[]>([paramString]);
+  if (paramString !== synced) {
+    setSynced(paramString);
+    // URL changes we wrote ourselves are echoes; anything else (deep link, back/forward, header search) replaces the local state
+    if (!written.includes(paramString)) { setFilters(filtersFromParams(params)); setWritten([paramString]); }
+  }
+  const commit = (next: Filters) => { const sp = filtersToParams(next); setFilters(next); setWritten((w) => [...w.slice(-9), sp.toString()]); setParams(sp, { replace: true }); };
   const [drawer, setDrawer] = useState(false);
   const drawerRef = useRef<HTMLDivElement>(null);
   useDialog(drawer, () => setDrawer(false), drawerRef);
