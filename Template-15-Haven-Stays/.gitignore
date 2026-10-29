@@ -1,0 +1,10 @@
+node_modules
+dist
+playwright-report
+test-results
+.firebase
+*.log
+.env
+.env.*
+!.env.example
+tmp-*.mjs

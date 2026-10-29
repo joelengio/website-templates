@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /reservations
+Disallow: /booking/confirmation/
+
+Sitemap: https://havenstays.example.com/sitemap.xml

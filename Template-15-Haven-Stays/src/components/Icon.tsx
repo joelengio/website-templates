@@ -1,0 +1,55 @@
+const paths: Record<string, string> = {
+  wifi: 'M2 9a15 15 0 0 1 20 0M5 12.5a10.5 10.5 0 0 1 14 0M8.5 16a5.5 5.5 0 0 1 7 0M12 19.5h.01',
+  snow: 'M12 2v20M4.2 7l15.6 10M19.8 7 4.2 17M9 3.5l3 2.5 3-2.5M9 20.5l3-2.5 3 2.5',
+  coffee: 'M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V8Zm13 1h2a2 2 0 0 1 0 5h-2M7 2v3M11 2v3M15 2v3',
+  sun: 'M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4',
+  wave: 'M2 8c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 6 0M2 14c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 6 0M2 20c2.5-2 4.5-2 7 0s4.5 2 7 0 4.5-2 6 0',
+  bath: 'M3 12h18v3a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5v-3Zm3 0V6a2 2 0 0 1 4 0M6 20l-1 2M18 20l1 2',
+  pool: 'M3 18c2-1.5 3.5-1.5 6 0s4 1.5 6 0 3.500-1.500 6 0M8 15V5a2 2 0 0 1 4 0M16 15V5a2 2 0 0 1 4 0M8 9h8',
+  cup: 'M5 8h12v7a4 4 0 0 1-4 4H9a4 4 0 0 1-4-4V8Zm12 2h1.500a2.500 2.500 0 0 1 0 5H17',
+  glass: 'M7 3h10l-1 8a4 4 0 0 1-8 0L7 3Zm5 12v6M8 21h8',
+  pen: 'M4 20l4-1 11-11a2.800 2.800 0 0 0-4-4L4 15l-1 4 1 1Z',
+  flame: 'M12 22a6 6 0 0 0 6-6c0-4-3-5-3.500-9-2 1.500-3 3.500-3 5.500C10 11 9 10 8.500 9 7 11 6 13 6 16a6 6 0 0 0 6 6Z',
+  access: 'M12 5a1.500 1.500 0 1 0 0-3 1.500 1.500 0 0 0 0 3ZM9 8h6M12 8v6l4 5M12 14l-3 5',
+  drop: 'M12 3s6 6.500 6 11a6 6 0 0 1-12 0c0-4.500 6-11 6-11Z',
+  bell: 'M6 16V11a6 6 0 0 1 12 0v5l2 2H4l2-2Zm4 4a2 2 0 0 0 4 0',
+  leaf: 'M5 19C5 10 10 4 20 4c0 10-6 15-15 15Zm0 0 8-8',
+  dumbbell: 'M6 6v12M3 9v6M18 6v12M21 9v6M6 12h12',
+  kite: 'M12 2 18 9l-6 7-6-7 6-7Zm0 14c0 3-2 4-2 6',
+  plug: 'M9 2v5M15 2v5M6 7h12v4a6 6 0 0 1-12 0V7Zm6 10v5',
+  menu: 'M3 7h18M3 12h18M3 17h18',
+  close: 'M5 5l14 14M19 5 5 19',
+  arrow: 'M4 12h16m-6-6 6 6-6 6',
+  'arrow-left': 'M20 12H4m6-6-6 6 6 6',
+  chevron: 'M6 9l6 6 6-6',
+  'chevron-left': 'M15 6l-6 6 6 6',
+  'chevron-right': 'M9 6l6 6-6 6',
+  calendar: 'M4 6h16v14H4V6Zm0 5h16M8 3v4M16 3v4',
+  user: 'M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-8 9a8 8 0 0 1 16 0',
+  users: 'M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm-7 10a7 7 0 0 1 14 0M17 4a4 4 0 0 1 0 7.500M19 21a7 7 0 0 0-3-5.700',
+  check: 'M4 12.500l5 5L20 6',
+  star: 'M12 3l2.800 5.800 6.200.9-4.500 4.400 1 6.200L12 17.300 6.500 20.300l1-6.200L3 9.700l6.200-.9L12 3Z',
+  phone: 'M5 4h4l2 5-2.500 1.500a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z',
+  mail: 'M3 5h18v14H3V5Zm0 1 9 7 9-7',
+  pin: 'M12 21s7-6.200 7-11.500A7 7 0 0 0 5 9.500C5 14.800 12 21 12 21Zm0-8.500a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+  minus: 'M5 12h14',
+  plus: 'M12 5v14M5 12h14',
+  search: 'M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14Zm9 3-4.500-4.500',
+  filter: 'M3 5h18l-7 8v6l-4 2v-8L3 5Z',
+  expand: 'M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5',
+  clock: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-14v5l3 2',
+  bed: 'M3 18V6M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5M7 11.500a1.500 1.500 0 1 0 0-3 1.500 1.500 0 0 0 0 3Z',
+  area: 'M4 4h16v16H4V4Zm0 6h6v10M10 10h10',
+  eye: 'M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Zm10 3a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z',
+  info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-10v6m0-9v.01',
+  tag: 'M3 12V4h8l10 10-8 8L3 12Zm5-4h.01',
+  print: 'M7 9V3h10v6M6 17H4v-7h16v7h-2M7 14h10v7H7v-7Z',
+};
+
+export default function Icon({ name, size = 20, className = '' }: { name: string; size?: number; className?: string }) {
+  return (
+    <svg className={`icon ${className}`} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+      <path d={paths[name] ?? paths.info} />
+    </svg>
+  );
+}
